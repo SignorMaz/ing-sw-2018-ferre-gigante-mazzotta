@@ -1,4 +1,9 @@
-package it.polimi.se2018.model;
+package it.polimi.se2018.model.windowpatterns;
+
+import it.polimi.se2018.model.Color;
+import it.polimi.se2018.model.Position;
+import it.polimi.se2018.model.WindowCell;
+import it.polimi.se2018.model.WindowPattern;
 
 import java.util.HashMap;
 import java.util.Map;
