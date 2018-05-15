@@ -45,9 +45,9 @@ public class DiceBagTest {
         }
         for (Color color : Color.values()) {
             if (color.equals(Color.BLANK)) {
-                assertEquals(colorMap.get(color).intValue(), 0);
+                assertEquals(0, colorMap.get(color).intValue());
             } else {
-                assertEquals(colorMap.get(color).intValue(), DICE_PER_COLOR);
+                assertEquals(DICE_PER_COLOR, colorMap.get(color).intValue());
             }
         }
     }
