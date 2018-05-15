@@ -22,8 +22,10 @@ public class WindowFrame {
     }
 
 
-    public boolean isPositionValid(Dice dice, Position position) {
-        // TODO: Consider ToolCards
+    public boolean isPositionValid(Dice dice, Position position, ToolCard toolCard) {
+        boolean ignoreColor = toolCard != null && toolCard.ignoreColor();
+        boolean ignoreNumber = toolCard != null && toolCard.ignoreNumber();
+        boolean notAdjacent = toolCard != null && toolCard.notAdjacent();
 
         // The position doesn't exist
         if (windowPattern.getPattern().get(position) == null) {
@@ -61,7 +63,8 @@ public class WindowFrame {
 
                         // Orthogonally adjacent dices must have different color and number
                         if (position.row == positionToCheck.row || position.column == positionToCheck.column) {
-                            if (placedDice.getColor() == dice.getColor() || placedDice.getNumber() == dice.getNumber()) {
+                            if ((!ignoreColor && placedDice.getColor() == dice.getColor()) ||
+                                    (!ignoreNumber && placedDice.getNumber() == dice.getNumber())) {
                                 LOGGER.info("Orthogonally adjacent dice rule, " + position + " is not valid");
                                 return false;
                             }
@@ -69,7 +72,7 @@ public class WindowFrame {
                     }
                 }
             }
-            if (!foundAdjacent) {
+            if (!foundAdjacent && !notAdjacent) {
                 LOGGER.info("Adjacent rule " + "(foundAdjacent=" + foundAdjacent + ", notAdjacent=" + notAdjacent + "), " + position + " is not valid");
                 return false;
             }
@@ -78,11 +81,11 @@ public class WindowFrame {
         // Every dice must respect the restrictions of the position
         Color positionColor = windowPattern.getPattern().get(position).color;
         int positionNumber = windowPattern.getPattern().get(position).number;
-        if (positionColor != Color.BLANK && dice.getColor() != positionColor) {
+        if (!ignoreColor && positionColor != Color.BLANK && dice.getColor() != positionColor) {
             LOGGER.info("Color rule, " + position + " is not valid");
             return false;
         }
-        if (positionNumber != 0 && dice.getNumber() != positionNumber) {
+        if (!ignoreNumber && positionNumber != 0 && dice.getNumber() != positionNumber) {
             LOGGER.info("Number rule, " + position + " is not valid");
             return false;
         }

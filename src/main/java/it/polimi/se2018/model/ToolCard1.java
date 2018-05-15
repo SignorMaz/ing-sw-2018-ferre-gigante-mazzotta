@@ -18,7 +18,17 @@ public class ToolCard1 implements ToolCard {
     }
 
     @Override
-    public boolean isMoveValid() {
-        return true;
+    public boolean ignoreColor() {
+        return false;
+    }
+
+    @Override
+    public boolean ignoreNumber() {
+        return false;
+    }
+
+    @Override
+    public boolean notAdjacent() {
+        return false;
     }
 }

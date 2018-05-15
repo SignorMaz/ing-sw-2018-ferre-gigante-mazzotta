@@ -8,5 +8,9 @@ public interface ToolCard {
 
     int getNumber();
 
-    boolean isMoveValid();
+    boolean ignoreColor();
+
+    boolean ignoreNumber();
+
+    boolean notAdjacent();
 }
