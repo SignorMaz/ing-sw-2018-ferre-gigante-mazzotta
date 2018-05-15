@@ -57,4 +57,11 @@ public class Player {
     public int getFavorTokensCount() {
         return favorTokensCount;
     }
+
+    public void useFavorTokens(int num) {
+        if (favorTokensCount - num < 0) {
+            throw new IllegalArgumentException("Not enough token");
+        }
+        favorTokensCount -= num;
+    }
 }

@@ -23,6 +23,7 @@ public class Game {
     private final List<ObjectiveCard> publicObjectiveCards;
     private final Map<ToolCard, Integer> toolCards;
     private ToolCard toolCardInUse = null;
+    private boolean toolCardUsed = false;
 
     public Game(List<Player> players) {
         this.players = players;
@@ -68,6 +69,7 @@ public class Game {
 
         // Reset card for the new player
         toolCardInUse = null;
+        toolCardUsed = false;
 
         if (!isFirstTurn && currentPlayerNum == 0) {
             completedRounds++;
@@ -98,7 +100,7 @@ public class Game {
     }
 
     public boolean canUseToolCard(ToolCard toolCard) {
-        if (toolCardInUse != null) {
+        if (toolCardInUse != null || toolCardUsed) {
             return false;
         }
 
@@ -115,5 +117,14 @@ public class Game {
         }
 
         return true;
+    }
+
+    public void useToolCard(ToolCard toolCard) {
+        if (!canUseToolCard(toolCard)) {
+            throw new IllegalArgumentException("Can't use this ToolCard");
+        }
+        getCurrentPlayer().useFavorTokens(requiredTokens(toolCard));
+        toolCards.put(toolCard, toolCards.get(toolCard) + 1);
+        toolCardInUse = toolCard;
     }
 }
