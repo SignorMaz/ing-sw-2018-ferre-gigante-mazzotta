@@ -21,6 +21,16 @@ public class WindowFrame {
         return placedDices;
     }
 
+    public void placeDice(Dice dice, Position position) {
+        placeDice(dice, position, null);
+    }
+
+    public void placeDice(Dice dice, Position position, ToolCard toolCard) {
+        if (!isPositionValid(dice, position, toolCard)) {
+            throw new IllegalArgumentException("The new position is not valid");
+        }
+        placedDices.put(position, dice);
+    }
 
     public boolean isPositionValid(Dice dice, Position position, ToolCard toolCard) {
         boolean ignoreColor = toolCard != null && toolCard.ignoreColor();

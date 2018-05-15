@@ -24,6 +24,7 @@ public class Game {
     private final Map<ToolCard, Integer> toolCards;
     private ToolCard toolCardInUse = null;
     private boolean toolCardUsed = false;
+    private boolean moveDone = false;
 
     public Game(List<Player> players) {
         this.players = players;
@@ -70,6 +71,8 @@ public class Game {
         // Reset card for the new player
         toolCardInUse = null;
         toolCardUsed = false;
+        // and the move flag
+        moveDone = false;
 
         if (!isFirstTurn && currentPlayerNum == 0) {
             completedRounds++;
@@ -93,6 +96,15 @@ public class Game {
 
     public Player getCurrentPlayer() {
         return players.get(currentPlayerNum);
+    }
+
+    public void placeDice(Position position, Dice dice) {
+        if (moveDone) {
+            throw new IllegalStateException("Move already done");
+        }
+        Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
+        getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
+        moveDone = true;
     }
 
     private int requiredTokens(ToolCard toolCard) {
