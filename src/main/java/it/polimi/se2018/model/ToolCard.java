@@ -29,6 +29,10 @@ public abstract class ToolCard {
         return true;
     }
 
+    public boolean canChangeDiceValue(int value, boolean increase) {
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

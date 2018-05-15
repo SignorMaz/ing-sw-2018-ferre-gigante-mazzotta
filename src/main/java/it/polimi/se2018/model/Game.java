@@ -127,4 +127,20 @@ public class Game {
         toolCards.put(toolCard, toolCards.get(toolCard) + 1);
         toolCardInUse = toolCard;
     }
+
+    public void changeDiceValue(Position position, boolean increase) {
+        if (toolCardUsed) {
+            throw new IllegalStateException("The ToolCard has been used already");
+        }
+        Dice dice = getCurrentPlayer().getWindowFrame().getPlacedDices().get(position);
+        if (dice == null) {
+            throw new IllegalStateException("Invalid dice");
+        }
+        if (toolCardInUse != null && toolCardInUse.canChangeDiceValue(dice.getNumber(), increase)) {
+            dice.setNumber(increase ? dice.getNumber() + 1 : dice.getNumber() - 1);
+            toolCardUsed = true;
+        } else {
+            throw new IllegalStateException("Invalid ToolCard use");
+        }
+    }
 }
