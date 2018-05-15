@@ -11,6 +11,8 @@ public class Game {
     private static final int TOTAL_ROUND_NUM = 10;
     private static final int PUBLIC_OBJECTIVE_CARDS_NUM = 3;
     private static final int TOOL_CARDS_NUM = 3;
+    private static final int TOKENS_PER_FIRST_CARD_USE = 1;
+    private static final int TOKENS_PER_CARD_USE = 2;
 
     private final List<Player> players;
     private int currentPlayerNum = 0;
@@ -20,6 +22,7 @@ public class Game {
     private final DiceBag diceBag;
     private final List<ObjectiveCard> publicObjectiveCards;
     private final Map<ToolCard, Integer> toolCards;
+    private ToolCard toolCardInUse = null;
 
     public Game(List<Player> players) {
         this.players = players;
@@ -63,6 +66,9 @@ public class Game {
             return;
         }
 
+        // Reset card for the new player
+        toolCardInUse = null;
+
         if (!isFirstTurn && currentPlayerNum == 0) {
             completedRounds++;
             isFirstTurn = true;
@@ -81,5 +87,33 @@ public class Game {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public Player getCurrentPlayer() {
+        return players.get(currentPlayerNum);
+    }
+
+    private int requiredTokens(ToolCard toolCard) {
+        return toolCards.get(toolCard) == 0 ? TOKENS_PER_FIRST_CARD_USE : TOKENS_PER_CARD_USE;
+    }
+
+    public boolean canUseToolCard(ToolCard toolCard) {
+        if (toolCardInUse != null) {
+            return false;
+        }
+
+        if (toolCard == null || !toolCards.containsKey(toolCard)) {
+            return false;
+        }
+
+        if (!toolCard.canUseCard(isFirstTurn)) {
+            return false;
+        }
+
+        if (getCurrentPlayer().getFavorTokensCount() < requiredTokens(toolCard)) {
+            return false;
+        }
+
+        return true;
     }
 }

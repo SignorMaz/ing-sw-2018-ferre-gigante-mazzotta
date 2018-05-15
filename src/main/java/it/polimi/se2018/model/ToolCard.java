@@ -19,4 +19,8 @@ public abstract class ToolCard {
     public boolean notAdjacent() {
         return false;
     }
+
+    public boolean canUseCard(boolean isFirstTurn) {
+        return true;
+    }
 }
