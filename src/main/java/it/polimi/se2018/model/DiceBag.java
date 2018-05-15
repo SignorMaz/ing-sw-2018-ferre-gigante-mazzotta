@@ -12,6 +12,9 @@ public class DiceBag {
     public DiceBag() {
         dices = new ArrayList<>();
         for (Color color: Color.values()) {
+            if (color.equals(Color.BLANK)){
+                continue;
+            }
             for (int i = 0; i < DICES_PER_COLOR; i++) {
                 dices.add(new Dice(color));
             }
