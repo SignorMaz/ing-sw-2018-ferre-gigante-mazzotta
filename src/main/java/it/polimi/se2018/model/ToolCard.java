@@ -1,16 +1,22 @@
 package it.polimi.se2018.model;
 
-public interface ToolCard {
+public abstract class ToolCard {
 
-    String getName();
+    public abstract String getName();
 
-    String getDescription();
+    public abstract String getDescription();
 
-    int getNumber();
+    public abstract int getNumber();
 
-    boolean ignoreColor();
+    public boolean ignoreColor() {
+        return false;
+    }
 
-    boolean ignoreNumber();
+    public boolean ignoreNumber() {
+        return false;
+    }
 
-    boolean notAdjacent();
+    public boolean notAdjacent() {
+        return false;
+    }
 }

@@ -1,6 +1,6 @@
 package it.polimi.se2018.model;
 
-public class ToolCard1 implements ToolCard {
+public class ToolCard1 extends ToolCard {
 
     @Override
     public String getName() {
@@ -15,20 +15,5 @@ public class ToolCard1 implements ToolCard {
     @Override
     public int getNumber() {
         return 1;
-    }
-
-    @Override
-    public boolean ignoreColor() {
-        return false;
-    }
-
-    @Override
-    public boolean ignoreNumber() {
-        return false;
-    }
-
-    @Override
-    public boolean notAdjacent() {
-        return false;
     }
 }
