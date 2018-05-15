@@ -1,6 +1,11 @@
 package it.polimi.se2018.model;
 
+import java.util.Objects;
+
 public abstract class ToolCard {
+
+    // Needed to allow the auto-generation of equals() and hashcode()
+    private final int number = getNumber();
 
     public abstract String getName();
 
@@ -22,5 +27,18 @@ public abstract class ToolCard {
 
     public boolean canUseCard(boolean isFirstTurn) {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ToolCard toolCard = (ToolCard) o;
+        return number == toolCard.number;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number);
     }
 }
