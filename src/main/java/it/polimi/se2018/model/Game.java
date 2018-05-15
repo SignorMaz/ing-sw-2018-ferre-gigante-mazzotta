@@ -2,7 +2,9 @@ package it.polimi.se2018.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 
@@ -17,7 +19,7 @@ public class Game {
     private List<Dice> draftPool;
     private final DiceBag diceBag;
     private final List<ObjectiveCard> publicObjectiveCards;
-    private final List<ToolCard> toolCards;
+    private final Map<ToolCard, Integer> toolCards;
 
     public Game(List<Player> players) {
         this.players = players;
@@ -31,11 +33,11 @@ public class Game {
             publicObjectiveCards.add(publicObjectiveCardsDeck.remove(0));
         }
 
-        toolCards = new ArrayList<>();
+        toolCards = new HashMap<>();
         List<ToolCard> toolCardsDeck = new ToolCardsDeck().getCards();
         Collections.shuffle(toolCardsDeck);
         for (int i = 0; i < TOOL_CARDS_NUM; i++) {
-            toolCards.add(toolCardsDeck.remove(0));
+            toolCards.put(toolCardsDeck.remove(0), 0);
         }
 
         newRound();
