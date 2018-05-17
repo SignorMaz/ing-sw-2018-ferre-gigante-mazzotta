@@ -27,7 +27,7 @@ public class PublicObjectiveCard2 implements ObjectiveCard {
                 Position position = new Position(j, i);
                 Dice dice = windowFrame.getPlacedDices().get(position);
                 if (dice == null) {
-                    break;
+                    continue;
                 }
                 Color color = dice.getColor();
                 if (colors.contains(color)) {

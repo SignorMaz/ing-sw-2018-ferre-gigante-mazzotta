@@ -23,7 +23,7 @@ public class PublicObjectiveCard6 implements ObjectiveCard {
                 Position position = new Position(i, j);
                 Dice dice = windowFrame.getPlacedDices().get(position);
                 if (dice == null) {
-                    break;
+                    continue;
                 }
                 int value = dice.getNumber();
                 if (value == 3) {

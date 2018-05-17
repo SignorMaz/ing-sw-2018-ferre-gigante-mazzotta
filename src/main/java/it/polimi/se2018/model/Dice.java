@@ -14,7 +14,14 @@ public class Dice {
         setRandomNumber();
     }
 
-    public Color getColor() {
+    public Dice(Color color, int number) {
+        if (color.equals(Color.BLANK)) {
+            throw new IllegalArgumentException("Invalid color");
+        }
+        this.color = color;
+        setNumber(number);
+    }
+        public Color getColor() {
         return color;
     }
 

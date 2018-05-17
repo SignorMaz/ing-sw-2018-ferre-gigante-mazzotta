@@ -27,7 +27,7 @@ public class PublicObjectiveCard10 implements ObjectiveCard {
                 Position position = new Position(i, j);
                 Dice dice = windowFrame.getPlacedDices().get(position);
                 if (dice == null) {
-                    break;
+                    continue;
                 }
                 Color color = dice.getColor();
                 switch (color) {
@@ -48,6 +48,7 @@ public class PublicObjectiveCard10 implements ObjectiveCard {
                         break;
 
                         default: break;
+
                 }
             }
         }
