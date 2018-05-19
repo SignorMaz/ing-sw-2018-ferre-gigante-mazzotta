@@ -1,13 +1,11 @@
 package it.polimi.se2018.model;
 
-import it.polimi.se2018.model.objectivecards.PublicObjectiveCard9;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class WindowFrameTest {

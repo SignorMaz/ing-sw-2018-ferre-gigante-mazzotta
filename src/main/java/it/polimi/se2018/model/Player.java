@@ -42,8 +42,8 @@ public class Player {
             throw new IllegalArgumentException("Invalid pattern number");
         }
         isReady = true;
-        favorTokensCount = getWindowFrame().getWindowPattern().getDifficulty();
         windowFrame = new WindowFrame(windowPatterns.get(windowNumber));
+        favorTokensCount = getWindowFrame().getWindowPattern().getDifficulty();
     }
 
     public List<WindowPattern> getWindowPatterns() {

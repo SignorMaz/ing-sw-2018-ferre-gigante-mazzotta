@@ -98,6 +98,10 @@ public class Game {
         return players.get(currentPlayerNum);
     }
 
+    public List<Dice> getDraftPool() {
+        return draftPool;
+    }
+
     public void placeDice(Position position, Dice dice) {
         if (moveDone) {
             throw new IllegalStateException("Move already done");

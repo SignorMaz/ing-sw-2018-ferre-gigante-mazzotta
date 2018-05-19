@@ -1,4 +1,6 @@
-package it.polimi.se2018.model;
+package it.polimi.se2018.model.toolcards;
+
+import it.polimi.se2018.model.ToolCard;
 
 public class ToolCard1 extends ToolCard {
 
@@ -15,5 +17,10 @@ public class ToolCard1 extends ToolCard {
     @Override
     public int getNumber() {
         return 1;
+    }
+
+    @Override
+    public boolean canChangeDiceValue(int value, boolean increase) {
+        return (value != 1 || increase) && (value != 6 || !increase);
     }
 }
