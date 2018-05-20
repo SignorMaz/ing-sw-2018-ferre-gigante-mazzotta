@@ -1,6 +1,7 @@
-package it.polimi.se2018.model;
+package it.polimi.se2018.model.ObjectiveCardTest;
 
-import it.polimi.se2018.model.objectivecards.PublicObjectiveCard10;
+import it.polimi.se2018.model.*;
+import it.polimi.se2018.model.objectivecards.PublicObjectiveCard9;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class PublicObjectiveCard10Test {
+public class PublicObjectiveCard9Test {
 
     private class WindowPatternTest implements WindowPattern {
 
@@ -95,21 +96,21 @@ public class PublicObjectiveCard10Test {
 
         WindowPattern windowPattern = new WindowPatternTest();
         WindowFrame windowFrame = new WindowFrame(windowPattern);
-
-        assertEquals(0, new PublicObjectiveCard10().getPoints(windowFrame));
         windowFrame.placeDice(new Dice(Color.BLUE), new Position(2, 0), toolCard);
-        windowFrame.placeDice(new Dice(Color.RED), new Position(1, 1), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(2, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.GREEN), new Position(3, 3), toolCard);
-        assertEquals(0, new PublicObjectiveCard10().getPoints(windowFrame));
+        windowFrame.placeDice(new Dice(Color.BLUE), new Position(1, 1), toolCard);
+        windowFrame.placeDice(new Dice(Color.BLUE), new Position(2, 2), toolCard);
+        windowFrame.placeDice(new Dice(Color.BLUE), new Position(3, 3), toolCard);
+        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
 
-        windowFrame.placeDice(new Dice(Color.PURPLE), new Position(0, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.BLUE), new Position(0, 4), toolCard);
+        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
+
         windowFrame.placeDice(new Dice(Color.RED), new Position(0, 3), toolCard);
-        assertEquals(4, new PublicObjectiveCard10().getPoints(windowFrame));
+        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
 
-        windowFrame.placeDice(new Dice(Color.BLUE), new Position(3, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(2, 4), toolCard);
-        windowFrame.placeDice(new Dice(Color.GREEN), new Position(3, 4), toolCard);
-        assertEquals(4, new PublicObjectiveCard10().getPoints(windowFrame));
+        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(3, 2), toolCard);
+        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(2, 3), toolCard);
+        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(1, 4), toolCard);
+        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 7);
     }
 }
