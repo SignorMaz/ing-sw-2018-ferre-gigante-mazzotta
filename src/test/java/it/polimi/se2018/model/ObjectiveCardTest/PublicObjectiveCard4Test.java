@@ -110,7 +110,6 @@ public class PublicObjectiveCard4Test {
         assertEquals(0, new PublicObjectiveCard4().getPoints(windowFrame));
 
         windowFrame.placeDice(new Dice(Color.BLUE,1), new Position(0, 1), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW,6), new Position(2, 4), toolCard);
         windowFrame.placeDice(new Dice(Color.PURPLE, 6), new Position(2, 4), toolCard);
         windowFrame.placeDice(new Dice(Color.GREEN,6), new Position(3, 4), toolCard);
         assertEquals(4, new PublicObjectiveCard4().getPoints(windowFrame));
