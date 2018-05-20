@@ -10,6 +10,13 @@ public class Dice {
      * create the object dice and set the color
      * @param color to set
      */
+    public Dice(Color color) {
+        if (color.equals(Color.BLANK)) {
+            throw new IllegalArgumentException("Invalid color");
+        }
+        this.color = color;
+        setRandomNumber();
+    }
 
     public Dice(Color color, int number) {
         if (color.equals(Color.BLANK)) {
