@@ -19,6 +19,12 @@ public class Player {
 
     private boolean isReady;
 
+    /**
+     * create an object player
+     * @param windowPattern1
+     * @param windowPattern2
+     * @param playerColor
+     */
     public Player(WindowPattern windowPattern1, WindowPattern windowPattern2, Color playerColor) {
         this.windowPatterns = new ArrayList<>();
         windowPatterns.add(windowPattern1);
@@ -26,14 +32,26 @@ public class Player {
         this.playerColor = playerColor;
     }
 
+    /**
+     * return the player color
+     * @return player color
+     */
     public Color getPlayerColor() {
         return playerColor;
     }
 
+    /**
+     * return if the player is ready
+     * @return is ready
+     */
     public boolean isReady() {
         return isReady;
     }
 
+    /**
+     * set the player to ready
+     * @param windowNumber
+     */
     public void setReady(int windowNumber) {
         if (isReady()) {
             throw new IllegalStateException("Pattern already chosen");
@@ -50,14 +68,26 @@ public class Player {
         return windowPatterns;
     }
 
+    /**
+     * return the window frame chosen
+     * @return window frame
+     */
     public WindowFrame getWindowFrame() {
         return windowFrame;
     }
 
+    /**
+     * return the number of favor token player has
+     * @return number of favor token
+     */
     public int getFavorTokensCount() {
         return favorTokensCount;
     }
 
+    /**
+     * subtract the number of favor token that you use
+     * @param num number of used favore token
+     */
     public void useFavorTokens(int num) {
         if (favorTokensCount - num < 0) {
             throw new IllegalArgumentException("Not enough token");

@@ -4,10 +4,16 @@ public class Position {
     public final int row;
     public final int column;
 
+    /**
+     * create the object position with row and column given
+     * @param row row given
+     * @param column column given
+     */
     public Position(int row, int column) {
         this.row = row;
         this.column = column;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

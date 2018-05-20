@@ -24,3 +24,4 @@ public class ToolCard1 extends ToolCard {
         return (value != 1 || increase) && (value != 6 || !increase);
     }
 }
+

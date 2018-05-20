@@ -9,6 +9,10 @@ public class DiceBag {
 
     private final List<Dice> dices;
 
+    /**
+     * initialize 18 dices for color
+     * @return shuffled dice list
+     */
     public DiceBag() {
         dices = new ArrayList<>();
         for (Color color: Color.values()) {
@@ -22,6 +26,10 @@ public class DiceBag {
         Collections.shuffle(dices);
     }
 
+    /**
+     * return a dice and remove it from the list
+     * @return dice from the list
+     */
     public Dice drawDice() {
         return dices.remove(0);
     }

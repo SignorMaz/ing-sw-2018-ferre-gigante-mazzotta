@@ -26,6 +26,10 @@ public class Game {
     private boolean toolCardUsed = false;
     private boolean moveDone = false;
 
+    /**
+     * create all the classes for the game
+     * @param players list of players
+     */
     public Game(List<Player> players) {
         this.players = players;
 
@@ -48,10 +52,17 @@ public class Game {
         newRound();
     }
 
+    /**
+     * return the total round counter
+     * @return total rounds completed
+     */
     public boolean isGameOver() {
         return completedRounds == TOTAL_ROUND_NUM;
     }
 
+    /**
+     * switch the game to a new round and call the methods to draw a dice
+     */
     private void newRound() {
         if (isGameOver()) {
             return;
@@ -63,6 +74,9 @@ public class Game {
         }
     }
 
+    /**
+     * reset card for the new player, and switch the player to the next
+     */
     public void nextPlayer() {
         if (isGameOver()) {
             return;
@@ -90,18 +104,35 @@ public class Game {
         }
     }
 
+    /**
+     * return the list of players
+     * @return list of players
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * return the current player
+     * @return current player
+     */
     public Player getCurrentPlayer() {
         return players.get(currentPlayerNum);
     }
 
+    /**
+     * get the draft pool
+     * @return draft pool
+     */
     public List<Dice> getDraftPool() {
         return draftPool;
     }
 
+    /**
+     * place the given dice in a given position
+     * @param position where place
+     * @param dice to place
+     */
     public void placeDice(Position position, Dice dice) {
         if (moveDone) {
             throw new IllegalStateException("Move already done");
@@ -111,10 +142,20 @@ public class Game {
         moveDone = true;
     }
 
+    /**
+     * return the number of favor token you have to spend
+     * @param toolCard given tool card
+     * @return number of token it cost
+     */
     private int requiredTokens(ToolCard toolCard) {
         return toolCards.get(toolCard) == 0 ? TOKENS_PER_FIRST_CARD_USE : TOKENS_PER_CARD_USE;
     }
 
+    /**
+     * return true or false according to you can or not use a toolcard
+     * @param toolCard tool card you want to use
+     * @return true -> able to use tool card, false -> inable to use tool card
+     */
     public boolean canUseToolCard(ToolCard toolCard) {
         if (toolCardInUse != null || toolCardUsed) {
             return false;
@@ -135,6 +176,10 @@ public class Game {
         return true;
     }
 
+    /**
+     *
+     * @param toolCard given tool card
+     */
     public void useToolCard(ToolCard toolCard) {
         if (!canUseToolCard(toolCard)) {
             throw new IllegalArgumentException("Can't use this ToolCard");
@@ -144,6 +189,11 @@ public class Game {
         toolCardInUse = toolCard;
     }
 
+    /**
+     * according to a tool card effect change the value of a dice
+     * @param position where put the dice
+     * @param increase the value
+     */
     public void changeDiceValue(Position position, boolean increase) {
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");

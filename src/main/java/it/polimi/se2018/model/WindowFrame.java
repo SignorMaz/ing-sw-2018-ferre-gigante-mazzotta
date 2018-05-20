@@ -9,22 +9,45 @@ public class WindowFrame {
     private final Map<Position, Dice> placedDices = new HashMap<>();
     private final WindowPattern windowPattern;
 
+    /**
+     * create a WindowsFrame with a given WindowsPattern
+     * @param windowPattern given
+     */
     public WindowFrame(WindowPattern windowPattern) {
         this.windowPattern = windowPattern;
     }
 
+    /**
+     * return the WindowPattern
+     * @return the WindowPattern
+     */
     public WindowPattern getWindowPattern() {
         return windowPattern;
     }
 
+    /**
+     * return the placed dices position on the WindowFrame
+     * @return position
+     */
     public Map<Position, Dice> getPlacedDices() {
         return placedDices;
     }
 
+    /**
+     * place the dice in a given position
+     * @param dice dice to place
+     * @param position position where place the dice
+     */
     public void placeDice(Dice dice, Position position) {
         placeDice(dice, position, null);
     }
 
+    /**
+     * place the dice in a given position according to the ToolCard rules
+     * @param dice dice to place
+     * @param position position where place the dice
+     * @param toolCard ToolCard rules
+     */
     public void placeDice(Dice dice, Position position, ToolCard toolCard) {
         if (!isPositionValid(dice, position, toolCard)) {
             throw new IllegalArgumentException("The new position is not valid");
@@ -32,6 +55,13 @@ public class WindowFrame {
         placedDices.put(position, dice);
     }
 
+    /**
+     * return if the position is valid according to the WindowsPattern and ToolCard rules
+     * @param dice to verify position
+     * @param position to verify
+     * @param toolCard placement rules
+     * @return false -> unvalid position, true -> valid position
+     */
     public boolean isPositionValid(Dice dice, Position position, ToolCard toolCard) {
         boolean ignoreColor = toolCard != null && toolCard.ignoreColor();
         boolean ignoreNumber = toolCard != null && toolCard.ignoreNumber();

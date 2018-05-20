@@ -6,13 +6,10 @@ public class Dice {
     private final Color color;
     private int number;
 
-    public Dice(Color color) {
-        if (color.equals(Color.BLANK)) {
-            throw new IllegalArgumentException("Invalid color");
-        }
-        this.color = color;
-        setRandomNumber();
-    }
+    /**
+     * create the object dice and set the color
+     * @param color to set
+     */
 
     public Dice(Color color, int number) {
         if (color.equals(Color.BLANK)) {
@@ -21,14 +18,27 @@ public class Dice {
         this.color = color;
         setNumber(number);
     }
+
+    /**
+     * return the dice color
+     * @return dice color
+     */
         public Color getColor() {
         return color;
     }
 
+    /**
+     * return the dice number
+     * @return dice number
+     */
     public int getNumber() {
         return number;
     }
 
+    /**
+     * set the dice number
+     * @param number number to set
+     */
     public void setNumber(int number) {
         if (number < 1 || number > 6) {
             throw new IllegalArgumentException("Invalid number");
@@ -36,6 +46,9 @@ public class Dice {
         this.number = number;
     }
 
+    /**
+     * set a random dice number
+     */
     public void setRandomNumber() {
         setNumber(new Random().nextInt(6) + 1);
     }
