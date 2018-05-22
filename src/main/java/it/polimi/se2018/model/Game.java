@@ -311,4 +311,14 @@ public class Game {
         placeDice(position, rethrownDice);
         rethrownDice = null;
     }
+
+    public void shakeDices() {
+        if (toolCardInUse == null || !toolCardInUse.canShakeDices()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        for (Dice dice : draftPool) {
+            dice.setRandomNumber();
+        }
+        toolCardUsed = true;
+    }
 }

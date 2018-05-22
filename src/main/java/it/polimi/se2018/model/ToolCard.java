@@ -41,6 +41,10 @@ public abstract class ToolCard {
         return false;
     }
 
+    public boolean canShakeDices() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
