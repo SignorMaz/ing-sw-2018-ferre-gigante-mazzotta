@@ -41,8 +41,13 @@ public abstract class ToolCard {
         return number == toolCard.number;
     }
 
+    public boolean canMovePlacedDice() {
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(number);
     }
+
 }

@@ -24,6 +24,7 @@ public class Player implements Observer {
 
     /**
      * create an object player
+     * @param playerId playerId
      * @param windowPattern1 windowPattern1
      * @param windowPattern2 windowPattern2
      * @param playerColor playerColor
@@ -62,7 +63,7 @@ public class Player implements Observer {
 
     /**
      * set the player to ready
-     * @param windowNumber
+     * @param windowNumber windowNumber
      */
     public void setReady(int windowNumber) {
         if (isReady()) {

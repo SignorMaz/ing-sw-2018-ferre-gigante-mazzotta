@@ -60,7 +60,7 @@ public class WindowFrame {
      * @param dice to verify position
      * @param position to verify
      * @param toolCard placement rules
-     * @return false -> unvalid position, true -> valid position
+     * @return false - unvalid position, true - valid position
      */
     public boolean isPositionValid(Dice dice, Position position, ToolCard toolCard) {
         boolean ignoreColor = toolCard != null && toolCard.ignoreColor();

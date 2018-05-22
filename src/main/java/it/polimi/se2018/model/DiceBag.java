@@ -11,7 +11,6 @@ public class DiceBag {
 
     /**
      * initialize 18 dices for color
-     * @return shuffled dice list
      */
     public DiceBag() {
         dices = new ArrayList<>();

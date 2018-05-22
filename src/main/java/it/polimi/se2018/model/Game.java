@@ -154,7 +154,7 @@ public class Game {
     /**
      * return true or false according to you can or not use a toolcard
      * @param toolCard tool card you want to use
-     * @return true -> able to use tool card, false -> inable to use tool card
+     * @return true - able to use tool card, false - not able to use tool card
      */
     public boolean canUseToolCard(ToolCard toolCard) {
         if (toolCardInUse != null || toolCardUsed) {
@@ -204,6 +204,23 @@ public class Game {
         }
         if (toolCardInUse != null && toolCardInUse.canChangeDiceValue(dice.getNumber(), increase)) {
             dice.setNumber(increase ? dice.getNumber() + 1 : dice.getNumber() - 1);
+            toolCardUsed = true;
+        } else {
+            throw new IllegalStateException("Invalid ToolCard use");
+        }
+    }
+
+    public void movePlacedDice(Position curPosition, Position newPosition) {
+        if (toolCardUsed) {
+            throw new IllegalStateException("The ToolCard has been used already");
+        }
+        Dice dice = getCurrentPlayer().getWindowFrame().getPlacedDices().get(curPosition);
+        if (dice == null) {
+            throw new IllegalStateException("Invalid dice");
+        }
+        if (toolCardInUse != null && toolCardInUse.canMovePlacedDice() &&
+                getCurrentPlayer().getWindowFrame().isPositionValid(dice, newPosition, toolCardInUse)) {
+            getCurrentPlayer().getWindowFrame().placeDice(dice, newPosition);
             toolCardUsed = true;
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
