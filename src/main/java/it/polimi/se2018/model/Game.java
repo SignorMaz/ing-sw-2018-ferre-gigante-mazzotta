@@ -27,6 +27,7 @@ public class Game {
     private boolean toolCardUsed = false;
     private boolean moveDone = false;
     private Dice rethrownDice;
+    private final List<Player> skipTurnPlayerList;
 
     /**
      * create all the classes for the game
@@ -52,6 +53,7 @@ public class Game {
         }
 
         roundTrackDices = new ArrayList<>();
+        skipTurnPlayerList = new ArrayList<>();
         newRound();
     }
 
@@ -111,6 +113,10 @@ public class Game {
             currentPlayerNum++;
         } else {
             currentPlayerNum--;
+        }
+        if (skipTurnPlayerList.contains(getCurrentPlayer())) {
+            skipTurnPlayerList.remove(getCurrentPlayer());
+            nextPlayer();
         }
     }
 
@@ -319,6 +325,16 @@ public class Game {
         for (Dice dice : draftPool) {
             dice.setRandomNumber();
         }
+        toolCardUsed = true;
+    }
+
+    public void placeSecondDice(Position position, Dice dice) {
+        if (toolCardInUse == null || !toolCardInUse.canPlaceTwoDices()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
+        getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
+        skipTurnPlayerList.add(getCurrentPlayer());
         toolCardUsed = true;
     }
 }
