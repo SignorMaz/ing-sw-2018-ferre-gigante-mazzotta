@@ -294,6 +294,10 @@ public class Game {
         draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
     }
 
+    public Dice getRethrownDice() {
+        return new Dice(rethrownDice.getColor(), rethrownDice.getNumber());
+    }
+
     public void rethrowDice(Dice dice) {
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
@@ -335,6 +339,15 @@ public class Game {
         Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
         skipTurnPlayerList.add(getCurrentPlayer());
+        toolCardUsed = true;
+    }
+
+    public void placeNotAdjacentDice(Position position, Dice dice) {
+        if (toolCardInUse == null || !toolCardInUse.notAdjacent()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
+        getCurrentPlayer().getWindowFrame().placeDice(draftDice, position, toolCardInUse);
         toolCardUsed = true;
     }
 }
