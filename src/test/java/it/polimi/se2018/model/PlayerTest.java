@@ -110,7 +110,7 @@ public class PlayerTest {
     public void testReady() {
          WindowPattern windowPattern1 = new WindowPatternTest1();
         WindowPattern windowPattern2 = new WindowPatternTest2();
-        Player player = new Player(windowPattern1, windowPattern2, Player.Color.BLUE);
+        Player player = new Player("0001", windowPattern1, windowPattern2, Player.Color.BLUE);
         assertEquals(Player.Color.BLUE, player.getPlayerColor());
         assertFalse(player.isReady());
         player.setReady(1);
@@ -123,7 +123,7 @@ public class PlayerTest {
     public void testTooMuchToken() {
         WindowPattern windowPattern1 = new WindowPatternTest1();
         WindowPattern windowPattern2 = new WindowPatternTest2();
-        Player player = new Player(windowPattern1, windowPattern2, Player.Color.BLUE);
+        Player player = new Player("0001", windowPattern1, windowPattern2, Player.Color.BLUE);
         assertEquals(Player.Color.BLUE, player.getPlayerColor());
         assertFalse(player.isReady());
         player.setReady(1);

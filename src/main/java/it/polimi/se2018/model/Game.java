@@ -311,4 +311,41 @@ public class Game {
         placeDice(position, rethrownDice);
         rethrownDice = null;
     }
+
+    public void moveDice(Dice trackDice, Position oldPosition1, Position newPosition1) {
+        moveDices(trackDice, oldPosition1, newPosition1, null, null);
+    }
+
+    public void moveDices(Dice trackDice, Position oldPosition1, Position newPosition1,
+                          Position oldPosition2, Position newPosition2) {
+        if (!roundTrackDices.contains(trackDice)) {
+            throw new IllegalArgumentException("Invalid track dice");
+        }
+        if (toolCardInUse == null || !toolCardInUse.canMovePlacedDice()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+
+        Dice dice1 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(oldPosition1);
+        if (dice1.getColor() != trackDice.getColor()) {
+            throw new IllegalArgumentException("Invalid dice");
+        }
+
+        // placeDice() does this already, but we want to move both the dices or none of them
+        if (getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, null)) {
+            throw new IllegalArgumentException("Invalid position");
+        }
+
+        if (oldPosition2 != null) {
+            Dice dice2 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(oldPosition2);
+            if (dice1.getColor() != trackDice.getColor()) {
+                throw new IllegalArgumentException("Invalid dice");
+            }
+            getCurrentPlayer().getWindowFrame().placeDice(dice2, newPosition2);
+        }
+
+        // Move dice1 now so that we don't move it and then throw an exception because of dice2
+        getCurrentPlayer().getWindowFrame().placeDice(dice1, newPosition1);
+
+        toolCardUsed = true;
+    }
 }

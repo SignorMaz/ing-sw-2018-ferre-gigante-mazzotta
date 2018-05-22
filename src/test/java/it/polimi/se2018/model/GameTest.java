@@ -108,9 +108,9 @@ public class GameTest {
     public void testReady() {
         WindowPattern windowPattern1 = new WindowPatternTest1();
         WindowPattern windowPattern2 = new WindowPatternTest2();
-        Player player1 = new Player(windowPattern1, windowPattern2, Player.Color.BLUE);
+        Player player1 = new Player("0001", windowPattern1, windowPattern2, Player.Color.BLUE);
         player1.setReady(1);
-        Player player2 = new Player(windowPattern1, windowPattern2, Player.Color.RED);
+        Player player2 = new Player("0002", windowPattern1, windowPattern2, Player.Color.RED);
         player2.setReady(0);
         List<Player> testPlayer = new ArrayList<>();
         testPlayer.add(player1);
