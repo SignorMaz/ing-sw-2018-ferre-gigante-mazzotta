@@ -33,6 +33,10 @@ public abstract class ToolCard {
         return false;
     }
 
+    public boolean canSwapDices() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

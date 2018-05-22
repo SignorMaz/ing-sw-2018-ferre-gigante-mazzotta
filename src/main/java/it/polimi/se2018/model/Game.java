@@ -14,6 +14,7 @@ public class Game {
     private static final int TOKENS_PER_FIRST_CARD_USE = 1;
     private static final int TOKENS_PER_CARD_USE = 2;
 
+    private final List<Dice> roundTrackDices;
     private final List<Player> players;
     private int currentPlayerNum = 0;
     private boolean isFirstTurn = false;
@@ -49,6 +50,7 @@ public class Game {
             toolCards.put(toolCardsDeck.remove(0), 0);
         }
 
+        roundTrackDices = new ArrayList<>();
         newRound();
     }
 
@@ -66,6 +68,11 @@ public class Game {
     private void newRound() {
         if (isGameOver()) {
             return;
+        }
+
+        // We have no dices during the first round
+        if (completedRounds != 0) {
+            roundTrackDices.add(draftPool.remove(0));
         }
 
         draftPool = new ArrayList<>();
@@ -257,5 +264,25 @@ public class Game {
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
         }
+    }
+
+    public void swapTrackDice(Dice draftDice, Dice trackDice) {
+        if (toolCardUsed) {
+            throw new IllegalStateException("The ToolCard has been used already");
+        }
+        if (toolCardInUse == null || !toolCardInUse.canSwapDices()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        if (roundTrackDices.size() == 0) {
+            throw new IllegalStateException("The round track is empty");
+        }
+        if (!draftPool.contains(draftDice)) {
+            throw new IllegalArgumentException("The given dice is not from the pool");
+        }
+        if (!roundTrackDices.contains(trackDice)) {
+            throw new IllegalArgumentException("The given dice is not in the round track");
+        }
+        roundTrackDices.add(draftPool.remove(draftPool.indexOf(draftDice)));
+        draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
     }
 }
