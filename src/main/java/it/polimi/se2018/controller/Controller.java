@@ -1,10 +1,25 @@
 package it.polimi.se2018.controller;
 
-        public class Controller {
+import it.polimi.se2018.Observable;
+import it.polimi.se2018.Observer;
+import it.polimi.se2018.controller.actions.Action;
+import it.polimi.se2018.controller.events.Event;
 
-            private static final Controller INSTANCE = new Controller();
+        public class Controller implements Observer, Observable {
 
-            public static Controller getInstance() {
-                return INSTANCE;
-            }
-}
+        private static final Controller INSTANCE = new Controller();
+
+        public static Controller getInstance() {
+            return INSTANCE;
+        }
+
+            @Override
+    public void send(Event event) {
+                    // TODO
+                        }
+
+            @Override
+    public void send(Action action) {
+                    action.doAction();
+                }
+    }

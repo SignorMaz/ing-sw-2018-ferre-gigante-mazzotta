@@ -1,6 +1,9 @@
 package it.polimi.se2018.view;
 
-public abstract class PlayerView {
+import it.polimi.se2018.Observer;
+import it.polimi.se2018.controller.events.Event;
+
+public abstract class PlayerView implements Observer {
 
     private final String playerId;
 
@@ -11,4 +14,8 @@ public abstract class PlayerView {
     public String getPlayerId() {
         return playerId;
     }
+
+        @Override
+    public void send(Event event) {
+            }
 }

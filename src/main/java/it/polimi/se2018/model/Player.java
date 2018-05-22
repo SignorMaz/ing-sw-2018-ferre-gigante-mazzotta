@@ -1,9 +1,11 @@
 package it.polimi.se2018.model;
 
-import java.util.ArrayList;
+import it.polimi.se2018.Observer;
+import it.polimi.se2018.controller.Controller;
+import it.polimi.se2018.controller.events.Event;import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Observer {
 
     public enum Color {
         PURPLE,
@@ -21,9 +23,9 @@ public class Player {
 
     /**
      * create an object player
-     * @param windowPattern1
-     * @param windowPattern2
-     * @param playerColor
+     * @param windowPattern1 windowPattern1
+     * @param windowPattern2 windowPattern2
+     * @param playerColor playerColor
      */
     public Player(WindowPattern windowPattern1, WindowPattern windowPattern2, Color playerColor) {
         this.windowPatterns = new ArrayList<>();
@@ -31,6 +33,11 @@ public class Player {
         windowPatterns.add(windowPattern2);
         this.playerColor = playerColor;
     }
+
+        @Override
+    public void send(Event event) {
+                Controller.getInstance().send(event);
+            }
 
     /**
      * return the player color
