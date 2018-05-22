@@ -25,7 +25,7 @@ public abstract class ToolCard {
         return false;
     }
 
-    public boolean canUseCard(boolean isFirstTurn) {
+    public boolean canUseCard(boolean isFirstTurn, boolean moveDone) {
         return true;
     }
 
@@ -34,6 +34,10 @@ public abstract class ToolCard {
     }
 
     public boolean canSwapDices() {
+        return false;
+    }
+
+    public boolean canRethrowDice() {
         return false;
     }
 

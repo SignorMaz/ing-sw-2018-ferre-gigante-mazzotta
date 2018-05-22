@@ -26,6 +26,7 @@ public class Game {
     private ToolCard toolCardInUse = null;
     private boolean toolCardUsed = false;
     private boolean moveDone = false;
+    private Dice rethrownDice;
 
     /**
      * create all the classes for the game
@@ -94,6 +95,8 @@ public class Game {
         toolCardUsed = false;
         // and the move flag
         moveDone = false;
+        // and the rethrown dice
+        rethrownDice = null;
 
         if (!isFirstTurn && currentPlayerNum == 0) {
             completedRounds++;
@@ -172,7 +175,7 @@ public class Game {
             return false;
         }
 
-        if (!toolCard.canUseCard(isFirstTurn)) {
+        if (!toolCard.canUseCard(isFirstTurn, moveDone)) {
             return false;
         }
 
@@ -196,12 +199,6 @@ public class Game {
         toolCardInUse = toolCard;
     }
 
-    /**
-     * according to a tool card effect change the value of a dice
-     * @param position where put the dice
-     * @param increase the value
-     */
-
     public boolean isToolCardUsed() {
         return toolCardUsed;
     }
@@ -210,6 +207,11 @@ public class Game {
         return toolCardInUse != null;
     }
 
+    /**
+     * according to a tool card effect change the value of a dice
+     * @param position where put the dice
+     * @param increase the value
+     */
     public void changeDiceValue(Position position, boolean increase) {
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
@@ -284,5 +286,29 @@ public class Game {
         }
         roundTrackDices.add(draftPool.remove(draftPool.indexOf(draftDice)));
         draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
+    }
+
+    public void rethrowDice(Dice dice) {
+        if (toolCardUsed) {
+            throw new IllegalStateException("The ToolCard has been used already");
+        }
+        if (toolCardInUse == null || !toolCardInUse.canRethrowDice()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        if (!draftPool.contains(dice)) {
+            throw new IllegalArgumentException("The given dice is not from the pool");
+        }
+        draftPool.get(draftPool.indexOf(dice)).setRandomNumber();
+        toolCardUsed = true;
+        rethrownDice = dice;
+    }
+
+    public void repositionRethrownDice(Position position) {
+        if (rethrownDice == null) {
+            throw new IllegalStateException("No dice to reposition");
+        }
+        getCurrentPlayer().getWindowFrame().placeDice(rethrownDice, position);
+        placeDice(position, rethrownDice);
+        rethrownDice = null;
     }
 }
