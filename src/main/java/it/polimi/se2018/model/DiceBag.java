@@ -1,6 +1,6 @@
 package it.polimi.se2018.model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class DiceBag {
      * initialize 18 dices for color
      */
     public DiceBag() {
-        dices = new ArrayList<>();
+        dices = new LinkedList<>();
         for (Color color: Color.values()) {
             if (color.equals(Color.BLANK)){
                 continue;

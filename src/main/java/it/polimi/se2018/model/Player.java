@@ -15,6 +15,7 @@ public class Player implements Observer {
     }
 
     private final String playerId;
+    private Game game;
     private final Color playerColor;
     private final List<WindowPattern> windowPatterns;
     private WindowFrame windowFrame;
@@ -46,6 +47,14 @@ public class Player implements Observer {
 
     public String getPlayerId() {
         return playerId;
+    }
+
+    protected void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     /**
@@ -110,7 +119,7 @@ public class Player implements Observer {
         }
         favorTokensCount -= num;
     }
-    
+
     public void setObjectiveCards(List<ObjectiveCard> cards) {
         objectiveCards.addAll(cards);
         }

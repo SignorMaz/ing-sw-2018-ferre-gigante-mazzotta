@@ -33,6 +33,10 @@ public class Game {
      * @param players list of players
      */
     public Game(List<Player> players) {
+        for (Player player : players) {
+            player.setGame(this);
+            }
+
         this.players = players;
 
         diceBag = new DiceBag();

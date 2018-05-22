@@ -2,14 +2,14 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.model.objectivecards.*;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PublicObjectiveCardsDeck {
     private final List<ObjectiveCard> cards;
 
     public PublicObjectiveCardsDeck() {
-        cards = new ArrayList<>();
+        cards = new LinkedList<>();
         cards.add(new PublicObjectiveCard1());
         cards.add(new PublicObjectiveCard2());
         cards.add(new PublicObjectiveCard3());
