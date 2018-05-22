@@ -14,6 +14,7 @@ public class Player implements Observer {
         GREEN,
     }
 
+    private final String playerId;
     private final Color playerColor;
     private final List<WindowPattern> windowPatterns;
     private WindowFrame windowFrame;
@@ -27,8 +28,8 @@ public class Player implements Observer {
      * @param windowPattern2 windowPattern2
      * @param playerColor playerColor
      */
-    public Player(WindowPattern windowPattern1, WindowPattern windowPattern2, Color playerColor) {
-        this.windowPatterns = new ArrayList<>();
+    public Player(String playerId, WindowPattern windowPattern1, WindowPattern windowPattern2, Color playerColor) {
+        this.playerId = playerId;        this.windowPatterns = new ArrayList<>();
         windowPatterns.add(windowPattern1);
         windowPatterns.add(windowPattern2);
         this.playerColor = playerColor;
@@ -36,8 +37,12 @@ public class Player implements Observer {
 
         @Override
     public void send(Event event) {
-                Controller.getInstance().send(event);
-            }
+        Controller.getInstance().send(event);
+    }
+
+    public String getPlayerId() {
+        return playerId;
+    }
 
     /**
      * return the player color
