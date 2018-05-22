@@ -53,6 +53,10 @@ public abstract class ToolCard {
         return false;
     }
 
+    public boolean canReplaceDice() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

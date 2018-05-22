@@ -28,6 +28,7 @@ public class Game {
     private boolean moveDone = false;
     private Dice rethrownDice;
     private final List<Player> skipTurnPlayerList;
+    private Dice newDice;
 
     /**
      * create all the classes for the game
@@ -99,6 +100,7 @@ public class Game {
         moveDone = false;
         // and the rethrown dice
         rethrownDice = null;
+        newDice = null;
 
         if (!isFirstTurn && currentPlayerNum == 0) {
             completedRounds++;
@@ -362,5 +364,34 @@ public class Game {
         }
         dice.setNumber(7 - dice.getNumber());
         toolCardUsed = true;
+    }
+
+    public void replaceDice(Dice draftPoolDice) {
+        if (toolCardInUse == null || !toolCardInUse.canReplaceDice()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        if (!draftPool.contains(draftPoolDice)) {
+            throw new IllegalArgumentException("Invalid dice");
+        }
+        diceBag.addDice(draftPool.remove(draftPool.indexOf(draftPoolDice)));
+        newDice = diceBag.drawDice();
+        draftPool.add(newDice);
+        toolCardUsed = true;
+    }
+
+    public Dice getNewDice() {
+        return new Dice(newDice.getColor(), newDice.getNumber());
+    }
+
+    public void placeNewDice(int number, Position position) {
+        Dice diceCopy = new Dice(newDice.getColor(), newDice.getNumber());
+        diceCopy.setNumber(number);
+        if (getCurrentPlayer().getWindowFrame().isPositionValid(diceCopy, position, toolCardInUse)) {
+            newDice.setNumber(number);
+            getCurrentPlayer().getWindowFrame().placeDice(newDice, position);
+            newDice = null;
+        } else {
+            throw new IllegalArgumentException("Given position is not valid");
+        }
     }
 }

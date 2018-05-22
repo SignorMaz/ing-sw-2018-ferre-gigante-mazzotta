@@ -3,6 +3,7 @@ package it.polimi.se2018.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class DiceBag {
     private static final int DICES_PER_COLOR = 18;
@@ -31,5 +32,10 @@ public class DiceBag {
      */
     public Dice drawDice() {
         return dices.remove(0);
+    }
+
+    public void addDice(Dice dice) {
+        int randomPosition = new Random().nextInt(dices.size());
+        dices.add(randomPosition, dice);
     }
 }
