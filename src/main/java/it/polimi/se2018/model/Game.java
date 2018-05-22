@@ -194,6 +194,15 @@ public class Game {
      * @param position where put the dice
      * @param increase the value
      */
+
+    public boolean isToolCardUsed() {
+        return toolCardUsed;
+    }
+
+    public boolean isToolCardInUse() {
+        return toolCardInUse != null;
+    }
+
     public void changeDiceValue(Position position, boolean increase) {
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
@@ -221,6 +230,29 @@ public class Game {
         if (toolCardInUse != null && toolCardInUse.canMovePlacedDice() &&
                 getCurrentPlayer().getWindowFrame().isPositionValid(dice, newPosition, toolCardInUse)) {
             getCurrentPlayer().getWindowFrame().placeDice(dice, newPosition);
+            toolCardUsed = true;
+        } else {
+            throw new IllegalStateException("Invalid ToolCard use");
+        }
+    }
+
+    public void movePlacedDices(Position curPosition1, Position newPosition1,
+                                Position curPosition2, Position newPosition2) {
+        if (toolCardUsed) {
+            throw new IllegalStateException("The ToolCard has been used already");
+        }
+        Dice dice1 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(curPosition1);
+        Dice dice2 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(curPosition2);
+        if (dice1 == null || dice2 == null) {
+            throw new IllegalStateException("Invalid dice");
+        }
+        if (toolCardInUse != null && toolCardInUse.canMovePlacedDice() &&
+                // Make sure both the positions are valid before we move any of the dices,
+                // we don't want to throw an exception after we moved the first dice
+                getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, toolCardInUse) &&
+                getCurrentPlayer().getWindowFrame().isPositionValid(dice2, newPosition2, toolCardInUse)) {
+            getCurrentPlayer().getWindowFrame().placeDice(dice1, newPosition1);
+            getCurrentPlayer().getWindowFrame().placeDice(dice2, newPosition2);
             toolCardUsed = true;
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
