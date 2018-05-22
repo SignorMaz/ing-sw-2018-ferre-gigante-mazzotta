@@ -44,6 +44,16 @@ public class Game {
             publicObjectiveCards.add(publicObjectiveCardsDeck.remove(0));
         }
 
+        List<ObjectiveCard> privateObjectiveCardsDeck = new PublicObjectiveCardsDeck().getCards();
+        Collections.shuffle(privateObjectiveCardsDeck);
+        for (Player player : players) {
+            List<ObjectiveCard> privateObjectiveCards = new ArrayList<>();
+            privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
+            privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
+            privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
+            player.setObjectiveCards(privateObjectiveCards);
+        }
+
         toolCards = new HashMap<>();
         List<ToolCard> toolCardsDeck = new ToolCardsDeck().getCards();
         Collections.shuffle(toolCardsDeck);

@@ -18,6 +18,7 @@ public class Player implements Observer {
     private final Color playerColor;
     private final List<WindowPattern> windowPatterns;
     private WindowFrame windowFrame;
+    private final List<ObjectiveCard> objectiveCards;
     private int favorTokensCount;
 
     private boolean isReady;
@@ -34,6 +35,8 @@ public class Player implements Observer {
         windowPatterns.add(windowPattern1);
         windowPatterns.add(windowPattern2);
         this.playerColor = playerColor;
+        objectiveCards = new ArrayList<>();
+
     }
 
         @Override
@@ -107,4 +110,8 @@ public class Player implements Observer {
         }
         favorTokensCount -= num;
     }
+    
+    public void setObjectiveCards(List<ObjectiveCard> cards) {
+        objectiveCards.addAll(cards);
+        }
 }
