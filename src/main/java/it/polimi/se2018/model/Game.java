@@ -350,4 +350,17 @@ public class Game {
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position, toolCardInUse);
         toolCardUsed = true;
     }
+
+    // FIXME: quale dado? Uno posizionato o uno della riserva?
+    public void flipDice(Position position) {
+        if (toolCardInUse == null || !toolCardInUse.canFlipDice()) {
+            throw new IllegalStateException("Invalid ToolCard");
+        }
+        Dice dice = getCurrentPlayer().getWindowFrame().getPlacedDices().get(position);
+        if (dice == null) {
+            throw new IllegalStateException("Invalid dice");
+        }
+        dice.setNumber(7 - dice.getNumber());
+        toolCardUsed = true;
+    }
 }

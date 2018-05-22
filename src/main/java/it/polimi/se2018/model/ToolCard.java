@@ -49,6 +49,10 @@ public abstract class ToolCard {
         return true;
     }
 
+    public boolean canFlipDice() {
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
