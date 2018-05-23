@@ -30,10 +30,12 @@ public class Game {
     private Dice rethrownDice;
     private final List<Player> skipTurnPlayerList;
     private Dice newDice;
+    private boolean turnCompleted;
 
     private final ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture scheduledTurnTimer;
     private final Runnable turnTimeOutRunnable;
+    private final Set<Player> suspendedPlayers;
 
     /**
      * create all the classes for the game
@@ -79,12 +81,14 @@ public class Game {
             @Override
             public void run() {
             synchronized (Game.this) {
+                if (!turnCompleted) {
+                    suspendedPlayers.add(getCurrentPlayer());
+                }
                 nextTurn();
-                // TODO: Ban user
                 }
             }
         };
-
+        suspendedPlayers = new HashSet<>();
         newRound();
     }
 
@@ -115,6 +119,12 @@ public class Game {
         }
     }
 
+    public synchronized void completeTurn() {
+        // FIXME: Should this be possible if toolCardInUse is set, but toolCardUsed isn't?
+        turnCompleted = true;
+        nextTurn();
+    }
+
     /**
      * reset card for the new player, and switch the player to the next
      */
@@ -129,6 +139,8 @@ public class Game {
         if (isGameOver()) {
             return;
         }
+
+        turnCompleted = false;
 
         // Reset card for the new player
         toolCardInUse = null;
@@ -159,6 +171,10 @@ public class Game {
             return;
         }
 
+        if (suspendedPlayers.contains(getCurrentPlayer())) {
+            nextTurn();
+            return;
+        }
         startTurnTimer();
 
     }
