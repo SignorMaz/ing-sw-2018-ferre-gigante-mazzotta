@@ -31,6 +31,7 @@ public class Game {
     private final List<Player> skipTurnPlayerList;
     private Dice newDice;
     private boolean turnCompleted;
+    private boolean gameOver;
 
     private final ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture scheduledTurnTimer;
@@ -83,6 +84,10 @@ public class Game {
             synchronized (Game.this) {
                 if (!turnCompleted) {
                     suspendedPlayers.add(getCurrentPlayer());
+                    if (players.size() - suspendedPlayers.size() == 1) {
+                        endGame();
+                        return;
+                    }
                 }
                 nextTurn();
                 }
@@ -97,7 +102,11 @@ public class Game {
      * @return total rounds completed
      */
     public boolean isGameOver() {
-        return completedRounds == TOTAL_ROUND_NUM;
+        return completedRounds == TOTAL_ROUND_NUM || gameOver;
+    }
+
+    public void endGame() {
+        gameOver = true;
     }
 
     /**
