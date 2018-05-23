@@ -117,8 +117,6 @@ public class GameTest {
         testPlayer.add(player2);
         Game game = new Game(testPlayer);
         game.placeDice(new Position(2,0), game.getDraftPool().get(0));
-        game.nextPlayer();
-        game.getPlayers();
         game.getCurrentPlayer();
         game.isGameOver();
     }

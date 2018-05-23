@@ -1,10 +1,10 @@
 package it.polimi.se2018.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Game {
 
@@ -13,6 +13,7 @@ public class Game {
     private static final int TOOL_CARDS_NUM = 3;
     private static final int TOKENS_PER_FIRST_CARD_USE = 1;
     private static final int TOKENS_PER_CARD_USE = 2;
+    private static final int TURN_TIMEOUT_SECONDS = 30; // TODO: don't use a constant
 
     private final List<Dice> roundTrackDices;
     private final List<Player> players;
@@ -29,6 +30,10 @@ public class Game {
     private Dice rethrownDice;
     private final List<Player> skipTurnPlayerList;
     private Dice newDice;
+
+    private final ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture scheduledTurnTimer;
+    private final Runnable turnTimeOutRunnable;
 
     /**
      * create all the classes for the game
@@ -69,6 +74,17 @@ public class Game {
 
         roundTrackDices = new ArrayList<>();
         skipTurnPlayerList = new ArrayList<>();
+
+        turnTimeOutRunnable = new Runnable() {
+            @Override
+            public void run() {
+            synchronized (Game.this) {
+                nextTurn();
+                // TODO: Ban user
+                }
+            }
+        };
+
         newRound();
     }
 
@@ -102,7 +118,14 @@ public class Game {
     /**
      * reset card for the new player, and switch the player to the next
      */
-    public void nextPlayer() {
+    public synchronized void startTurnTimer() {
+        if (!scheduledTurnTimer.isDone()) {
+            scheduledTurnTimer.cancel(true);
+        }
+        scheduledTurnTimer = scheduledExecutor.schedule(turnTimeOutRunnable, TURN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+    }
+
+        public synchronized void nextTurn() {
         if (isGameOver()) {
             return;
         }
@@ -132,8 +155,12 @@ public class Game {
         }
         if (skipTurnPlayerList.contains(getCurrentPlayer())) {
             skipTurnPlayerList.remove(getCurrentPlayer());
-            nextPlayer();
+            nextTurn();
+            return;
         }
+
+        startTurnTimer();
+
     }
 
     /**
