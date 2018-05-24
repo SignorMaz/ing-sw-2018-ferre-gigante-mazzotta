@@ -2,6 +2,8 @@ package it.polimi.se2018.controller.events;
 
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
+import it.polimi.se2018.view.PlayerView;
+
 
 public class DicePlacedEvent extends Event {
     private final Dice dice;
@@ -14,6 +16,7 @@ public class DicePlacedEvent extends Event {
     }
 
     @Override
-    public void update() {
+    public void update(PlayerView playerView) {
     }
 }
+

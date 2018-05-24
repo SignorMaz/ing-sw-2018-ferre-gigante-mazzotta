@@ -1,5 +1,7 @@
 package it.polimi.se2018.controller.events;
 
+import it.polimi.se2018.view.PlayerView;
+
 public class TokensChangedEvent extends Event {
 
     private final int tokens;
@@ -10,6 +12,6 @@ public class TokensChangedEvent extends Event {
     }
 
     @Override
-    public void update() {
+    public void update(PlayerView playerView) {
     }
 }

@@ -1,5 +1,7 @@
 package it.polimi.se2018.controller.events;
 
+        import it.polimi.se2018.view.PlayerView;
+
         import java.io.Serializable;
 
         public abstract class Event implements Serializable {
@@ -14,5 +16,5 @@ package it.polimi.se2018.controller.events;
                 return playerId;
             }
 
-            public abstract void update();
+            public abstract void update(PlayerView playerView);
 }

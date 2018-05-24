@@ -1,5 +1,7 @@
 package it.polimi.se2018.controller.events;
 
+import it.polimi.se2018.view.PlayerView;
+
 public class PointsChangedEvent extends Event {
     private final int points;
 
@@ -9,6 +11,6 @@ public class PointsChangedEvent extends Event {
     }
 
     @Override
-    public void update() {
+    public void update(PlayerView playerView) {
     }
 }

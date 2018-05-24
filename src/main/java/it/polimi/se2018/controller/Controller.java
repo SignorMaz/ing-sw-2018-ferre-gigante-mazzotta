@@ -8,7 +8,10 @@ import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.model.WindowPatternsDeck;
-
+import it.polimi.se2018.network.ClientHandler;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.*;
 
 
@@ -16,12 +19,14 @@ public class Controller implements Observer, Observable {
 
         private static final Controller INSTANCE = new Controller();
 
+        private static final Logger LOGGER = Logger.getLogger("Controller");
+
         private static final int MIN_PLAYERS = 2;
         private static final int MAX_PLAYERS = 4;
 
-        private final List<Client> waitingClients = new LinkedList<>();
+        private final List<String> waitingClients = new LinkedList<>();
         private final Map<String, Player> playersMap = new HashMap<>();
-        private final Map<String, Client> clientsMap = new HashMap<>();
+        private final Map<String, ClientHandler> clientsMap = new HashMap<>();
         private final List<Game> games = new LinkedList<>();
         public static Controller getInstance() {
             return INSTANCE;
@@ -40,15 +45,16 @@ public class Controller implements Observer, Observable {
                         return playersMap.get(id);
                     }
 
-            public Client getClient(String id) {
+            public ClientHandler getClient(String id) {
                         return clientsMap.get(id);
                     }
 
-            public synchronized void joinGame(Client client) {
-                        if (waitingClients.contains(client)) {
+            public synchronized void joinGame(String playerId, ClientHandler client) {
+                        if (waitingClients.contains(playerId)) {
                                 throw new IllegalArgumentException("Player with same ID already in queue");
                             }
-                        waitingClients.add(client);
+                        waitingClients.add(playerId);
+                        clientsMap.put(playerId, client);
 
                                 if (waitingClients.size() >= MAX_PLAYERS) {
                                 newGame();
@@ -56,8 +62,8 @@ public class Controller implements Observer, Observable {
                     }
 
             private synchronized void newGame() {
-                        Iterator<Client> it = waitingClients.iterator();
-                        List<Client> waitingClientsRemoved = new ArrayList<>();
+                        Iterator<String> it = waitingClients.iterator();
+                        List<String> waitingClientsRemoved = new ArrayList<>();
                         while (it.hasNext() && waitingClientsRemoved.size() < MAX_PLAYERS) {
                                 waitingClientsRemoved.add(it.next());
                                 it.remove();
@@ -68,11 +74,10 @@ public class Controller implements Observer, Observable {
                         List<Player> newPlayers = new ArrayList<>();
                         for (int i = 0; i < waitingClientsRemoved.size(); i++) {
                                 Player.Color playerColor = Player.Color.values()[i];
-                                String playerId = waitingClientsRemoved.get(i).getPlayerId();
+                                String playerId = waitingClientsRemoved.get(i);
                                 Player player = new Player(playerId, windowPatterns.remove(0), windowPatterns.remove(0), playerColor);
                                 newPlayers.add(player);
                                 playersMap.put(playerId, player);
-                                clientsMap.put(playerId, waitingClientsRemoved.get(i));
                             }
                         Game game = new Game(newPlayers);
                         games.add(game);
