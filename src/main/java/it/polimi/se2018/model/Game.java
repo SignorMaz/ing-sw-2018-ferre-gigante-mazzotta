@@ -143,7 +143,7 @@ public class Game {
         scheduledTurnTimer = scheduledExecutor.schedule(turnTimeOutRunnable, TURN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
     }
 
-        public synchronized void nextTurn() {
+    public synchronized void nextTurn() {
         if (isGameOver()) {
             return;
         }
