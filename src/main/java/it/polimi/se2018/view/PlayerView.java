@@ -5,7 +5,7 @@ import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.rmi.RmiClient;
 import it.polimi.se2018.network.Client;
-import it.polimi.se2018.server.ConnectionType;
+import it.polimi.se2018.network.ConnectionType;
 import it.polimi.se2018.socket.SocketClient;
 
 import java.io.IOException;
