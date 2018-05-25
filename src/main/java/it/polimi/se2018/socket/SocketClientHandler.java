@@ -66,7 +66,7 @@ public class SocketClientHandler implements Runnable, ClientHandler {
                 object = inputStream.readObject();
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Could not read stream", e);
         }
 
         if (object instanceof Action) {

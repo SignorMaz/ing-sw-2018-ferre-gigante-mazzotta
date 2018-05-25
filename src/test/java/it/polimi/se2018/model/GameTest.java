@@ -1,5 +1,6 @@
 package it.polimi.se2018.model;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class GameTest {
             map.put(new Position(2, 1), new WindowCell(Color.BLANK, 0));
             map.put(new Position(3, 1), new WindowCell(Color.BLANK, 0));
 
-            map.put(new Position(0, 2), new WindowCell(Color.BLANK, 6));
+            map.put(new Position(0, 2), new WindowCell(Color.BLANK, 0));
             map.put(new Position(1, 2), new WindowCell(Color.BLANK, 0));
             map.put(new Position(2, 2), new WindowCell(Color.BLUE, 0));
             map.put(new Position(3, 2), new WindowCell(Color.YELLOW, 0));
@@ -116,8 +117,12 @@ public class GameTest {
         testPlayer.add(player1);
         testPlayer.add(player2);
         Game game = new Game(testPlayer);
+        Assert.assertEquals(player1,game.getCurrentPlayer());
+        Assert.assertEquals(testPlayer,game.getPlayers());
         game.placeDice(new Position(2,0), game.getDraftPool().get(0));
-        game.getCurrentPlayer();
-        game.isGameOver();
-    }
+        game.completeTurn();
+        Assert.assertEquals(player2,game.getCurrentPlayer());
+        game.placeDice(new Position(0,2), game.getDraftPool().get(0));
+
+        }
 }

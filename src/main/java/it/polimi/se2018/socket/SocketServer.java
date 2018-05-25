@@ -28,8 +28,9 @@ public class SocketServer {
     }
 
     private void startListening() {
+        boolean stopped = false;
         try {
-            while (true) {
+            while (!stopped) {
                 Socket socket = serverSocket.accept();
                 SocketClientHandler socketClientHandler = new SocketClientHandler(socket);
                 clients.add(socketClientHandler);

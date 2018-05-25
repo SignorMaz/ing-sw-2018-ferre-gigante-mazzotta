@@ -13,7 +13,7 @@ public class Game {
     private static final int TOOL_CARDS_NUM = 3;
     private static final int TOKENS_PER_FIRST_CARD_USE = 1;
     private static final int TOKENS_PER_CARD_USE = 2;
-    private static final int TURN_TIMEOUT_SECONDS = 30; // TODO: don't use a constant
+    private static int TURN_TIMEOUT_SECONDS = 30; // TODO: don't use a constant
 
     private final List<Dice> roundTrackDices;
     private final List<Player> players;
@@ -137,8 +137,7 @@ public class Game {
     /**
      * reset card for the new player, and switch the player to the next
      */
-    public synchronized void startTurnTimer() {
-        if (!scheduledTurnTimer.isDone()) {
+    public synchronized void startTurnTimer() { if (scheduledTurnTimer != null && !scheduledTurnTimer.isDone()) {
             scheduledTurnTimer.cancel(true);
         }
         scheduledTurnTimer = scheduledExecutor.schedule(turnTimeOutRunnable, TURN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
