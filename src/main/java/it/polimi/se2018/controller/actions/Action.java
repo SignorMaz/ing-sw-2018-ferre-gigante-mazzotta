@@ -1,6 +1,8 @@
 package it.polimi.se2018.controller.actions;
 
-        import java.io.Serializable;
+import it.polimi.se2018.model.Player;
+
+import java.io.Serializable;
 
         public abstract class Action implements Serializable {
 
@@ -14,5 +16,4 @@ package it.polimi.se2018.controller.actions;
                 return playerId;
             }
 
-            public abstract void doAction();
-}
+            public abstract void perform(Player player);}

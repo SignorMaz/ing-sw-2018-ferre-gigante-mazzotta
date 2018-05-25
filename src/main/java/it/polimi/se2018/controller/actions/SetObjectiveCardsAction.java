@@ -1,6 +1,5 @@
 package it.polimi.se2018.controller.actions;
 
-import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.model.ObjectiveCard;
 import it.polimi.se2018.model.Player;
 
@@ -15,8 +14,7 @@ public class SetObjectiveCardsAction extends Action {
     }
 
     @Override
-    public void doAction() {
-        Player player = Controller.getInstance().getPlayer(getPlayerId());
+    public void perform(Player player) {
         player.setObjectiveCards(objectiveCards);
     }
 }

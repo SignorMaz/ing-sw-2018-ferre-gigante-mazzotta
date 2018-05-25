@@ -9,10 +9,9 @@ import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.model.WindowPatternsDeck;
 import it.polimi.se2018.network.ClientHandler;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import java.util.*;
+import java.util.logging.Logger;
 
 
 public class Controller implements Observer, Observable {
@@ -39,7 +38,9 @@ public class Controller implements Observer, Observable {
 
             @Override
     public void send(Action action) {
-                    action.doAction();
+
+                Player player = getPlayer(action.getPlayerId());
+                action.perform(player);
                 }
     public Player getPlayer(String id) {
                         return playersMap.get(id);
