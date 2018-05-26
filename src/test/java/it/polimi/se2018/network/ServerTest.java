@@ -24,7 +24,7 @@ public class ServerTest {
     private static class PlayerViewImpl extends PlayerView {
         private boolean loginEventReceived = false;
 
-        private PlayerViewImpl(String playerId, it.polimi.se2018.server.ConnectionType connectionType) throws IOException, NotBoundException {
+        private PlayerViewImpl(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
             super(playerId, connectionType);
         }
 
@@ -71,7 +71,7 @@ public class ServerTest {
         }
 
         try {
-            PlayerViewImpl playerView = new PlayerViewImpl("My Socket player", it.polimi.se2018.server.ConnectionType.SOCKET);
+            PlayerViewImpl playerView = new PlayerViewImpl("My Socket player", ConnectionType.SOCKET);
             playerView.login();
             playerView.waitForEvent();
             assertTrue(playerView.loginEventReceived);
@@ -106,7 +106,7 @@ public class ServerTest {
         }
 
         try {
-            PlayerViewImpl playerView = new PlayerViewImpl("My RMI player ID", it.polimi.se2018.server.ConnectionType.RMI);
+            PlayerViewImpl playerView = new PlayerViewImpl("My RMI player ID", ConnectionType.RMI);
             playerView.login();
             playerView.waitForEvent();
             assertTrue(playerView.loginEventReceived);
