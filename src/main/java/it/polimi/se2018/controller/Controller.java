@@ -4,6 +4,7 @@ import it.polimi.se2018.Observable;
 import it.polimi.se2018.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
+import it.polimi.se2018.controller.events.InvalidActionEvent;
 import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.model.Game;
 import it.polimi.se2018.model.Player;
@@ -48,8 +49,14 @@ public class Controller implements Observer, Observable {
     @Override
     public void send(Action action) {
         Player player = getPlayer(action.getPlayerId());
-        action.perform(player);
+        try {
+            action.perform(player);
+        } catch (RuntimeException e) {
+            LOGGER.log(Level.SEVERE, "Invalid action", e);
+            send(new InvalidActionEvent(action.getPlayerId(), action));
+        }
     }
+
 
     public Player getPlayer(String id) {
         return playersMap.get(id);
@@ -60,12 +67,15 @@ public class Controller implements Observer, Observable {
     }
 
     public synchronized void joinGame(String playerId, ClientHandler client) {
-        if (waitingPlayers.contains(playerId)) {
-            throw new IllegalArgumentException("Player with same ID already in queue");
-        }
 
         try {
-            client.sendNetwork(new LoginEvent(playerId, true));
+            if (waitingPlayers.contains(playerId)) {
+                client.sendNetwork(new LoginEvent(playerId, false));
+                LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
+                return;
+            } else {
+                client.sendNetwork(new LoginEvent(playerId, true));
+            }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Could not send login notification, dropping client", e);
             return;
