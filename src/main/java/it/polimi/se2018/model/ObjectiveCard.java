@@ -1,6 +1,8 @@
 package it.polimi.se2018.model;
 
-public interface ObjectiveCard {
+import java.io.Serializable;
+
+public interface ObjectiveCard extends Serializable {
     String getName();
     String getDescription();
     int getPoints(WindowFrame windowFrame);

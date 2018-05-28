@@ -1,8 +1,10 @@
 package it.polimi.se2018.model;
 
+import java.io.Serializable;
+
 import java.util.Random;
 
-public class Dice {
+public class Dice implements Serializable {
     private final Color color;
     private int number;
 

@@ -1,6 +1,8 @@
 package it.polimi.se2018.model;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
     public final int row;
     public final int column;
 

@@ -1,6 +1,8 @@
 package it.polimi.se2018.model;
 
-public class WindowCell {
+import java.io.Serializable;
+
+public class WindowCell implements Serializable {
     public final Color color;
     public final int number;
 

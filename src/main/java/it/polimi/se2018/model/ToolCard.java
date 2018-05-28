@@ -1,8 +1,9 @@
 package it.polimi.se2018.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class ToolCard {
+public abstract class ToolCard implements Serializable {
 
     // Needed to allow the auto-generation of equals() and hashcode()
     private final int number = getNumber();
