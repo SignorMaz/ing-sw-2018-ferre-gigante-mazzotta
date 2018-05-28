@@ -1,5 +1,8 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.controller.Controller;
+import it.polimi.se2018.controller.events.NewTurnEvent;
+
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -184,6 +187,10 @@ public class Game {
             return;
         }
         startTurnTimer();
+
+        for (Player player : players) {
+            Controller.getInstance().send(new NewTurnEvent(player.getPlayerId()));
+         }
 
     }
 

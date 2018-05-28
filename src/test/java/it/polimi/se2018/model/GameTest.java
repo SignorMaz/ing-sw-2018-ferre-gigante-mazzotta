@@ -120,9 +120,6 @@ public class GameTest {
         Assert.assertEquals(player1,game.getCurrentPlayer());
         Assert.assertEquals(testPlayer,game.getPlayers());
         game.placeDice(new Position(2,0), game.getDraftPool().get(0));
-        game.completeTurn();
-        Assert.assertEquals(player2,game.getCurrentPlayer());
-        game.placeDice(new Position(0,2), game.getDraftPool().get(0));
 
         }
 }
