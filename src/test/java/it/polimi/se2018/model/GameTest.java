@@ -115,6 +115,6 @@ public class GameTest {
         Assert.assertEquals(player1,game.getCurrentPlayer());
         Assert.assertEquals(testPlayer,game.getPlayers());
         game.placeDice(new Position(2,0), game.getDraftPool().get(0));
-
+        
         }*/
 }
