@@ -1,19 +1,16 @@
 package it.polimi.se2018.model;
 
-import it.polimi.se2018.model.windowpatterns.WindowPattern1;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class WindowPatternsDeck {
-    private final List<WindowPattern> windowPatterns;
+    private final List<WindowPatternCard> windowPatternCards;
 
     public WindowPatternsDeck() {
-        windowPatterns = new ArrayList<>();
-        windowPatterns.add(new WindowPattern1());
+        windowPatternCards = new ArrayList<>();
     }
 
-    public List<WindowPattern> getWindowPatterns() {
-        return windowPatterns;
+    public List<WindowPatternCard> getWindowPatternCards() {
+        return windowPatternCards;
     }
 }

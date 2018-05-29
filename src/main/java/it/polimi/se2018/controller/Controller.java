@@ -6,10 +6,7 @@ import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.controller.events.InvalidActionEvent;
 import it.polimi.se2018.controller.events.LoginEvent;
-import it.polimi.se2018.model.Game;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.model.WindowPatternsDeck;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.ClientHandler;
 
 import java.io.IOException;
@@ -26,6 +23,8 @@ public class Controller implements Observer, Observable {
 
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
+
+    private static final int PATTERN_CARDS_PER_PLAYER = 2;
 
     private final List<String> waitingPlayers = new LinkedList<>();
     private final Map<String, Player> playersMap = new HashMap<>();
@@ -96,13 +95,18 @@ public class Controller implements Observer, Observable {
             it.remove();
         }
 
-        List<WindowPattern> windowPatterns = new WindowPatternsDeck().getWindowPatterns();
-        Collections.shuffle(windowPatterns);
+        List<WindowPatternCard> windowPatternCards = new WindowPatternsDeck().getWindowPatternCards();
+        Collections.shuffle(windowPatternCards);
         List<Player> newPlayers = new ArrayList<>();
         for (int i = 0; i < waitingClientsRemoved.size(); i++) {
             Player.Color playerColor = Player.Color.values()[i];
             String playerId = waitingClientsRemoved.get(i);
-            Player player = new Player(playerId, windowPatterns.remove(0), windowPatterns.remove(0), playerColor);
+            List<WindowPatternCard> playerWindowPatternCards = new ArrayList<>();
+            for (int j = 0; j < PATTERN_CARDS_PER_PLAYER; j++) {
+                playerWindowPatternCards.add(windowPatternCards.remove(0));
+            }
+
+            Player player = new Player(playerId, playerWindowPatternCards, playerColor);
             newPlayers.add(player);
             playersMap.put(playerId, player);
         }

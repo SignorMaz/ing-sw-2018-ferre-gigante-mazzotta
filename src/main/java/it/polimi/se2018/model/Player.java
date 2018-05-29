@@ -17,7 +17,7 @@ public class Player implements Observer {
     private final String playerId;
     private Game game;
     private final Color playerColor;
-    private final List<WindowPattern> windowPatterns;
+    private final List<WindowPatternCard> windowPatternCards;
     private WindowFrame windowFrame;
     private final List<ObjectiveCard> objectiveCards;
     private int favorTokensCount;
@@ -31,10 +31,9 @@ public class Player implements Observer {
      * @param windowPattern2 windowPattern2
      * @param playerColor playerColor
      */
-    public Player(String playerId, WindowPattern windowPattern1, WindowPattern windowPattern2, Color playerColor) {
-        this.playerId = playerId;        this.windowPatterns = new ArrayList<>();
-        windowPatterns.add(windowPattern1);
-        windowPatterns.add(windowPattern2);
+    public Player(String playerId, List<WindowPatternCard> windowPatternCards, Color playerColor) {
+        this.playerId = playerId;
+        this.windowPatternCards = windowPatternCards;
         this.playerColor = playerColor;
         objectiveCards = new ArrayList<>();
 
@@ -77,20 +76,19 @@ public class Player implements Observer {
      * set the player to ready
      * @param windowNumber windowNumber
      */
-    public void setReady(int windowNumber) {
+    public void setReady(int windowNumber, boolean front) {
         if (isReady()) {
             throw new IllegalStateException("Pattern already chosen");
         }
-        if (windowNumber < 0 || windowNumber > 1) {
-            throw new IllegalArgumentException("Invalid pattern number");
+        if (windowNumber < 0 || windowNumber > windowPatternCards.size()) {            throw new IllegalArgumentException("Invalid pattern number");
         }
         isReady = true;
-        windowFrame = new WindowFrame(windowPatterns.get(windowNumber));
         favorTokensCount = getWindowFrame().getWindowPattern().getDifficulty();
-    }
-
-    public List<WindowPattern> getWindowPatterns() {
-        return windowPatterns;
+        if (front) {
+            windowFrame = new WindowFrame(windowPatternCards.get(windowNumber).getFront());
+        } else {
+            windowFrame = new WindowFrame(windowPatternCards.get(windowNumber).getBack());
+        }
     }
 
     /**
