@@ -80,7 +80,8 @@ public class Player implements Observer {
         if (isReady()) {
             throw new IllegalStateException("Pattern already chosen");
         }
-        if (windowNumber < 0 || windowNumber > windowPatternCards.size()) {            throw new IllegalArgumentException("Invalid pattern number");
+        if (windowNumber < 0 || windowNumber > windowPatternCards.size()) {
+            throw new IllegalArgumentException("Invalid pattern number");
         }
         isReady = true;
         favorTokensCount = getWindowFrame().getWindowPattern().getDifficulty();
