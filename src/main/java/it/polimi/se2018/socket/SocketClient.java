@@ -67,7 +67,7 @@ public class SocketClient extends Thread implements Client {
                 object = inputStream.readObject();
             }
             if (object instanceof Event) {
-                handle((Event) object);
+                handleNetwork((Event) object);
             } else {
                 LOGGER.severe("Received object of incorrect type");
             }
@@ -88,8 +88,8 @@ public class SocketClient extends Thread implements Client {
      * Update the view using the event received from the server
      */
     @Override
-    public void handle(Event event) {
-        observer.send(event);
+    public void handleNetwork(Event event) {
+        observer.handle(event);
     }
 
     /**

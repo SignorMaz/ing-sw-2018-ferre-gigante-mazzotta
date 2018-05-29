@@ -23,7 +23,7 @@ public interface ClientHandler {
      * Handle the action received from the remote client
      * @param action action to handle
      */
-    void handle(Action action);
+    void handleNetwork(Action action);
 
     /**
      * Handle the login request of the remote client

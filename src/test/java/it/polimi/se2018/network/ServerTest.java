@@ -29,7 +29,7 @@ public class ServerTest {
         }
 
         @Override
-        public void send(Event event) {
+        public void handle(Event event) {
             synchronized (this) {
                 loginEventReceived = event instanceof LoginEvent;
                 notifyAll();

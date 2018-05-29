@@ -24,7 +24,7 @@ public interface Client {
      *
      * @param event event to handle
      */
-    void handle(Event event);
+    void handleNetwork(Event event);
 
     /**
      * Send a login request to the server

@@ -42,8 +42,8 @@ public class RmiClient implements Client, RmiClientInterface {
     }
 
     @Override
-    public void handle(Event event) {
-        observer.send(event);
+    public void handleNetwork(Event event) {
+        observer.handle(event);
     }
 
     @Override
@@ -53,6 +53,6 @@ public class RmiClient implements Client, RmiClientInterface {
 
     @Override
     public void handleRmi(Event event) throws RemoteException {
-        handle(event);
+        handleNetwork(event);
     }
 }

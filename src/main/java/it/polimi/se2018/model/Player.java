@@ -5,7 +5,7 @@ import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.events.Event;import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements Observer {
+public class Player {
 
     public enum Color {
         PURPLE,
@@ -36,12 +36,6 @@ public class Player implements Observer {
         this.windowPatternCards = windowPatternCards;
         this.playerColor = playerColor;
         objectiveCards = new ArrayList<>();
-
-    }
-
-        @Override
-    public void send(Event event) {
-        Controller.getInstance().send(event);
     }
 
     public String getPlayerId() {

@@ -36,10 +36,10 @@ public abstract class PlayerView implements Observer {
     }
 
         @Override
-    public void send(Event event) {
+    public void handle(Event event) {
             event.update(this);
         }
-    public void sendNetwork(Action action) {
+    public void send(Action action) {
         try {
             client.sendNetwork(action);
         } catch (IOException e) {

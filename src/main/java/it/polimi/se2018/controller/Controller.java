@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Controller implements Observer, Observable {
+public class Controller implements Observable {
 
     private static final Controller INSTANCE = new Controller();
 
@@ -46,7 +46,7 @@ public class Controller implements Observer, Observable {
     }
 
     @Override
-    public void send(Action action) {
+    public void handle(Action action) {
         Player player = getPlayer(action.getPlayerId());
         try {
             action.perform(player);
