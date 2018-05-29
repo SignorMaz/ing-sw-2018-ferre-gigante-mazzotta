@@ -1,13 +1,11 @@
 package it.polimi.se2018.controller;
 
 import it.polimi.se2018.Observable;
-import it.polimi.se2018.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.controller.events.InvalidActionEvent;
 import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.model.*;
-import it.polimi.se2018.network.ClientHandler;
 
 import java.io.IOException;
 import java.util.*;
@@ -28,7 +26,7 @@ public class Controller implements Observable {
 
     private final List<String> waitingPlayers = new LinkedList<>();
     private final Map<String, Player> playersMap = new HashMap<>();
-    private final Map<String, ClientHandler> clientsMap = new HashMap<>();
+    private final Map<String, Observable> observablesMap = new HashMap<>();
     private final List<Game> games = new LinkedList<>();
 
     public static Controller getInstance() {
@@ -39,7 +37,7 @@ public class Controller implements Observable {
     public void send(Event event) {
         String playerId = event.getPlayerId();
         try {
-            getClient(playerId).sendNetwork(event);
+            getObservable(playerId).send(event);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Could not send event to:" + playerId, e);
         }
@@ -61,26 +59,26 @@ public class Controller implements Observable {
         return playersMap.get(id);
     }
 
-    public ClientHandler getClient(String id) {
-        return clientsMap.get(id);
+    public Observable getObservable(String id) {
+        return observablesMap.get(id);
     }
 
-    public synchronized void joinGame(String playerId, ClientHandler client) {
+    public synchronized void joinGame(String playerId, Observable observable) {
 
         try {
             if (waitingPlayers.contains(playerId)) {
-                client.sendNetwork(new LoginEvent(playerId, false));
+                observable.send(new LoginEvent(playerId, false));
                 LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
                 return;
             } else {
-                client.sendNetwork(new LoginEvent(playerId, true));
+                observable.send(new LoginEvent(playerId, true));
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Could not send login notification, dropping client", e);
             return;
         }
         waitingPlayers.add(playerId);
-        clientsMap.put(playerId, client);
+        observablesMap.put(playerId, observable);
 
         if (waitingPlayers.size() >= MAX_PLAYERS) {
             newGame();

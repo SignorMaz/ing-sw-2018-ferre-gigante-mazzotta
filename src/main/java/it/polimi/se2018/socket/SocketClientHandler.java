@@ -70,7 +70,7 @@ public class SocketClientHandler implements Runnable, ClientHandler {
         }
 
         if (object instanceof Action) {
-            handleNetwork((Action) object);
+            handle((Action) object);
         } else if (object != null) {
             LOGGER.severe("Received object of incorrect type");
         }
@@ -80,7 +80,7 @@ public class SocketClientHandler implements Runnable, ClientHandler {
      * Pass the Action received from the remote client to the Controller
      */
     @Override
-    public void handleNetwork(Action action) {
+    public void handle(Action action) {
         Controller.getInstance().handle(action);
     }
 
@@ -88,7 +88,7 @@ public class SocketClientHandler implements Runnable, ClientHandler {
      * Send the Event received from the Controller to the remote client
      */
     @Override
-    public void sendNetwork(Event event) throws IOException {
+    public void send(Event event) throws IOException {
         outputStream.writeObject(event);
     }
 

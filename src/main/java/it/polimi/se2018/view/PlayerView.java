@@ -41,7 +41,7 @@ public abstract class PlayerView implements Observer {
         }
     public void send(Action action) {
         try {
-            client.sendNetwork(action);
+            client.send(action);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Could not send Action", e);
         }

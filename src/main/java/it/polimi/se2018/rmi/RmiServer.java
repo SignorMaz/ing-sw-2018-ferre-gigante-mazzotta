@@ -36,12 +36,12 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
     }
 
     @Override
-    public void handleNetwork(Action action) {
+    public void handle(Action action) {
         Controller.getInstance().handle(action);
     }
 
     @Override
-    public void sendNetwork(Event event) throws IOException {
+    public void send(Event event) throws IOException {
         clients.get(event.getPlayerId()).handleRmi(event);
     }
 
@@ -52,7 +52,7 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
 
     @Override
     public void handleRmi(Action action) throws RemoteException {
-        handleNetwork(action);
+        handle(action);
     }
 
     @Override
