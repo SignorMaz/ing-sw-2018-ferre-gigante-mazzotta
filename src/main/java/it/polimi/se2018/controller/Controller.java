@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Controller implements Observable {
+public class Controller {
 
     private static final Controller INSTANCE = new Controller();
 
@@ -33,7 +33,6 @@ public class Controller implements Observable {
         return INSTANCE;
     }
 
-    @Override
     public void send(Event event) {
         String playerId = event.getPlayerId();
         try {
@@ -43,7 +42,6 @@ public class Controller implements Observable {
         }
     }
 
-    @Override
     public void handle(Action action) {
         Player player = getPlayer(action.getPlayerId());
         try {
@@ -55,11 +53,11 @@ public class Controller implements Observable {
     }
 
 
-    public Player getPlayer(String id) {
+    private Player getPlayer(String id) {
         return playersMap.get(id);
     }
 
-    public Observable getObservable(String id) {
+    private Observable getObservable(String id) {
         return observablesMap.get(id);
     }
 
