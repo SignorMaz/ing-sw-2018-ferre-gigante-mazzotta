@@ -1,16 +1,15 @@
 package it.polimi.se2018.view;
 
-import it.polimi.se2018.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
-import it.polimi.se2018.rmi.RmiClient;
 import it.polimi.se2018.network.Client;
 import it.polimi.se2018.network.ConnectionType;
+import it.polimi.se2018.rmi.RmiClient;
 import it.polimi.se2018.socket.SocketClient;
+import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class PlayerView implements Observer {
@@ -42,11 +41,7 @@ public abstract class PlayerView implements Observer {
     }
 
     public void send(Action action) {
-        try {
-            client.send(action);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Could not send Action", e);
-        }
+        client.send(action);
 
     }
 

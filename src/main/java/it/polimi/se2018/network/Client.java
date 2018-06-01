@@ -1,6 +1,6 @@
 package it.polimi.se2018.network;
 
-import it.polimi.se2018.Observer;
+import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 

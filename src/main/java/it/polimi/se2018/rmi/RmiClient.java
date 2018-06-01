@@ -1,6 +1,6 @@
 package it.polimi.se2018.rmi;
 
-import it.polimi.se2018.Observer;
+import it.polimi.se2018.util.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.network.Client;
@@ -37,8 +37,12 @@ public class RmiClient implements Client, RmiClientInterface {
     }
 
     @Override
-    public void send(Action action) throws IOException {
-        server.handleRmi(action);
+    public void send(Action action) {
+        try {
+            server.handleRmi(action);
+        } catch (RemoteException e) {
+            // TODO: handle this error
+        }
     }
 
     @Override

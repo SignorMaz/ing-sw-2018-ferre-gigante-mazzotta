@@ -1,10 +1,6 @@
 package it.polimi.se2018.network;
 
-import it.polimi.se2018.Observable;
-import it.polimi.se2018.controller.actions.Action;
-import it.polimi.se2018.controller.events.Event;
-
-import java.io.IOException;
+import it.polimi.se2018.util.Observable;
 
 /**
  * This interface defines the methods that a server side client handler

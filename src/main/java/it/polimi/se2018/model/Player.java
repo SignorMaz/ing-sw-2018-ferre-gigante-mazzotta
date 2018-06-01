@@ -1,9 +1,5 @@
 package it.polimi.se2018.model;
 
-import it.polimi.se2018.Observer;
-import it.polimi.se2018.controller.Controller;
-import it.polimi.se2018.controller.events.Event;
-
 import java.util.ArrayList;
 import java.util.List;
 

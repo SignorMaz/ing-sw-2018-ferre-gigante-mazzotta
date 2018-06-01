@@ -1,6 +1,6 @@
 package it.polimi.se2018.socket;
 
-import it.polimi.se2018.Observer;
+import it.polimi.se2018.util.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.network.Client;
@@ -80,8 +80,12 @@ public class SocketClient extends Thread implements Client {
      * Send an Action that the server will handle
      */
     @Override
-    public void send(Action action) throws IOException {
-        outputStream.writeObject(action);
+    public void send(Action action) {
+        try {
+            outputStream.writeObject(action);
+        } catch (IOException e) {
+            // TODO: handle this error
+        }
     }
 
     /**

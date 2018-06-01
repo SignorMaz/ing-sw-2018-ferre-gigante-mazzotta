@@ -1,6 +1,6 @@
 package it.polimi.se2018.controller;
 
-import it.polimi.se2018.Observable;
+import it.polimi.se2018.util.Observable;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.controller.events.InvalidActionEvent;
@@ -35,10 +35,9 @@ public class Controller {
 
     public void send(Event event) {
         String playerId = event.getPlayerId();
-        try {
+        Observable observable = getObservable(playerId);
+        if (observable != null) {
             getObservable(playerId).send(event);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Could not send event to:" + playerId, e);
         }
     }
 
@@ -52,6 +51,10 @@ public class Controller {
         }
     }
 
+    public void removeClient(String playerId) {
+        observablesMap.remove(playerId);
+        waitingPlayers.remove(playerId);
+    }
 
     private Player getPlayer(String id) {
         return playersMap.get(id);
@@ -62,21 +65,16 @@ public class Controller {
     }
 
     public synchronized void joinGame(String playerId, Observable observable) {
+        if (waitingPlayers.contains(playerId)) {
+            observable.send(new LoginEvent(playerId, false));
+            LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
 
-        try {
-            if (waitingPlayers.contains(playerId)) {
-                observable.send(new LoginEvent(playerId, false));
-                LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
-                return;
-            } else {
-                observable.send(new LoginEvent(playerId, true));
-            }
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Could not send login notification, dropping client", e);
             return;
         }
         waitingPlayers.add(playerId);
         observablesMap.put(playerId, observable);
+        observable.send(new LoginEvent(playerId, true));
+
 
         if (waitingPlayers.size() >= MAX_PLAYERS) {
             newGame();

@@ -1,12 +1,10 @@
-package it.polimi.se2018;
+package it.polimi.se2018.util;
 
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 
-import java.io.IOException;
-
 public interface Observable {
-    void send(Event event) throws IOException;
+    void send(Event event);
 
     void handle(Action action);
 }

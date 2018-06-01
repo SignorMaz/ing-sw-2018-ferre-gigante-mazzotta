@@ -5,7 +5,6 @@ import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.network.ClientHandler;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -13,8 +12,13 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RmiServer implements ClientHandler, RmiServerInterface {
+
+    private static final Logger LOGGER = Logger.getLogger("RmiServer");
+
 
     public static final int DEFAULT_PORT_RMI = 1099;
     public static final String SERVER_PATH = "Server";
@@ -35,14 +39,24 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
         createAndListen(DEFAULT_PORT_RMI);
     }
 
+    private void removeClient(String playerId) {
+        Controller.getInstance().removeClient(playerId);
+        clients.remove(playerId);
+    }
+
     @Override
     public void handle(Action action) {
         Controller.getInstance().handle(action);
     }
 
     @Override
-    public void send(Event event) throws IOException {
-        clients.get(event.getPlayerId()).handleRmi(event);
+    public void send(Event event) {
+        try {
+            clients.get(event.getPlayerId()).handleRmi(event);
+        } catch (RemoteException e) {
+            removeClient(event.getPlayerId());
+            LOGGER.log(Level.SEVERE, "Removing " + event.getPlayerId(), e);
+        }
     }
 
     @Override

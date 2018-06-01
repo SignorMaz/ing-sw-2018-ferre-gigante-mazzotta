@@ -76,6 +76,15 @@ public class SocketClientHandler implements Runnable, ClientHandler {
         }
     }
 
+    private void removeClient(String playerId) {
+        Controller.getInstance().removeClient(playerId);
+        try {
+            socket.close();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Could not close the socket", e);
+        }
+    }
+
     /**
      * Pass the Action received from the remote client to the Controller
      */
@@ -88,8 +97,13 @@ public class SocketClientHandler implements Runnable, ClientHandler {
      * Send the Event received from the Controller to the remote client
      */
     @Override
-    public void send(Event event) throws IOException {
-        outputStream.writeObject(event);
+    public void send(Event event) {
+        try {
+            outputStream.writeObject(event);
+        } catch (IOException e) {
+            removeClient(event.getPlayerId());
+            LOGGER.log(Level.SEVERE, "Removing " + event.getPlayerId(), e);
+        }
     }
 
     /**
