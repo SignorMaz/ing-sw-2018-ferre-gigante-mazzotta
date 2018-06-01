@@ -126,7 +126,7 @@ public class WindowFrame {
             return false;
         }
         if (!ignoreNumber && positionNumber != 0 && dice.getNumber() != positionNumber) {
-            LOGGER.info("Number rule, " + position + " is not valid");
+            LOGGER.info("Number rule, " + position + " is not valid: " + dice.getNumber() + "!= " + positionNumber);
             return false;
         }
 

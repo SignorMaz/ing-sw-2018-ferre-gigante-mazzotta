@@ -80,12 +80,13 @@ public class Player {
             throw new IllegalArgumentException("Invalid pattern number");
         }
         isReady = true;
-        favorTokensCount = getWindowFrame().getWindowPattern().getDifficulty();
         if (front) {
             windowFrame = new WindowFrame(windowPatternCards.get(windowNumber).getFront());
         } else {
             windowFrame = new WindowFrame(windowPatternCards.get(windowNumber).getBack());
         }
+        favorTokensCount = windowFrame.getWindowPattern().getDifficulty();
+
     }
 
     /**
