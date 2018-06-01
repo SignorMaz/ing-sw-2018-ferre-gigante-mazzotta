@@ -1,8 +1,6 @@
 package it.polimi.se2018.network;
 
 import it.polimi.se2018.Observer;
-import it.polimi.se2018.controller.actions.Action;
-import it.polimi.se2018.controller.events.Event;
 
 import java.io.IOException;
 
@@ -10,7 +8,7 @@ import java.io.IOException;
  * This interface defines the methods that a client must define to
  * allow the communication.
  */
-public interface Client extends Observer{
+public interface Client extends Observer {
 
     /**
      * Send a login request to the server

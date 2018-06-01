@@ -35,10 +35,10 @@ public class PublicObjectiveCard7 implements ObjectiveCard {
             }
         }
         if (five < six) {
-            points += five*2;
+            points += five * 2;
         }
         if (six <= five) {
-            points += six*2;
+            points += six * 2;
         }
         return points;
     }

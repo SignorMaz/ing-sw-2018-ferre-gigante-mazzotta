@@ -4,7 +4,7 @@ import it.polimi.se2018.model.*;
 
 import java.util.Map;
 
-public class PrivateObjectiveCard4 implements ObjectiveCard{
+public class PrivateObjectiveCard4 implements ObjectiveCard {
 
 
     @Override

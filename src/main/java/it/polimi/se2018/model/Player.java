@@ -2,7 +2,9 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.Observer;
 import it.polimi.se2018.controller.Controller;
-import it.polimi.se2018.controller.events.Event;import java.util.ArrayList;
+import it.polimi.se2018.controller.events.Event;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -26,10 +28,11 @@ public class Player {
 
     /**
      * create an object player
-     * @param playerId playerId
+     *
+     * @param playerId       playerId
      * @param windowPattern1 windowPattern1
      * @param windowPattern2 windowPattern2
-     * @param playerColor playerColor
+     * @param playerColor    playerColor
      */
     public Player(String playerId, List<WindowPatternCard> windowPatternCards, Color playerColor) {
         this.playerId = playerId;
@@ -52,6 +55,7 @@ public class Player {
 
     /**
      * return the player color
+     *
      * @return player color
      */
     public Color getPlayerColor() {
@@ -60,6 +64,7 @@ public class Player {
 
     /**
      * return if the player is ready
+     *
      * @return is ready
      */
     public boolean isReady() {
@@ -68,6 +73,7 @@ public class Player {
 
     /**
      * set the player to ready
+     *
      * @param windowNumber windowNumber
      */
     public void setReady(int windowNumber, boolean front) {
@@ -88,6 +94,7 @@ public class Player {
 
     /**
      * return the window frame chosen
+     *
      * @return window frame
      */
     public WindowFrame getWindowFrame() {
@@ -96,6 +103,7 @@ public class Player {
 
     /**
      * return the number of favor token player has
+     *
      * @return number of favor token
      */
     public int getFavorTokensCount() {
@@ -104,6 +112,7 @@ public class Player {
 
     /**
      * subtract the number of favor token that you use
+     *
      * @param num number of used favore token
      */
     public void useFavorTokens(int num) {
@@ -115,5 +124,5 @@ public class Player {
 
     public void setObjectiveCards(List<ObjectiveCard> cards) {
         objectiveCards.addAll(cards);
-        }
+    }
 }

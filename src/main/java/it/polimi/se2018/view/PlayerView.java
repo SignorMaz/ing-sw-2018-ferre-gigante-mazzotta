@@ -27,6 +27,7 @@ public abstract class PlayerView implements Observer {
             client = new RmiClient(this);
         }
     }
+
     public void login() throws IOException {
         client.login(getPlayerId());
     }
@@ -35,10 +36,11 @@ public abstract class PlayerView implements Observer {
         return playerId;
     }
 
-        @Override
+    @Override
     public void handle(Event event) {
-            event.update(this);
-        }
+        event.update(this);
+    }
+
     public void send(Action action) {
         try {
             client.send(action);

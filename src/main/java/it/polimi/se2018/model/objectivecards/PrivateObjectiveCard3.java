@@ -1,15 +1,10 @@
 package it.polimi.se2018.model.objectivecards;
 
-import it.polimi.se2018.model.Color;
-import it.polimi.se2018.model.Dice;
-import it.polimi.se2018.model.ObjectiveCard;
-import it.polimi.se2018.model.Position;
-import it.polimi.se2018.model.WindowFrame;
+import it.polimi.se2018.model.*;
 
-import java.awt.*;
 import java.util.Map;
 
-public class PrivateObjectiveCard3 implements ObjectiveCard{
+public class PrivateObjectiveCard3 implements ObjectiveCard {
 
 
     @Override
@@ -25,7 +20,7 @@ public class PrivateObjectiveCard3 implements ObjectiveCard{
     @Override
     public int getPoints(WindowFrame windowFrame) {
         int points = 0;
-        for (Map.Entry<Position, Dice> entry: windowFrame.getPlacedDices().entrySet()) {
+        for (Map.Entry<Position, Dice> entry : windowFrame.getPlacedDices().entrySet()) {
             Dice dice = entry.getValue();
             if (dice.getColor() == Color.GREEN) {
                 points += dice.getNumber();

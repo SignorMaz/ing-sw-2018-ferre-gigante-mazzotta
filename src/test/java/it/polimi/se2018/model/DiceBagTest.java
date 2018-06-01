@@ -40,7 +40,7 @@ public class DiceBagTest {
         for (Color color : Color.values()) {
             colorMap.put(color, 0);
         }
-        for (Dice dice: dices) {
+        for (Dice dice : dices) {
             colorMap.put(dice.getColor(), colorMap.get(dice.getColor()) + 1);
         }
         for (Color color : Color.values()) {

@@ -4,7 +4,7 @@ import it.polimi.se2018.model.*;
 
 import java.util.Map;
 
-public class PrivateObjectiveCard2 implements ObjectiveCard{
+public class PrivateObjectiveCard2 implements ObjectiveCard {
     @Override
     public String getName() {
         return "Sfumature gialle";
@@ -20,7 +20,7 @@ public class PrivateObjectiveCard2 implements ObjectiveCard{
         int points = 0;
         for (Map.Entry<Position, Dice> entry : windowFrame.getPlacedDices().entrySet()) {
             Dice dice = entry.getValue();
-            if(dice.getColor() == Color.YELLOW) {
+            if (dice.getColor() == Color.YELLOW) {
                 points += dice.getNumber();
             }
         }

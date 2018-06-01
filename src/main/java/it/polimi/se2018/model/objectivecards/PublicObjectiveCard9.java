@@ -4,7 +4,7 @@ import it.polimi.se2018.model.*;
 
 import java.util.Map;
 
-public class PublicObjectiveCard9 implements ObjectiveCard{
+public class PublicObjectiveCard9 implements ObjectiveCard {
     @Override
     public String getName() {
         return "Colori diversi - Riga";

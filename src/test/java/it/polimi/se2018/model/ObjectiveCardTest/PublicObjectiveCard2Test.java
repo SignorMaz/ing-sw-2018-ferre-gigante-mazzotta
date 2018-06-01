@@ -99,20 +99,20 @@ public class PublicObjectiveCard2Test {
         assertEquals(0, new PublicObjectiveCard2().getPoints(windowFrame));
         windowFrame.placeDice(new Dice(Color.BLUE, 6), new Position(2, 0), toolCard);
         windowFrame.placeDice(new Dice(Color.BLUE, 5), new Position(1, 1), toolCard);
-        windowFrame.placeDice(new Dice(Color.GREEN,3), new Position(2, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.GREEN,4), new Position(3, 3), toolCard);
+        windowFrame.placeDice(new Dice(Color.GREEN, 3), new Position(2, 2), toolCard);
+        windowFrame.placeDice(new Dice(Color.GREEN, 4), new Position(3, 3), toolCard);
         assertEquals(0, new PublicObjectiveCard2().getPoints(windowFrame));
 
-        windowFrame.placeDice(new Dice(Color.GREEN,5), new Position(0, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.GREEN, 5), new Position(0, 4), toolCard);
         windowFrame.placeDice(new Dice(Color.RED, 3), new Position(2, 1), toolCard);
         windowFrame.placeDice(new Dice(Color.YELLOW, 4), new Position(2, 3), toolCard);
-        windowFrame.placeDice(new Dice(Color.PURPLE,5), new Position(3, 1), toolCard);
+        windowFrame.placeDice(new Dice(Color.PURPLE, 5), new Position(3, 1), toolCard);
         assertEquals(5, new PublicObjectiveCard2().getPoints(windowFrame));
 
-        windowFrame.placeDice(new Dice(Color.BLUE,1), new Position(3, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW,6), new Position(2, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.BLUE, 1), new Position(3, 2), toolCard);
+        windowFrame.placeDice(new Dice(Color.YELLOW, 6), new Position(2, 4), toolCard);
         windowFrame.placeDice(new Dice(Color.PURPLE, 6), new Position(0, 1), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW,6), new Position(3, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.YELLOW, 6), new Position(3, 4), toolCard);
         assertEquals(5, new PublicObjectiveCard2().getPoints(windowFrame));
     }
 }

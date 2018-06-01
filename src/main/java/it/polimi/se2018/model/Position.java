@@ -8,7 +8,8 @@ public class Position implements Serializable {
 
     /**
      * create the object position with row and column given
-     * @param row row given
+     *
+     * @param row    row given
      * @param column column given
      */
     public Position(int row, int column) {
@@ -34,6 +35,7 @@ public class Position implements Serializable {
         result = 31 * result + column;
         return result;
     }
+
     @Override
     public String toString() {
         return "Position{" +

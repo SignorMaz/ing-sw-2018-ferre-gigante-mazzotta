@@ -19,7 +19,7 @@ public class PrivateObjectiveCard5 implements ObjectiveCard {
     @Override
     public int getPoints(WindowFrame windowFrame) {
         int points = 0;
-        for (Map.Entry <Position, Dice> entry : windowFrame.getPlacedDices().entrySet()) {
+        for (Map.Entry<Position, Dice> entry : windowFrame.getPlacedDices().entrySet()) {
             Dice dice = entry.getValue();
             if (dice.getColor() == Color.PURPLE) {
                 points += dice.getNumber();

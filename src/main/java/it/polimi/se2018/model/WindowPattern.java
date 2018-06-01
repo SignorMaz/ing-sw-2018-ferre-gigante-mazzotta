@@ -8,6 +8,8 @@ public interface WindowPattern extends Serializable {
     int COLUMNS = 5;
 
     String getName();
+
     int getDifficulty();
+
     Map<Position, WindowCell> getPattern();
 }

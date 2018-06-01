@@ -43,12 +43,13 @@ public class Game {
 
     /**
      * create all the classes for the game
+     *
      * @param players list of players
      */
     public Game(List<Player> players) {
         for (Player player : players) {
             player.setGame(this);
-            }
+        }
 
         this.players = players;
 
@@ -84,15 +85,15 @@ public class Game {
         turnTimeOutRunnable = new Runnable() {
             @Override
             public void run() {
-            synchronized (Game.this) {
-                if (!turnCompleted) {
-                    suspendedPlayers.add(getCurrentPlayer());
-                    if (players.size() - suspendedPlayers.size() == 1) {
-                        endGame();
-                        return;
+                synchronized (Game.this) {
+                    if (!turnCompleted) {
+                        suspendedPlayers.add(getCurrentPlayer());
+                        if (players.size() - suspendedPlayers.size() == 1) {
+                            endGame();
+                            return;
+                        }
                     }
-                }
-                nextTurn();
+                    nextTurn();
                 }
             }
         };
@@ -102,6 +103,7 @@ public class Game {
 
     /**
      * return the total round counter
+     *
      * @return total rounds completed
      */
     public boolean isGameOver() {
@@ -140,7 +142,8 @@ public class Game {
     /**
      * reset card for the new player, and switch the player to the next
      */
-    public synchronized void startTurnTimer() { if (scheduledTurnTimer != null && !scheduledTurnTimer.isDone()) {
+    public synchronized void startTurnTimer() {
+        if (scheduledTurnTimer != null && !scheduledTurnTimer.isDone()) {
             scheduledTurnTimer.cancel(true);
         }
         scheduledTurnTimer = scheduledExecutor.schedule(turnTimeOutRunnable, TURN_TIMEOUT_SECONDS, TimeUnit.SECONDS);
@@ -190,12 +193,13 @@ public class Game {
 
         for (Player player : players) {
             Controller.getInstance().send(new NewTurnEvent(player.getPlayerId()));
-         }
+        }
 
     }
 
     /**
      * return the list of players
+     *
      * @return list of players
      */
     public List<Player> getPlayers() {
@@ -204,6 +208,7 @@ public class Game {
 
     /**
      * return the current player
+     *
      * @return current player
      */
     public Player getCurrentPlayer() {
@@ -212,6 +217,7 @@ public class Game {
 
     /**
      * get the draft pool
+     *
      * @return draft pool
      */
     public List<Dice> getDraftPool() {
@@ -220,8 +226,9 @@ public class Game {
 
     /**
      * place the given dice in a given position
+     *
      * @param position where place
-     * @param dice to place
+     * @param dice     to place
      */
     public void placeDice(Position position, Dice dice) {
         if (moveDone) {
@@ -234,6 +241,7 @@ public class Game {
 
     /**
      * return the number of favor token you have to spend
+     *
      * @param toolCard given tool card
      * @return number of token it cost
      */
@@ -243,6 +251,7 @@ public class Game {
 
     /**
      * return true or false according to you can or not use a toolcard
+     *
      * @param toolCard tool card you want to use
      * @return true - able to use tool card, false - not able to use tool card
      */
@@ -267,7 +276,6 @@ public class Game {
     }
 
     /**
-     *
      * @param toolCard given tool card
      */
     public void useToolCard(ToolCard toolCard) {
@@ -289,6 +297,7 @@ public class Game {
 
     /**
      * according to a tool card effect change the value of a dice
+     *
      * @param position where put the dice
      * @param increase the value
      */

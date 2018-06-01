@@ -89,13 +89,14 @@ public class WindowFrameTest {
         assertFalse(windowFrame.isPositionValid(new Dice(Color.RED), new Position(1, 0), toolCard));       // Orthogonally adjacent dices must have different color
         assertFalse(windowFrame.isPositionValid(new Dice(Color.BLUE, 6), new Position(1, 0), toolCard));       // Orthogonally adjacent dices must have different number
     }
+
     @Test(expected = IllegalArgumentException.class)
-        public void invalidValue() {
+    public void invalidValue() {
         ToolCard toolCard = null;
         WindowPattern windowPattern = new WindowPatternTest();
         WindowFrame windowFrame = new WindowFrame(windowPattern);
         windowFrame.placeDice(new Dice(Color.BLUE, 6), new Position(0, 0), toolCard);
-        }
+    }
 
 }
 

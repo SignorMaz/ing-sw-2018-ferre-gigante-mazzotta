@@ -32,22 +32,23 @@ public class PublicObjectiveCard10 implements ObjectiveCard {
                 Color color = dice.getColor();
                 switch (color) {
                     case YELLOW:
-                        yellow ++;
+                        yellow++;
                         break;
                     case GREEN:
-                        green ++;
+                        green++;
                         break;
                     case BLUE:
-                        blue ++;
+                        blue++;
                         break;
                     case PURPLE:
-                        purple ++;
+                        purple++;
                         break;
                     case RED:
-                        red ++;
+                        red++;
                         break;
 
-                        default: break;
+                    default:
+                        break;
 
                 }
             }
@@ -65,7 +66,7 @@ public class PublicObjectiveCard10 implements ObjectiveCard {
         if (red < min) {
             min = red;
         }
-        points = min*4;
+        points = min * 4;
         return points;
     }
 }

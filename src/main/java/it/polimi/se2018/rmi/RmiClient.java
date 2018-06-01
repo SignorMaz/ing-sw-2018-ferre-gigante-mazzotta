@@ -23,7 +23,7 @@ public class RmiClient implements Client, RmiClientInterface {
 
     public RmiClient(Observer observer, String host, int port) throws RemoteException, MalformedURLException, NotBoundException {
         this.observer = observer;
-        String url = "//" + host + ":" + port + "/" +  SERVER_PATH;
+        String url = "//" + host + ":" + port + "/" + SERVER_PATH;
         server = (RmiServerInterface) Naming.lookup(url);
         client = (RmiClientInterface) UnicastRemoteObject.exportObject(this, 0);
     }

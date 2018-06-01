@@ -34,24 +34,25 @@ public class PublicObjectiveCard8 implements ObjectiveCard {
                 int value = dice.getNumber();
                 switch (value) {
                     case 1:
-                        one ++;
+                        one++;
                         break;
                     case 2:
-                        two ++;
+                        two++;
                         break;
                     case 3:
-                        three ++;
+                        three++;
                         break;
                     case 4:
-                        four ++;
+                        four++;
                         break;
                     case 5:
-                        five ++;
+                        five++;
                         break;
                     case 6:
-                        six ++;
+                        six++;
                         break;
-                        default: break;
+                    default:
+                        break;
                 }
             }
         }
@@ -71,7 +72,7 @@ public class PublicObjectiveCard8 implements ObjectiveCard {
         if (six < min) {
             min = six;
         }
-        points = min*5;
+        points = min * 5;
         return points;
     }
 }

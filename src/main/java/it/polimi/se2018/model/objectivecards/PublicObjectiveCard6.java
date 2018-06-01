@@ -35,10 +35,10 @@ public class PublicObjectiveCard6 implements ObjectiveCard {
             }
         }
         if (three < four) {
-            points += three*2;
+            points += three * 2;
         }
         if (four <= three) {
-            points += four*2;
+            points += four * 2;
         }
         return points;
     }

@@ -10,6 +10,7 @@ public class Dice implements Serializable {
 
     /**
      * create the object dice and set the color
+     *
      * @param color to set
      */
     public Dice(Color color) {
@@ -30,14 +31,16 @@ public class Dice implements Serializable {
 
     /**
      * return the dice color
+     *
      * @return dice color
      */
-        public Color getColor() {
+    public Color getColor() {
         return color;
     }
 
     /**
      * return the dice number
+     *
      * @return dice number
      */
     public int getNumber() {
@@ -46,6 +49,7 @@ public class Dice implements Serializable {
 
     /**
      * set the dice number
+     *
      * @param number number to set
      */
     public void setNumber(int number) {

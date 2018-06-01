@@ -100,17 +100,17 @@ public class PublicObjectiveCard7Test {
         assertEquals(0, new PublicObjectiveCard7().getPoints(windowFrame));
         windowFrame.placeDice(new Dice(Color.BLUE, 6), new Position(2, 0), toolCard);
         windowFrame.placeDice(new Dice(Color.RED, 1), new Position(1, 1), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW,3), new Position(2, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.GREEN,4), new Position(3, 3), toolCard);
+        windowFrame.placeDice(new Dice(Color.YELLOW, 3), new Position(2, 2), toolCard);
+        windowFrame.placeDice(new Dice(Color.GREEN, 4), new Position(3, 3), toolCard);
         assertEquals(0, new PublicObjectiveCard7().getPoints(windowFrame));
 
-        windowFrame.placeDice(new Dice(Color.PURPLE,5), new Position(0, 4), toolCard);
-        windowFrame.placeDice(new Dice(Color.RED,6), new Position(0, 3), toolCard);
+        windowFrame.placeDice(new Dice(Color.PURPLE, 5), new Position(0, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.RED, 6), new Position(0, 3), toolCard);
         assertEquals(2, new PublicObjectiveCard7().getPoints(windowFrame));
 
-        windowFrame.placeDice(new Dice(Color.BLUE,5), new Position(3, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW,6), new Position(2, 4), toolCard);
-        windowFrame.placeDice(new Dice(Color.GREEN,6), new Position(3, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.BLUE, 5), new Position(3, 2), toolCard);
+        windowFrame.placeDice(new Dice(Color.YELLOW, 6), new Position(2, 4), toolCard);
+        windowFrame.placeDice(new Dice(Color.GREEN, 6), new Position(3, 4), toolCard);
         assertEquals(4, new PublicObjectiveCard7().getPoints(windowFrame));
     }
 }

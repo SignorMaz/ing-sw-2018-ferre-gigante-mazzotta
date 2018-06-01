@@ -20,7 +20,7 @@ public class PrivateObjectiveCard1 implements ObjectiveCard {
         int points = 0;
         for (Map.Entry<Position, Dice> entry : windowFrame.getPlacedDices().entrySet()) {
             Dice dice = entry.getValue();
-            if(dice.getColor() == Color.RED) {
+            if (dice.getColor() == Color.RED) {
                 points += dice.getNumber();
             }
         }
