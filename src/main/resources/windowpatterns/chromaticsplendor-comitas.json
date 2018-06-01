@@ -1,0 +1,71 @@
+{
+  "front": {
+    "name": "Chromatic splendor",
+    "difficulty": 4,
+    "map": [
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 2 },
+        { "color": "yellow", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 1 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "red", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 4 }
+      ]
+    ]
+  },
+
+  "back": {
+    "name": "Comitas",
+    "difficulty": 5,
+    "map": [
+      [
+        { "color": "yellow", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 2 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "yellow", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "yellow", "number": 0 },
+        { "color": "blank", "number": 5 }
+      ],
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 2 },
+        { "color": "yellow", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "blank", "number": 0 }
+      ]
+    ]
+  }
+}

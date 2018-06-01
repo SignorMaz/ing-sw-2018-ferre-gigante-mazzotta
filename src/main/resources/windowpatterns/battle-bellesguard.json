@@ -1,0 +1,71 @@
+{
+  "front": {
+    "name": "Battle",
+    "difficulty": 5,
+    "map": [
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 3 },
+        { "color": "green", "number": 0 },
+        { "color": "yellow", "number": 0 },
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 4 },
+        { "color": "red", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 3 }
+      ]
+    ]
+  },
+
+  "back": {
+    "name": "Bellesguard",
+    "difficulty": 3,
+    "map": [
+      [
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "yellow", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 6 },
+        { "color": "blank", "number": 2 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 1 },
+        { "color": "green", "number": 0 }
+      ]
+    ]
+  }
+}

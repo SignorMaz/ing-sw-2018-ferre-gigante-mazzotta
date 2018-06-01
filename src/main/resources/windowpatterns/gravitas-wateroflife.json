@@ -1,0 +1,71 @@
+{
+  "front": {
+    "name": "Gravitas",
+    "difficulty": 4,
+    "map": [
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 2 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 6 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 2 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 1 }
+      ]
+    ]
+  },
+
+  "back": {
+    "name": "Water of life",
+    "difficulty": 5,
+    "map": [
+      [
+        { "color": "blank", "number": 6 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 1 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 4 },
+        { "color": "red", "number": 0	},
+        { "color": "blank", "number": 2 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "yellow", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "purple", "number": 0 }
+      ]
+    ]
+  }
+}

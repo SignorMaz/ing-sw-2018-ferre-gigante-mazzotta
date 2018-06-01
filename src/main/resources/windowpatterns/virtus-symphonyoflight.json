@@ -35,8 +35,8 @@
   },
 
   "back": {
-    "name": "Virtus",
-    "difficulty": 5,
+    "name": "Symphony of Light",
+    "difficulty": 6,
     "map": [
       [
         { "color": "blank", "number": 2 },

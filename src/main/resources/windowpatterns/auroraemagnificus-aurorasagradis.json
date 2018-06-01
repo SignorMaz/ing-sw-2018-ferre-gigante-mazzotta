@@ -1,0 +1,71 @@
+{
+  "front": {
+    "name": "Aurorae magnificus",
+    "difficulty": 5,
+    "map": [
+      [
+        { "color": "blank", "number": 5 },
+        { "color": "green", "number": 0 },
+        { "color": "blue", "number": 0 },
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "yellow", "number": 0 }
+      ],
+      [
+        { "color": "yellow", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "blank", "number": 0 },
+        { "color": "purple", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 4 }
+      ]
+    ]
+  },
+
+  "back": {
+    "name": "Aurora sagradis",
+    "difficulty": 4,
+    "map": [
+      [
+        { "color": "red", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "yellow", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 4 },
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 2 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ]
+    ]
+  }
+}

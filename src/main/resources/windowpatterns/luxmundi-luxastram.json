@@ -1,0 +1,71 @@
+{
+  "front": {
+    "name": "Lux mundi",
+    "difficulty": 6,
+    "map": [
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 6 },
+        { "color": "green", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blue", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ]
+    ]
+  },
+
+  "back": {
+    "name": "Lux astram",
+    "difficulty": 5,
+    "map": [
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "green", "number": 0 },
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 3 }
+      ],
+      [
+        { "color": "blank", "number": 5 },
+        { "color": "purple", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "blank", "number": 0 },
+        { "color": "green", "number": 3 }
+      ],
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 3 },
+        { "color": "purple", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ]
+    ]
+  }
+}

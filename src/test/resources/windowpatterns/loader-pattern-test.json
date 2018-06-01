@@ -1,7 +1,7 @@
 {
   "front": {
-    "name": "Test pattern front",
-    "difficulty": 1,
+    "name": "Symphony of Light",
+    "difficulty": 6,
     "map": [
       [
         { "color": "blank", "number": 4 },
