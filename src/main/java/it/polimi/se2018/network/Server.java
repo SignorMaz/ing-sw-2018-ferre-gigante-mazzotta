@@ -16,13 +16,13 @@ public class Server {
     private Server() {
     }
 
-    public static void main(String[] argv) throws InterruptedException {
-        LOGGER.info("Starting socket server");
+    public static void startServers(int socketPort, int rmiPort) throws InterruptedException {
+        LOGGER.info("Starting socket server, listening on port " + socketPort);
         Runnable socketServer = new Runnable() {
             @Override
             public void run() {
                 try {
-                    SocketServer.createAndListen();
+                    SocketServer.createAndListen(socketPort);
                 } catch (IOException e) {
                     LOGGER.log(Level.SEVERE, "Could not start socket server", e);
                 }
@@ -31,12 +31,12 @@ public class Server {
         Thread socketThread = new Thread(socketServer);
         socketThread.start();
 
-        LOGGER.info("Starting RMI server");
+        LOGGER.info("Starting RMI server, listening on port " + rmiPort);
         Runnable rmiServer = new Runnable() {
             @Override
             public void run() {
                 try {
-                    RmiServer.createAndListen();
+                    RmiServer.createAndListen(rmiPort);
                 } catch (RemoteException | MalformedURLException e) {
                     LOGGER.log(Level.SEVERE, "Could not start RMI server", e);
                 }
@@ -47,5 +47,9 @@ public class Server {
 
         socketThread.join();
         rmiThread.join();
+    }
+
+    public static void main(String[] argv) throws InterruptedException {
+        startServers(SocketServer.DEFAULT_PORT_SOCKET, RmiServer.DEFAULT_PORT_RMI);
     }
 }
