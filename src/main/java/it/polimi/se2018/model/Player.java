@@ -23,14 +23,15 @@ public class Player {
     private boolean isReady;
 
     /**
-     * create an object player
      *
-     * @param playerId       playerId
-     * @param windowPattern1 windowPattern1
-     * @param windowPattern2 windowPattern2
-     * @param playerColor    playerColor
+     * @param playerId id of the player
+     * @param windowPatternCards draft pattern
+     * @param playerColor color of the player
      */
     public Player(String playerId, List<WindowPatternCard> windowPatternCards, Color playerColor) {
+        if (playerId == null) {
+            throw new IllegalArgumentException("Invalid player ID");
+        }
         this.playerId = playerId;
         this.windowPatternCards = windowPatternCards;
         this.playerColor = playerColor;
