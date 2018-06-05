@@ -67,8 +67,6 @@ public class Game {
         for (Player player : players) {
             List<ObjectiveCard> privateObjectiveCards = new ArrayList<>();
             privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
-            privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
-            privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
             player.setObjectiveCards(privateObjectiveCards);
         }
 
