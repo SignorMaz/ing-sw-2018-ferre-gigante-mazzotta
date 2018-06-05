@@ -2,10 +2,7 @@ package it.polimi.se2018.view;
 
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
-import it.polimi.se2018.model.ObjectiveCard;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.ToolCard;
-import it.polimi.se2018.model.WindowPatternCard;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.Client;
 import it.polimi.se2018.network.ConnectionType;
 import it.polimi.se2018.rmi.RmiClient;
@@ -109,5 +106,22 @@ public abstract class PlayerView implements Observer {
     public int getTurnTimeout() {
         return turnTimeout;
     }
+
+    /* Events */
+    public abstract void onLogin(boolean result);
+
+    public abstract void onDicePlaced(Position position, Dice dice);
+
+    public abstract void onDraftPoolChanged();
+
+    public abstract void onGameOver();
+
+    public abstract void onInvalidAction(Action action);
+
+    public abstract void onNewTurn();
+
+    public abstract void onPointsChanged(int points);
+
+    public abstract void onTokensChanged(int tokens);
 
 }

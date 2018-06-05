@@ -14,5 +14,6 @@ public class InvalidActionEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.onInvalidAction(action);
     }
 }

@@ -13,5 +13,6 @@ public class LoginEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.onLogin(logged);
     }
 }

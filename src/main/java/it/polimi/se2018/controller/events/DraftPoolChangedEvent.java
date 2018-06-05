@@ -9,5 +9,6 @@ public class DraftPoolChangedEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.onDraftPoolChanged();
     }
 }

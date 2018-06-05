@@ -30,6 +30,46 @@ class PlayerViewLoginTest extends PlayerView {
         return loginEventReceived;
     }
 
+    @Override
+    public void onLogin(boolean result) {
+
+    }
+
+    @Override
+    public void onDicePlaced(Position position, Dice dice) {
+
+    }
+
+    @Override
+    public void onDraftPoolChanged() {
+
+    }
+
+    @Override
+    public void onGameOver() {
+
+    }
+
+    @Override
+    public void onInvalidAction(Action action) {
+
+    }
+
+    @Override
+    public void onNewTurn() {
+
+    }
+
+    @Override
+    public void onPointsChanged(int points) {
+
+    }
+
+    @Override
+    public void onTokensChanged(int tokens) {
+
+    }
+
     synchronized void waitForEvent() {
         try {
             while (!loginEventReceived) {

@@ -13,5 +13,6 @@ public class GameOverEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.onGameOver();
     }
 }

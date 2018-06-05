@@ -9,5 +9,6 @@ public class NewTurnEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.onNewTurn();
     }
 }

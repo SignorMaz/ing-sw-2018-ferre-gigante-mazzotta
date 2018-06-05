@@ -17,6 +17,7 @@ public class DicePlacedEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.onDicePlaced(position, dice);
     }
 }
 
