@@ -3,6 +3,7 @@ package it.polimi.se2018.socket;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
+import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.network.ClientHandler;
 
 import java.io.IOException;
@@ -85,11 +86,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
 
     private void removeClient(String playerId) {
         Controller.getInstance().removeClient(playerId);
-        try {
-            socket.close();
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Could not close the socket", e);
-        }
+        closeSocket();
     }
 
     /**
@@ -118,7 +115,21 @@ public class SocketClientHandler extends Thread implements ClientHandler {
      */
     @Override
     public void handleLogin(String playerId) {
-        this.playerId = playerId;
-        Controller.getInstance().joinGame(playerId, this);
+        if (Controller.getInstance().canJoin(playerId)) {
+            this.playerId = playerId;
+            Controller.getInstance().joinGame(playerId, this);
+        } else {
+            send(new LoginEvent(playerId, false));
+            closeSocket();
+        }
+    }
+
+    private void closeSocket() {
+        try {
+            outputStream.flush();
+            socket.close();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Could not close the socket", e);
+        }
     }
 }

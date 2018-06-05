@@ -72,9 +72,12 @@ public class Controller {
         return observablesMap.get(id);
     }
 
+    public synchronized boolean canJoin(String playerId) {
+        return !waitingPlayers.contains(playerId) && !playersMap.containsKey(playerId);
+    }
+
     public synchronized void joinGame(String playerId, Observable observable) {
-        if (waitingPlayers.contains(playerId)) {
-            observable.send(new LoginEvent(playerId, false));
+        if (!canJoin(playerId)) {
             LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
 
             return;

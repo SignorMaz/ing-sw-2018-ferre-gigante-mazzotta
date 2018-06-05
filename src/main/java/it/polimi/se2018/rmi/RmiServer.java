@@ -3,6 +3,7 @@ package it.polimi.se2018.rmi;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
+import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.network.ClientHandler;
 
 import java.net.MalformedURLException;
@@ -71,8 +72,12 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
 
     @Override
     public void handleLoginRmi(String playerId, RmiClientInterface rmiClientInterface) throws RemoteException {
-        clients.put(playerId, rmiClientInterface);
-        handleLogin(playerId);
+        if (Controller.getInstance().canJoin(playerId)) {
+            clients.put(playerId, rmiClientInterface);
+            handleLogin(playerId);
+        } else {
+            rmiClientInterface.handleRmi(new LoginEvent(playerId, false));
+        }
     }
 
     @Override
