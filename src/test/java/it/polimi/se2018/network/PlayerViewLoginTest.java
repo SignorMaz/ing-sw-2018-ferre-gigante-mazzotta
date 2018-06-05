@@ -13,26 +13,19 @@ import java.rmi.NotBoundException;
 class PlayerViewLoginTest extends PlayerView {
 
     private boolean loginEventReceived = false;
+    private boolean loginResult = false;
 
     PlayerViewLoginTest(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
         super(playerId, connectionType);
     }
 
     @Override
-    public void handle(Event event) {
+    public void onLogin(boolean result) {
         synchronized (this) {
-            loginEventReceived = event instanceof LoginEvent;
+            loginEventReceived = true;
+            loginResult = result;
             notifyAll();
         }
-    }
-
-    boolean getLoginEventReceived() {
-        return loginEventReceived;
-    }
-
-    @Override
-    public void onLogin(boolean result) {
-
     }
 
     @Override
@@ -68,6 +61,10 @@ class PlayerViewLoginTest extends PlayerView {
     @Override
     public void onTokensChanged(int tokens) {
 
+    }
+
+    boolean getLoginResult() {
+        return loginResult;
     }
 
     synchronized void waitForEvent() {
