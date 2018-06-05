@@ -111,6 +111,7 @@ public class Game {
         gameOver = true;
     }
 
+
     /**
      * switch the game to a new round and call the methods to draw a dice
      */
@@ -235,12 +236,16 @@ public class Game {
     }
 
     /**
-     * place the given dice in a given position
-     *
-     * @param position where place
-     * @param dice     to place
+     * @param player current player
      */
-    public void placeDice(Position position, Dice dice) {
+    private void enforceCurrentPlayer(Player player) {
+        if (!getCurrentPlayer().equals(player)) {
+            throw new IllegalStateException("Not the current player");
+        }
+    }
+
+    public void placeDice(Player player, Position position, Dice dice) {
+        enforceCurrentPlayer(player);
         if (moveDone) {
             throw new IllegalStateException("Move already done");
         }
@@ -248,6 +253,7 @@ public class Game {
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
         moveDone = true;
     }
+
 
     /**
      * return the number of favor token you have to spend
@@ -265,7 +271,8 @@ public class Game {
      * @param toolCard tool card you want to use
      * @return true - able to use tool card, false - not able to use tool card
      */
-    public boolean canUseToolCard(ToolCard toolCard) {
+    public boolean canUseToolCard(Player player, ToolCard toolCard) {
+        enforceCurrentPlayer(player);
         if (toolCardInUse != null || toolCardUsed) {
             return false;
         }
@@ -288,8 +295,9 @@ public class Game {
     /**
      * @param toolCard given tool card
      */
-    public void useToolCard(ToolCard toolCard) {
-        if (!canUseToolCard(toolCard)) {
+    public void useToolCard(Player player, ToolCard toolCard) {
+        enforceCurrentPlayer(player);
+        if (!canUseToolCard(player, toolCard)) {
             throw new IllegalArgumentException("Can't use this ToolCard");
         }
         getCurrentPlayer().useFavorTokens(requiredTokens(toolCard));
@@ -297,11 +305,14 @@ public class Game {
         toolCardInUse = toolCard;
     }
 
-    public boolean isToolCardUsed() {
+    public boolean isToolCardUsed(Player player) {
+        enforceCurrentPlayer(player);
+
         return toolCardUsed;
     }
 
-    public boolean isToolCardInUse() {
+    public boolean isToolCardInUse(Player player) {
+        enforceCurrentPlayer(player);
         return toolCardInUse != null;
     }
 
@@ -311,7 +322,8 @@ public class Game {
      * @param position where put the dice
      * @param increase the value
      */
-    public void changeDiceValue(Position position, boolean increase) {
+    public void changeDiceValue(Player player, Position position, boolean increase) {
+        enforceCurrentPlayer(player);
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
         }
@@ -327,7 +339,8 @@ public class Game {
         }
     }
 
-    public void movePlacedDice(Position curPosition, Position newPosition) {
+    public void movePlacedDice(Player player, Position curPosition, Position newPosition) {
+        enforceCurrentPlayer(player);
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
         }
@@ -344,8 +357,9 @@ public class Game {
         }
     }
 
-    public void movePlacedDices(Position curPosition1, Position newPosition1,
-                                Position curPosition2, Position newPosition2) {
+
+    public void movePlacedDices(Player player, Position curPosition1, Position newPosition1, Position curPosition2, Position newPosition2) {
+        enforceCurrentPlayer(player);
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
         }
@@ -367,7 +381,8 @@ public class Game {
         }
     }
 
-    public void swapTrackDice(Dice draftDice, Dice trackDice) {
+    public void swapTrackDice(Player player, Dice draftDice, Dice trackDice) {
+        enforceCurrentPlayer(player);
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
         }
@@ -387,11 +402,13 @@ public class Game {
         draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
     }
 
-    public Dice getRethrownDice() {
+    public Dice getRethrownDice(Player player) {
+        enforceCurrentPlayer(player);
         return new Dice(rethrownDice.getColor(), rethrownDice.getNumber());
     }
 
-    public void rethrowDice(Dice dice) {
+    public void rethrowDice(Player player, Dice dice) {
+        enforceCurrentPlayer(player);
         if (toolCardUsed) {
             throw new IllegalStateException("The ToolCard has been used already");
         }
@@ -406,16 +423,18 @@ public class Game {
         rethrownDice = dice;
     }
 
-    public void repositionRethrownDice(Position position) {
+    public void repositionRethrownDice(Player player, Position position) {
+        enforceCurrentPlayer(player);
         if (rethrownDice == null) {
             throw new IllegalStateException("No dice to reposition");
         }
         getCurrentPlayer().getWindowFrame().placeDice(rethrownDice, position);
-        placeDice(position, rethrownDice);
+        placeDice(player, position, rethrownDice);
         rethrownDice = null;
     }
 
-    public void shakeDices() {
+    public void shakeDices(Player player) {
+        enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canShakeDices()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
@@ -425,7 +444,9 @@ public class Game {
         toolCardUsed = true;
     }
 
-    public void placeSecondDice(Position position, Dice dice) {
+
+    public void placeSecondDice(Player player, Position position, Dice dice) {
+        enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canPlaceTwoDices()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
@@ -435,7 +456,8 @@ public class Game {
         toolCardUsed = true;
     }
 
-    public void placeNotAdjacentDice(Position position, Dice dice) {
+    public void placeNotAdjacentDice(Player player, Position position, Dice dice) {
+        enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.notAdjacent()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
@@ -445,7 +467,8 @@ public class Game {
     }
 
     // FIXME: quale dado? Uno posizionato o uno della riserva?
-    public void flipDice(Position position) {
+    public void flipDice(Player player, Position position) {
+        enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canFlipDice()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
@@ -457,7 +480,8 @@ public class Game {
         toolCardUsed = true;
     }
 
-    public void replaceDice(Dice draftPoolDice) {
+    public void replaceDice(Player player, Dice draftPoolDice) {
+        enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canReplaceDice()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
@@ -470,11 +494,13 @@ public class Game {
         toolCardUsed = true;
     }
 
-    public Dice getNewDice() {
+    public Dice getNewDice(Player player) {
+        enforceCurrentPlayer(player);
         return new Dice(newDice.getColor(), newDice.getNumber());
     }
 
-    public void placeNewDice(int number, Position position) {
+    public void placeNewDice(Player player, int number, Position position) {
+        enforceCurrentPlayer(player);
         Dice diceCopy = new Dice(newDice.getColor(), newDice.getNumber());
         diceCopy.setNumber(number);
         if (getCurrentPlayer().getWindowFrame().isPositionValid(diceCopy, position, toolCardInUse)) {
@@ -486,12 +512,13 @@ public class Game {
         }
     }
 
-    public void moveDice(Dice trackDice, Position oldPosition1, Position newPosition1) {
-        moveDices(trackDice, oldPosition1, newPosition1, null, null);
+    public void moveDice(Player player, Dice trackDice, Position oldPosition1, Position newPosition1) {
+        enforceCurrentPlayer(player);
+        moveDices(player, trackDice, oldPosition1, newPosition1, null, null);
     }
 
-    public void moveDices(Dice trackDice, Position oldPosition1, Position newPosition1,
-                          Position oldPosition2, Position newPosition2) {
+    public void moveDices(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
+        enforceCurrentPlayer(player);
         if (!roundTrackDices.contains(trackDice)) {
             throw new IllegalArgumentException("Invalid track dice");
         }
@@ -508,6 +535,7 @@ public class Game {
         if (getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, null)) {
             throw new IllegalArgumentException("Invalid position");
         }
+
 
         if (oldPosition2 != null) {
             Dice dice2 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(oldPosition2);
