@@ -18,6 +18,7 @@ public class InitialSetupEvent extends Event {
     private ArrayList<ObjectiveCard> publicObjectCards;
     private ArrayList<ToolCard> toolCards;
     private int turnTimeout;
+    private ArrayList<String> playerIds;
 
     public InitialSetupEvent(String playerId,
                              Player.Color playerColor,
@@ -26,7 +27,8 @@ public class InitialSetupEvent extends Event {
                              int favorTokens,
                              List<ObjectiveCard> publicObjectCards,
                              List<ToolCard> toolCards,
-                             int turnTimeout) {
+                             int turnTimeout,
+                             List<String> playerIds) {
         super(playerId);
 
         // List<T> is not Serializable. Allow to pass generic Lists and make them
@@ -40,6 +42,7 @@ public class InitialSetupEvent extends Event {
         this.publicObjectCards = new ArrayList<>(publicObjectCards);
         this.toolCards = new ArrayList<>(toolCards);
         this.turnTimeout = turnTimeout;
+        this.playerIds = new ArrayList<>(playerIds);
     }
 
     @Override
@@ -51,7 +54,8 @@ public class InitialSetupEvent extends Event {
                 favorTokens,
                 publicObjectCards,
                 toolCards,
-                turnTimeout
+                turnTimeout,
+                playerIds
         );
     }
 }

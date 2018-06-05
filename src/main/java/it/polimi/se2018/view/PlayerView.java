@@ -12,6 +12,7 @@ import it.polimi.se2018.util.Observer;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public abstract class PlayerView implements Observer {
@@ -30,6 +31,8 @@ public abstract class PlayerView implements Observer {
     private List<ObjectiveCard> publicObjectCards;
     private List<ToolCard> toolCards;
     private int turnTimeout;
+    private List<String> playerIds;
+    private Map<String, WindowFrame> rivalFrames;
 
     public PlayerView(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
         this.playerId = playerId;
@@ -68,16 +71,35 @@ public abstract class PlayerView implements Observer {
                              int favorTokens,
                              List<ObjectiveCard> publicObjectCards,
                              List<ToolCard> toolCards,
-                             int turnTimeout) {
+                             int turnTimeout,
+                             List<String> playerIds) {
         this.playerColor = playerColor;
+        this.turnTimeout = turnTimeout;
         this.windowPatternCards = windowPatternCards;
         this.privateObjectCards = privateObjectCards;
         this.favorTokens = favorTokens;
 
         this.publicObjectCards = publicObjectCards;
         this.toolCards = toolCards;
-        this.turnTimeout = turnTimeout;
+        this.playerIds = playerIds;
+
+        onInitialSetup();
     }
+
+    public void onGameStarted(Map<String, WindowPattern> windowPatternMap) {
+        for (Map.Entry<String, WindowPattern> entry : windowPatternMap.entrySet()) {
+            String rivalId = entry.getKey();
+            WindowFrame rivalWindowFrame = new WindowFrame(entry.getValue());
+            rivalFrames.put(rivalId, rivalWindowFrame);
+        }
+
+        onGameStarted();
+    }
+
+    public Map<String, WindowFrame> getRivalFrames() {
+        return rivalFrames;
+    }
+
 
     public Player.Color getPlayerColor() {
         return playerColor;
@@ -107,8 +129,14 @@ public abstract class PlayerView implements Observer {
         return turnTimeout;
     }
 
+    public List<String> getPlayerIds() {
+        return playerIds;
+    }
+
     /* Events */
     public abstract void onLogin(boolean result);
+
+    public abstract void onInitialSetup();
 
     public abstract void onDicePlaced(Position position, Dice dice);
 
@@ -123,5 +151,7 @@ public abstract class PlayerView implements Observer {
     public abstract void onPointsChanged(int points);
 
     public abstract void onTokensChanged(int tokens);
+
+    public abstract void onGameStarted();
 
 }

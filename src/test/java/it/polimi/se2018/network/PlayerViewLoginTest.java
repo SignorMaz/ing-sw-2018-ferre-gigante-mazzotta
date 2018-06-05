@@ -29,6 +29,11 @@ class PlayerViewLoginTest extends PlayerView {
     }
 
     @Override
+    public void onInitialSetup() {
+
+    }
+
+    @Override
     public void onDicePlaced(Position position, Dice dice) {
 
     }
@@ -60,6 +65,11 @@ class PlayerViewLoginTest extends PlayerView {
 
     @Override
     public void onTokensChanged(int tokens) {
+
+    }
+
+    @Override
+    public void onGameStarted() {
 
     }
 
