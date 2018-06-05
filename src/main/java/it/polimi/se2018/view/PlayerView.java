@@ -24,6 +24,7 @@ public abstract class PlayerView implements Observer {
     // Player properties
     private Player.Color playerColor;
     private List<WindowPatternCard> windowPatternCards;
+    private WindowFrame windowFrame;
     private List<ObjectiveCard> privateObjectCards;
     private int favorTokens;
 
@@ -131,6 +132,14 @@ public abstract class PlayerView implements Observer {
 
     public List<String> getPlayerIds() {
         return playerIds;
+    }
+
+    public void setWindowFrame(WindowPattern windowPattern) {
+        windowFrame = new WindowFrame(windowPattern);
+    }
+
+    public WindowFrame getWindowFrame() {
+        return windowFrame;
     }
 
     /* Events */
