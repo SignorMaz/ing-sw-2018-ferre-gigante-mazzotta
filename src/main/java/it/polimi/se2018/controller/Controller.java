@@ -59,7 +59,9 @@ public class Controller {
         observablesMap.remove(playerId);
         waitingPlayers.remove(playerId);
         Player player = playersMap.get(playerId);
-        player.getGame().suspendPlayer(player);
+        if (player != null && player.getGame() != null) {
+            player.getGame().suspendPlayer(player);
+        }
     }
 
     private Player getPlayer(String id) {

@@ -103,4 +103,11 @@ public class SocketClient extends Thread implements Client {
     public void login(String playerId) throws IOException {
         outputStream.writeObject(playerId);
     }
+
+    @Override
+    public void logout(String playerId) throws IOException {
+        // Each client has its own socket, so we just need to close it and
+        // the server will automatically remove the associated player.
+        socket.close();
+    }
 }

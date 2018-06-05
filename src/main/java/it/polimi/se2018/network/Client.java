@@ -16,5 +16,12 @@ public interface Client extends Observer {
      * @param playerId the id of the player logging in
      */
     void login(String playerId) throws IOException;
+
+    /**
+     * Send a logout request to the server
+     *
+     * @param playerId the id of the player logging out
+     */
+    void logout(String playerId) throws IOException;
 }
 

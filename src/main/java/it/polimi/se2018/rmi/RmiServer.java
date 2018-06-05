@@ -74,4 +74,9 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
         clients.put(playerId, rmiClientInterface);
         handleLogin(playerId);
     }
+
+    @Override
+    public void handleLogoutRmi(String playerId) {
+        removeClient(playerId);
+    }
 }

@@ -56,6 +56,11 @@ public class RmiClient implements Client, RmiClientInterface {
     }
 
     @Override
+    public void logout(String playerId) throws IOException {
+        server.handleLogoutRmi(playerId);
+    }
+
+    @Override
     public void handleRmi(Event event) throws RemoteException {
         handle(event);
     }

@@ -23,6 +23,10 @@ public class SocketClientHandler extends Thread implements ClientHandler {
 
     private final Object lock = new Object();
 
+    private String playerId;
+
+    boolean listening = true;
+
     private final Socket socket;
     private final ObjectInputStream inputStream;
     private final ObjectOutputStream outputStream;
@@ -51,8 +55,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
      */
     @Override
     public void run() {
-        boolean loop = true;
-        while (loop && !socket.isClosed()) {
+        while (listening && !socket.isClosed()) {
             receive();
         }
     }
@@ -68,6 +71,9 @@ public class SocketClientHandler extends Thread implements ClientHandler {
             }
         } catch (IOException | ClassNotFoundException e) {
             LOGGER.log(Level.SEVERE, "Could not read stream", e);
+            removeClient(playerId);
+            listening = false;
+            return;
         }
 
         if (object instanceof Action) {
@@ -112,6 +118,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
      */
     @Override
     public void handleLogin(String playerId) {
+        this.playerId = playerId;
         Controller.getInstance().joinGame(playerId, this);
     }
 }

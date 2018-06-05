@@ -31,6 +31,10 @@ public abstract class PlayerView implements Observer {
         client.login(getPlayerId());
     }
 
+    public void logout() throws IOException {
+        client.logout(getPlayerId());
+    }
+
     public String getPlayerId() {
         return playerId;
     }
