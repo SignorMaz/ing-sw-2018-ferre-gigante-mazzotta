@@ -87,13 +87,10 @@ public class Game {
             public void run() {
                 synchronized (Game.this) {
                     if (!turnCompleted) {
-                        suspendedPlayers.add(getCurrentPlayer());
-                        if (players.size() - suspendedPlayers.size() == 1) {
-                            endGame();
-                            return;
-                        }
+                        suspendPlayer(getCurrentPlayer());
+                    } else {
+                        nextTurn();
                     }
-                    nextTurn();
                 }
             }
         };
@@ -222,6 +219,19 @@ public class Game {
      */
     public List<Dice> getDraftPool() {
         return draftPool;
+    }
+
+    public void suspendPlayer(Player player) {
+        suspendedPlayers.add(player);
+        if (players.size() - suspendedPlayers.size() == 1) {
+            endGame();
+            return;
+        }
+
+        // If we are suspending the current player, move to the next turn
+        if (getCurrentPlayer().equals(player)) {
+            nextTurn();
+        }
     }
 
     /**

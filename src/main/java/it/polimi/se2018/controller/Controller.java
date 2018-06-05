@@ -58,6 +58,8 @@ public class Controller {
     public void removeClient(String playerId) {
         observablesMap.remove(playerId);
         waitingPlayers.remove(playerId);
+        Player player = playersMap.get(playerId);
+        player.getGame().suspendPlayer(player);
     }
 
     private Player getPlayer(String id) {
