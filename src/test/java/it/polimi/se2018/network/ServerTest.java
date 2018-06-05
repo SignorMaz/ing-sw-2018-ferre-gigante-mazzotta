@@ -18,35 +18,6 @@ import static junit.framework.TestCase.fail;
 public class ServerTest {
     private static final Logger LOGGER = Logger.getLogger("ServerTest");
 
-    /**
-     * Simple PlayerView implementation to test the login functionality
-     */
-    private static class PlayerViewImpl extends PlayerView {
-        private boolean loginEventReceived = false;
-
-        private PlayerViewImpl(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
-            super(playerId, connectionType);
-        }
-
-        @Override
-        public void handle(Event event) {
-            synchronized (this) {
-                loginEventReceived = event instanceof LoginEvent;
-                notifyAll();
-            }
-        }
-
-        private synchronized void waitForEvent() {
-            try {
-                while (!loginEventReceived) {
-                    wait();
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Test
     public void testLoginSocket() {
         Runnable serverRunnable = new Runnable() {
@@ -71,10 +42,10 @@ public class ServerTest {
         }
 
         try {
-            PlayerViewImpl playerView = new PlayerViewImpl("My Socket player", ConnectionType.SOCKET);
+            PlayerViewLoginTest playerView = new PlayerViewLoginTest("My Socket player", ConnectionType.SOCKET);
             playerView.login();
             playerView.waitForEvent();
-            assertTrue(playerView.loginEventReceived);
+            assertTrue(playerView.getLoginEventReceived());
         } catch (IOException | NotBoundException e) {
             LOGGER.log(Level.SEVERE, "Could not create PlayerView", e);
             fail();
@@ -106,10 +77,10 @@ public class ServerTest {
         }
 
         try {
-            PlayerViewImpl playerView = new PlayerViewImpl("My RMI player ID", ConnectionType.RMI);
+            PlayerViewLoginTest playerView = new PlayerViewLoginTest("My RMI player ID", ConnectionType.RMI);
             playerView.login();
             playerView.waitForEvent();
-            assertTrue(playerView.loginEventReceived);
+            assertTrue(playerView.getLoginEventReceived());
         } catch (IOException | NotBoundException e) {
             LOGGER.log(Level.SEVERE, "Could not create PlayerView", e);
             fail();
