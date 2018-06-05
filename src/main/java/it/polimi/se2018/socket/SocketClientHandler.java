@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * This class forwards the Actions sent by remote clients to the Controller
  * and lets the Controller send Events to remote clients.
  */
-public class SocketClientHandler implements Runnable, ClientHandler {
+public class SocketClientHandler extends Thread implements ClientHandler {
 
     private static final Logger LOGGER = Logger.getLogger("SocketClientHandler");
 
@@ -43,6 +43,7 @@ public class SocketClientHandler implements Runnable, ClientHandler {
             LOGGER.log(Level.WARNING, "Could not read object", e);
         }
 
+        start();
     }
 
     /**
