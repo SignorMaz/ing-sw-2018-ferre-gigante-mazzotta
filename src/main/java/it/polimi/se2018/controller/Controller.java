@@ -43,6 +43,10 @@ public class Controller {
 
     public void handle(Action action) {
         Player player = getPlayer(action.getPlayerId());
+        if (player == null) {
+            LOGGER.severe("No player found, ignoring action. ID: " + action.getPlayerId());
+            return;
+        }
         try {
             action.perform(player);
         } catch (RuntimeException e) {
