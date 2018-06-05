@@ -18,4 +18,9 @@ public class ToolCard10 extends ToolCard {
     public int getNumber() {
         return 10;
     }
+
+    @Override
+    public boolean canFlipDice() {
+        return true;
+    }
 }

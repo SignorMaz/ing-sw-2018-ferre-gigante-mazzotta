@@ -18,4 +18,10 @@ public class ToolCard3 extends ToolCard {
     public int getNumber() {
         return 3;
     }
+
+    @Override
+    public boolean ignoreNumber() {
+        return true;
+    }
+
 }

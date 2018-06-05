@@ -18,4 +18,9 @@ public class ToolCard11 extends ToolCard {
     public int getNumber() {
         return 11;
     }
+
+    @Override
+    public boolean canReplaceDice() {
+        return false;
+    }
 }

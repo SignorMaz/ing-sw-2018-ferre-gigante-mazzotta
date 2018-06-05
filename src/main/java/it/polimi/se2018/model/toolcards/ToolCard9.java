@@ -18,4 +18,9 @@ public class ToolCard9 extends ToolCard {
     public int getNumber() {
         return 9;
     }
+
+    @Override
+    public boolean notAdjacent() {
+        return true;
+    }
 }

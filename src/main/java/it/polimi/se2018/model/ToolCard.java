@@ -47,7 +47,7 @@ public abstract class ToolCard implements Serializable {
     }
 
     public boolean canPlaceTwoDices() {
-        return true;
+        return false;
     }
 
     public boolean canFlipDice() {

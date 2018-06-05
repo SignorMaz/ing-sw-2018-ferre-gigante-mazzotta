@@ -18,4 +18,14 @@ public class ToolCard7 extends ToolCard {
     public int getNumber() {
         return 7;
     }
+
+    @Override
+    public boolean canUseCard(boolean isFirstTurn, boolean moveDone) {
+        return !isFirstTurn && moveDone;
+    }
+
+    @Override
+    public boolean canShakeDices() {
+        return true;
+    }
 }

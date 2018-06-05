@@ -18,4 +18,9 @@ public class ToolCard12 extends ToolCard {
     public int getNumber() {
         return 12;
     }
+
+    @Override
+    public boolean canMovePlacedDice() {
+        return true;
+    }
 }

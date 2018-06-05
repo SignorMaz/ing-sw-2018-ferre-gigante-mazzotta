@@ -18,4 +18,10 @@ public class ToolCard2 extends ToolCard {
     public int getNumber() {
         return 2;
     }
+
+    @Override
+    public boolean ignoreColor() {
+        return true;
+    }
+
 }

@@ -18,4 +18,10 @@ public class ToolCard4 extends ToolCard {
     public int getNumber() {
         return 4;
     }
+
+    @Override
+    public boolean canPlaceTwoDices() {
+        return true;
+    }
+
 }

@@ -18,4 +18,9 @@ public class ToolCard6 extends ToolCard {
     public int getNumber() {
         return 6;
     }
+
+    @Override
+    public boolean canRethrowDice() {
+        return true;
+    }
 }
