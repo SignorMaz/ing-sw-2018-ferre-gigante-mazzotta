@@ -44,5 +44,14 @@ public class InitialSetupEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
+        playerView.initialSetup(
+                playerColor,
+                windowPatternCards,
+                privateObjectCards,
+                favorTokens,
+                publicObjectCards,
+                toolCards,
+                turnTimeout
+        );
     }
 }
