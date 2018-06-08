@@ -1,4 +1,4 @@
-package it.polimi.se2018.model.ObjectiveCardTest;
+package it.polimi.se2018.model.objectiveCardTest;
 
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.model.objectivecards.PublicObjectiveCard7;

@@ -21,6 +21,6 @@ public class ToolCard11 extends ToolCard {
 
     @Override
     public boolean canReplaceDice() {
-        return false;
+        return true;
     }
 }
