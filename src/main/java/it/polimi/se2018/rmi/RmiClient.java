@@ -11,15 +11,20 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static it.polimi.se2018.rmi.RmiServer.DEFAULT_PORT_RMI;
 import static it.polimi.se2018.rmi.RmiServer.SERVER_PATH;
 
 public class RmiClient implements Client, RmiClientInterface {
 
+    private static final Logger LOGGER = Logger.getLogger("RmiClient");
+
     private final RmiServerInterface server;
     private final RmiClientInterface client;
     private final Observer observer;
+    private String playerId;
 
     public RmiClient(Observer observer, String host, int port) throws RemoteException, MalformedURLException, NotBoundException {
         this.observer = observer;
@@ -41,7 +46,12 @@ public class RmiClient implements Client, RmiClientInterface {
         try {
             server.handleRmi(this, action);
         } catch (RemoteException e) {
-            // TODO: handle this error
+            LOGGER.log(Level.SEVERE, "Could not send action", e);
+            try {
+                logout();
+            } catch (IOException e1) {
+                LOGGER.log(Level.SEVERE, "Could not log out", e1);
+            }
         }
     }
 
@@ -53,10 +63,11 @@ public class RmiClient implements Client, RmiClientInterface {
     @Override
     public void login(String playerId) throws IOException {
         server.handleLoginRmi(playerId, client);
+        this.playerId = playerId;
     }
 
     @Override
-    public void logout(String playerId) throws IOException {
+    public void logout() throws IOException {
         server.handleLogoutRmi(playerId);
     }
 

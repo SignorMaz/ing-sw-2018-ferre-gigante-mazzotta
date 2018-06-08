@@ -49,7 +49,7 @@ public abstract class PlayerView implements Observer {
     }
 
     public void logout() throws IOException {
-        client.logout(getPlayerId());
+        client.logout();
     }
 
     public String getPlayerId() {

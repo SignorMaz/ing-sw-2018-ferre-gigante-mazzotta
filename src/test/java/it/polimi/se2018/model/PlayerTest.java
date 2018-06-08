@@ -28,30 +28,6 @@ public class PlayerTest {
         Assert.assertEquals(0, player1.getFavorTokensCount());
     }
 
-    /* TODO: update test
-        @Test
-        public void testReady() {
-             WindowPattern windowPattern1 = new WindowPatternTest1();
-            WindowPattern windowPattern2 = new WindowPatternTest2();
-            Player player = new Player("0001", windowPattern1, windowPattern2, Player.Color.BLUE);
-            assertEquals(Player1.Color.BLUE, player.getPlayerColor());
-            assertFalse(player1.isReady());
-            player1.setReady(1);
-            Assert.assertEquals(5, player.getFavorTokensCount());
-            player.useFavorTokens(3);
-            Assert.assertEquals(2, player.getFavorTokensCount());
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void testTooMuchToken() {
-            WindowPattern windowPattern1 = new WindowPatternTest1();
-            WindowPattern windowPattern2 = new WindowPatternTest2();
-            Player player = new Player("0001", windowPattern1, windowPattern2, Player.Color.BLUE);
-            assertEquals(Player.Color.BLUE, player.getPlayerColor());
-            assertFalse(player.isReady());
-            player.setReady(1);
-            player.useFavorTokens(6);
-        }*/
     @Test(expected = IllegalArgumentException.class)
     public void testTooMuchToken() {
         WindowPatternCard windowPattern = WindowPatternLoader.loadFromResource("loader-pattern-test.json");

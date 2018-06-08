@@ -24,7 +24,7 @@ public class App {
     }
 
     private static void printServerHelpAndExit() {
-        System.out.println(String.format("java -jar app.jar %s [%sPORT] [%sPORT] [--help]",
+        System.out.println(String.format("java -jar app.jar %s TIMEOUT [%sPORT] [%sPORT] [--help]",
                 SERVER_ARG, SOCKET_PORT_ARG, RMI_PORT_ARG));
         System.exit(1);
     }

@@ -130,7 +130,6 @@ public class Game {
     }
 
     public synchronized void completeTurn() {
-        // FIXME: Should this be possible if toolCardInUse is set, but toolCardUsed isn't?
         turnCompleted = true;
         nextTurn();
     }
@@ -464,17 +463,22 @@ public class Game {
         toolCardUsed = true;
     }
 
-    // FIXME: quale dado? Uno posizionato o uno della riserva?
-    public void flipDice(Player player, Position position) {
+    public void flipDice(Player player, Dice dice) {
         enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canFlipDice()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
-        Dice dice = getCurrentPlayer().getWindowFrame().getPlacedDices().get(position);
-        if (dice == null) {
-            throw new IllegalStateException("Invalid dice");
+        Dice foundDraftDice = null;
+        for (Dice draftDice : draftPool) {
+            if (draftDice.equals(dice)) {
+                foundDraftDice = draftDice;
+                break;
+            }
         }
-        dice.setNumber(7 - dice.getNumber());
+        if (foundDraftDice == null) {
+            throw new IllegalArgumentException("Dice not found");
+        }
+        foundDraftDice.setNumber(7 - dice.getNumber());
         toolCardUsed = true;
     }
 

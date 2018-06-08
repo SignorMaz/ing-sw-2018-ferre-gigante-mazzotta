@@ -84,7 +84,12 @@ public class SocketClient extends Thread implements Client {
         try {
             outputStream.writeObject(action);
         } catch (IOException e) {
-            // TODO: handle this error
+            LOGGER.log(Level.SEVERE, "Could not send action", e);
+            try {
+                logout();
+            } catch (IOException e1) {
+                LOGGER.log(Level.SEVERE, "Could not log out", e1);
+            }
         }
     }
 
@@ -105,7 +110,7 @@ public class SocketClient extends Thread implements Client {
     }
 
     @Override
-    public void logout(String playerId) throws IOException {
+    public void logout() throws IOException {
         // Each client has its own socket, so we just need to close it and
         // the server will automatically remove the associated player.
         socket.close();
