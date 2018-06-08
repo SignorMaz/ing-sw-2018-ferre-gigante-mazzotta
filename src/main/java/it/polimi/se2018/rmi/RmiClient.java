@@ -39,7 +39,7 @@ public class RmiClient implements Client, RmiClientInterface {
     @Override
     public void send(Action action) {
         try {
-            server.handleRmi(action);
+            server.handleRmi(this, action);
         } catch (RemoteException e) {
             // TODO: handle this error
         }

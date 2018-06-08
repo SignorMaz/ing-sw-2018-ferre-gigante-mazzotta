@@ -7,8 +7,7 @@ public class SetReadyAction extends Action {
 
     private final boolean front;
 
-    public SetReadyAction(String playerId, int windowFrameNumber, boolean front) {
-        super(playerId);
+    public SetReadyAction(int windowFrameNumber, boolean front) {
         this.windowFrameNumber = windowFrameNumber;
         this.front = front;
     }

@@ -94,6 +94,7 @@ public class SocketClientHandler extends Thread implements ClientHandler {
      */
     @Override
     public void handle(Action action) {
+        action.setPlayerId(playerId);
         Controller.getInstance().handle(action);
     }
 

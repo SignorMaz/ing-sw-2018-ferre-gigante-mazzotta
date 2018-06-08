@@ -8,8 +8,7 @@ import java.util.List;
 public class SetObjectiveCardsAction extends Action {
     private final List<ObjectiveCard> objectiveCards;
 
-    public SetObjectiveCardsAction(String playerId, List<ObjectiveCard> objectiveCards) {
-        super(playerId);
+    public SetObjectiveCardsAction(List<ObjectiveCard> objectiveCards) {
         this.objectiveCards = objectiveCards;
     }
 

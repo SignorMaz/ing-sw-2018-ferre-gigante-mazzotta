@@ -25,6 +25,7 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
     public static final String SERVER_PATH = "Server";
 
     private Map<String, RmiClientInterface> clients = new HashMap<>();
+    private Map<RmiClientInterface, String> reverseClientsMap = new HashMap<>();
 
     private RmiServer() {
     }
@@ -42,7 +43,8 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
 
     private void removeClient(String playerId) {
         Controller.getInstance().removeClient(playerId);
-        clients.remove(playerId);
+        RmiClientInterface client = clients.remove(playerId);
+        reverseClientsMap.remove(client);
     }
 
     @Override
@@ -66,7 +68,9 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
     }
 
     @Override
-    public void handleRmi(Action action) throws RemoteException {
+    public void handleRmi(RmiClientInterface rmiClientInterface, Action action) throws RemoteException {
+        String playerId = reverseClientsMap.get(rmiClientInterface);
+        action.setPlayerId(playerId);
         handle(action);
     }
 
@@ -74,6 +78,7 @@ public class RmiServer implements ClientHandler, RmiServerInterface {
     public void handleLoginRmi(String playerId, RmiClientInterface rmiClientInterface) throws RemoteException {
         if (Controller.getInstance().canJoin(playerId)) {
             clients.put(playerId, rmiClientInterface);
+            reverseClientsMap.put(rmiClientInterface, playerId);
             handleLogin(playerId);
         } else {
             rmiClientInterface.handleRmi(new LoginEvent(playerId, false));

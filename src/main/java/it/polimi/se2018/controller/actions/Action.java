@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public abstract class Action implements Serializable {
 
-    private final String playerId;
+    private String playerId;
 
-    Action(String playerId) {
+    public void setPlayerId(String playerId) {
         this.playerId = playerId;
     }
 
