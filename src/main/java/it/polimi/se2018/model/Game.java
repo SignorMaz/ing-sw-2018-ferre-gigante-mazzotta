@@ -8,8 +8,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class Game {
+
+    private static final Logger LOGGER = Logger.getLogger("Game");
 
     private static final int TOTAL_ROUND_NUM = 10;
     private static final int PUBLIC_OBJECTIVE_CARDS_NUM = 3;
@@ -219,6 +222,10 @@ public class Game {
         return draftPool;
     }
 
+    public List<ToolCard> getToolCards() {
+        return new ArrayList<>(toolCards.keySet());
+    }
+
     public void suspendPlayer(Player player) {
         suspendedPlayers.add(player);
         if (players.size() - suspendedPlayers.size() == 1) {
@@ -271,18 +278,22 @@ public class Game {
     public boolean canUseToolCard(Player player, ToolCard toolCard) {
         enforceCurrentPlayer(player);
         if (toolCardInUse != null || toolCardUsed) {
+            System.out.println("1 " + toolCardInUse + " " + toolCardUsed);
             return false;
         }
 
         if (toolCard == null || !toolCards.containsKey(toolCard)) {
+            System.out.println("2 " + toolCard + " " + !toolCards.containsKey(toolCard));
             return false;
         }
 
         if (!toolCard.canUseCard(isFirstTurn, moveDone)) {
+            System.out.println("Something - isFirstTurn: " + isFirstTurn + " moveDoe:" + moveDone);
             return false;
         }
 
         if (getCurrentPlayer().getFavorTokensCount() < requiredTokens(toolCard)) {
+            System.out.println("Tokens: " + getCurrentPlayer().getFavorTokensCount() + " " + requiredTokens(toolCard));
             return false;
         }
 
