@@ -1,0 +1,18 @@
+package it.polimi.se2018.view.cli.commands;
+
+import it.polimi.se2018.model.ToolCard;
+import it.polimi.se2018.view.PlayerView;
+
+public class ListToolCards implements Command {
+    @Override
+    public String getText() {
+        return "List the toolcards available";
+    }
+
+    @Override
+    public void handle(PlayerView view) {
+        for (ToolCard card : view.getPlayerViewBase().getToolCards()) {
+            System.out.println(card.getName() + " - " + card.getDescription());
+        }
+    }
+}
