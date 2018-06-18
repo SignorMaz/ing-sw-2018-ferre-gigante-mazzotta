@@ -1,13 +1,14 @@
 package it.polimi.se2018.view;
 
+import it.polimi.se2018.controller.events.InitialSetupEvent;
+import it.polimi.se2018.model.*;
+import it.polimi.se2018.util.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
-import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.Client;
 import it.polimi.se2018.network.ConnectionType;
 import it.polimi.se2018.rmi.RmiClient;
 import it.polimi.se2018.socket.SocketClient;
-import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -66,23 +67,16 @@ public abstract class PlayerView implements Observer {
 
     }
 
-    public void initialSetup(Player.Color playerColor,
-                             List<WindowPatternCard> windowPatternCards,
-                             List<ObjectiveCard> privateObjectCards,
-                             int favorTokens,
-                             List<ObjectiveCard> publicObjectCards,
-                             List<ToolCard> toolCards,
-                             int turnTimeout,
-                             List<String> playerIds) {
-        this.playerColor = playerColor;
-        this.turnTimeout = turnTimeout;
-        this.windowPatternCards = windowPatternCards;
-        this.privateObjectCards = privateObjectCards;
-        this.favorTokens = favorTokens;
+    public void initialSetup(InitialSetupEvent.Data data) {
+        this.playerColor = data.playerColor;
+        this.windowPatternCards = data.windowPatternCards;
+        this.privateObjectCards = data.privateObjectCards;
+        this.favorTokens = data.favorTokens;
 
-        this.publicObjectCards = publicObjectCards;
-        this.toolCards = toolCards;
-        this.playerIds = playerIds;
+        this.publicObjectCards = data.publicObjectCards;
+        this.toolCards = data.toolCards;
+        this.turnTimeout = data.turnTimeout;
+        this.playerIds = data.playerIds;
 
         onInitialSetup();
     }
