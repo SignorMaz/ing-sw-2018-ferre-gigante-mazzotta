@@ -1,4 +1,4 @@
-package it.polimi.se2018.network;
+/*package it.polimi.se2018.network;
 
 import it.polimi.se2018.rmi.RmiServer;
 import it.polimi.se2018.socket.SocketServer;
@@ -54,7 +54,7 @@ public class ServerTest {
     private void loginSuccess(String playerId, ConnectionType type) {
         try {
             PlayerViewLoginTest playerView = new PlayerViewLoginTest(playerId, type);
-            playerView.login();
+            playerView.getPlayerViewBase().login();
             playerView.waitForEvent();
             assertTrue(playerView.getLoginResult());
         } catch (IOException | NotBoundException e) {
@@ -66,7 +66,7 @@ public class ServerTest {
     private void loginFail(String playerId, ConnectionType type) {
         try {
             PlayerViewLoginTest playerView = new PlayerViewLoginTest(playerId, type);
-            playerView.login();
+            playerView.getPlayerViewBase().login();
             playerView.waitForEvent();
             assertFalse(playerView.getLoginResult());
         } catch (IOException | NotBoundException e) {
@@ -115,3 +115,4 @@ public class ServerTest {
         loginFail("My duplicate Socket/RMI Player", ConnectionType.RMI);
     }
 }
+*/

@@ -1,22 +1,34 @@
-package it.polimi.se2018.network;
+/*package it.polimi.se2018.network;
 
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
+import it.polimi.se2018.controller.events.InitialSetupEvent;
 import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
+import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.PlayerView;
+import it.polimi.se2018.view.PlayerViewBase;
 
+import org.junit.Test;
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.util.List;
+import java.util.Map;
 
-class PlayerViewLoginTest extends PlayerView {
+class PlayerViewLoginTest implements PlayerView {
 
     private boolean loginEventReceived = false;
     private boolean loginResult = false;
+    private PlayerViewBase playerViewBase;
 
     PlayerViewLoginTest(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
-        super(playerId, connectionType);
+        playerViewBase = new PlayerViewBase(this, playerId, connectionType);
+    }
+
+    @Override
+    public PlayerViewBase getPlayerViewBase() {
+        return playerViewBase;
     }
 
     @Override
@@ -29,7 +41,7 @@ class PlayerViewLoginTest extends PlayerView {
     }
 
     @Override
-    public void onInitialSetup() {
+    public void onInitialSetup(InitialSetupEvent.Data data) {
 
     }
 
@@ -69,7 +81,7 @@ class PlayerViewLoginTest extends PlayerView {
     }
 
     @Override
-    public void onGameStarted() {
+    public void onGameStarted(Map<String, WindowPattern> windowPatternMap) {
 
     }
 
@@ -86,4 +98,9 @@ class PlayerViewLoginTest extends PlayerView {
             e.printStackTrace();
         }
     }
-}
+
+    @Test
+    public void TestPlayerViewLogin () {
+
+    }
+}*/

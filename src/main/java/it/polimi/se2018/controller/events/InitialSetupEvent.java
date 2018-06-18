@@ -55,6 +55,6 @@ public class InitialSetupEvent extends Event {
 
     @Override
     public void update(PlayerView playerView) {
-        playerView.initialSetup(data);
+        playerView.onInitialSetup(data);
     }
 }
