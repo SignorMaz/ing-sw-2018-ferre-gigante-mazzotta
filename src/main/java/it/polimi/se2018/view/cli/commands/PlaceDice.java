@@ -2,6 +2,7 @@ package it.polimi.se2018.view.cli.commands;
 
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.view.PlayerView;
+import it.polimi.se2018.view.cli.InputHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,40 +19,17 @@ public class PlaceDice implements Command {
     public void handle(PlayerView view) {
         Scanner input = new Scanner(System.in);
 
-        int row;
-        for (;;) {
-            System.out.println(String.format("Choose a row (0-%d)", WindowPattern.ROWS));
-            row = input.nextInt();
-            if (row > 0 && row < WindowPattern.ROWS) {
-                break;
-            }
-            System.out.println("Invalid value");
-        }
+        int row = InputHelper.getInt(input, 1, WindowPattern.ROWS, "Insert the row number");
+        int column = InputHelper.getInt(input, 1, WindowPattern.COLUMNS, "Insert the column number");
 
-        int column;
-        for (;;) {
-            System.out.println(String.format("Choose a column (0-%d)", WindowPattern.COLUMNS));
-            column = input.nextInt();
-            if (column > 0 && column < WindowPattern.COLUMNS) {
-                break;
-            }
-            System.out.println("Invalid value");
-        }
+        // We display numbers starting from 1, but we actually start from 0
+        row -= 1;
+        column -= 1;
 
         List<Dice> draftPool = new ArrayList<>(); // TODO: getDraftPool() from view
         System.out.println("Dices:");
-        int lastChoiceNum = draftPool.size() - 1;
-        for (int i = 0; i <= lastChoiceNum; i++) {
-            Dice dice = draftPool.get(i);
-            String text = String.format("  %d) %d %s", i, dice.getNumber(), dice.getColor());
-            System.out.println(text);
-        }
-
-        int chosenDiceNum;
-        do {
-            System.out.println(String.format("Choose a dice (0-%d):", lastChoiceNum));
-            chosenDiceNum = input.nextInt();
-        } while (chosenDiceNum < 0 || chosenDiceNum > lastChoiceNum);
+        int chosenDiceNum = InputHelper.chooseOption(input, draftPool,
+                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase());
 
         Position position = new Position(row, column);
         Dice dice = draftPool.get(chosenDiceNum);

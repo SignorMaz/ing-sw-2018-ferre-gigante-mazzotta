@@ -15,7 +15,7 @@ public class GameTest {
 
 
     @Test
-    public void canUseToolcard() {
+    public void canUseToolcards() {
         WindowPatternCard windowPattern = WindowPatternLoader.loadFromResource("loader-pattern-test.json");
         List<WindowPatternCard> windowListTest = new ArrayList<>();
         List<Player> playerListTest = new ArrayList<>();

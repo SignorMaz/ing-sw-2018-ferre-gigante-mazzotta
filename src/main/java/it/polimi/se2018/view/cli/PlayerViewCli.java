@@ -11,9 +11,7 @@ import it.polimi.se2018.view.PlayerViewBase;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class PlayerViewCli implements PlayerView {
 
@@ -80,28 +78,15 @@ public class PlayerViewCli implements PlayerView {
 
     public static void main(String[] args) throws IOException, NotBoundException {
         System.out.println("Choose a connection type:");
-        System.out.println(" 1) RMI");
-        System.out.println(" 2) Socket");
-
         Scanner input = new Scanner(System.in);
-        ConnectionType type;
-        for (;;) {
-            System.out.print("Insert position (1-2): ");
-            if (!input.hasNextInt()) {
-                input.next();
-                continue;
-            }
-            int connectionNum = input.nextInt();
-            if (connectionNum == 1) {
-                type = ConnectionType.RMI;
-                break;
-            } else if (connectionNum == 2) {
-                type = ConnectionType.SOCKET;
-                break;
-            }
-        }
+
+        List<ConnectionType> types = Arrays.asList(ConnectionType.values());
+        int typePosition = InputHelper.chooseOption(input, types, null);
+        ConnectionType type = types.get(typePosition);
+
         System.out.print("Choose a nickname: ");
         String playerId = input.next();
+
         PlayerView view = new PlayerViewCli(playerId, type);
         System.out.println("Connecting...");
         view.getPlayerViewBase().login();
