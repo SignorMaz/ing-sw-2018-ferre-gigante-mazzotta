@@ -30,6 +30,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private WindowFrame windowFrame;
     private List<ObjectiveCard> privateObjectCards;
     private int favorTokens;
+    private ToolCard toolCard;
 
     // Game properties
     private List<ObjectiveCard> publicObjectCards;
@@ -118,6 +119,14 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     public Map<String, WindowFrame> getRivalWindowFrames() {
         return rivalFrames;
+    }
+
+    public void setToolCard(ToolCard toolCard) {
+        this.toolCard = toolCard;
+    }
+
+    public ToolCard getToolCard() {
+        return toolCard;
     }
 
     @Override

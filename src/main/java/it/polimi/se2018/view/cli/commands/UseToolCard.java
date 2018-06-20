@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.cli.commands;
 
+import it.polimi.se2018.controller.actions.UseToolCardAction;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.PlayerView;
 import it.polimi.se2018.view.cli.InputHelper;
@@ -21,6 +22,7 @@ public class UseToolCard implements Command {
         int chosenCardNum = InputHelper.chooseOption(input, cards,
                 card -> card.getName() + " - " + card.getDescription());
         ToolCard toolCard = view.getPlayerViewBase().getToolCards().get(chosenCardNum);
-        // TODO: Send Action with toolCard
-    }
+
+        view.getPlayerViewBase().setToolCard(toolCard);
+        view.getPlayerViewBase().send(new UseToolCardAction(toolCard));    }
 }
