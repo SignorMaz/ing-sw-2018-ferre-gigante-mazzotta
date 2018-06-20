@@ -34,6 +34,17 @@ public class WindowFrame {
     }
 
     /**
+     * Place the dice in the given position without any restriction.
+     * If the position is already occupied, the dice gets replaced.
+     *
+     * @param dice dice to place
+     * @param position position where place the dice
+     */
+    public void placeDiceUnrestricted(Dice dice, Position position) {
+        placedDices.put(position, dice);
+    }
+
+    /**
      * place the dice in a given position
      * @param dice dice to place
      * @param position position where place the dice
