@@ -115,6 +115,11 @@ public class PlayerViewBase implements Observer, PlayerView {
         return windowFrame;
     }
 
+    public Map<String, WindowFrame> getRivalWindowFrames() {
+        return rivalFrames;
+    }
+
+
     @Override
     public PlayerViewBase getPlayerViewBase() {
         return this;

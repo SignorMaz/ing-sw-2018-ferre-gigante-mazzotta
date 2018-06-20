@@ -1,7 +1,11 @@
 package it.polimi.se2018.view.cli.commands;
 
+import it.polimi.se2018.model.WindowFrame;
 import it.polimi.se2018.view.PlayerView;
+import it.polimi.se2018.view.PlayerViewBase;
 import it.polimi.se2018.view.cli.WindowFramePrinter;
+
+import java.util.Map;
 
 public class ShowMaps implements Command {
     @Override
@@ -12,8 +16,12 @@ public class ShowMaps implements Command {
     @Override
     public void handle(PlayerView view) {
         System.out.println("Current player:");
-        WindowFramePrinter.print(view.getPlayerViewBase().getWindowFrame());
+        PlayerViewBase viewBase = view.getPlayerViewBase();
+        WindowFramePrinter.print(viewBase.getWindowFrame());
 
-        // TODO: Print frame of the other players
+        System.out.println("Rivals:");
+        for (Map.Entry<String, WindowFrame> entry : viewBase.getRivalWindowFrames().entrySet()) {
+            WindowFramePrinter.print(entry.getValue());
+        }
     }
 }
