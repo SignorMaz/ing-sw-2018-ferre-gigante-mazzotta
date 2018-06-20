@@ -1,20 +1,19 @@
 package it.polimi.se2018.view;
 
-import it.polimi.se2018.controller.events.InitialSetupEvent;
-import it.polimi.se2018.model.*;
-import it.polimi.se2018.util.Observer;
 import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.Event;
-import it.polimi.se2018.rmi.RmiClient;
+import it.polimi.se2018.controller.events.InitialSetupEvent;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.Client;
 import it.polimi.se2018.network.ConnectionType;
+import it.polimi.se2018.rmi.RmiClient;
 import it.polimi.se2018.socket.SocketClient;
+import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PlayerViewBase implements Observer, PlayerView {
@@ -178,6 +177,7 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     @Override
     public void onTokensChanged(int tokens) {
+        favorTokens -= tokens;
         playerViewImpl.onTokensChanged(tokens);
     }
 
