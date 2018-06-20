@@ -42,8 +42,8 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onDraftPoolChanged() {
-
+    public void onDraftPoolChanged(List<Dice> draftPool) {
+        
     }
 
     @Override

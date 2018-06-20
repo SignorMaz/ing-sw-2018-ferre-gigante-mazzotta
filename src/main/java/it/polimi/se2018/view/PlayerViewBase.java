@@ -37,6 +37,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private int turnTimeout;
     private List<String> playerIds;
     private Map<String, WindowFrame> rivalFrames;
+    private List<Dice> draftPool;
 
     public PlayerViewBase(PlayerView playerViewImpl, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
@@ -119,7 +120,6 @@ public class PlayerViewBase implements Observer, PlayerView {
         return rivalFrames;
     }
 
-
     @Override
     public PlayerViewBase getPlayerViewBase() {
         return this;
@@ -156,8 +156,9 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onDraftPoolChanged() {
-        playerViewImpl.onDraftPoolChanged();
+    public void onDraftPoolChanged(List<Dice> draftPool) {
+        this.draftPool = draftPool;
+        playerViewImpl.onDraftPoolChanged(draftPool);
     }
 
     @Override
