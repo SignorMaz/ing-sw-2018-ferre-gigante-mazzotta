@@ -1,28 +1,23 @@
-/*package it.polimi.se2018.network;
+package it.polimi.se2018.view.cli;
 
 import it.polimi.se2018.controller.actions.Action;
-import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.controller.events.InitialSetupEvent;
-import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
 import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.network.ConnectionType;
 import it.polimi.se2018.view.PlayerView;
 import it.polimi.se2018.view.PlayerViewBase;
 
-import org.junit.Test;
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-class PlayerViewLoginTest implements PlayerView {
+public class PlayerViewCli implements PlayerView {
 
-    private boolean loginEventReceived = false;
-    private boolean loginResult = false;
-    private PlayerViewBase playerViewBase;
+    private final PlayerViewBase playerViewBase;
 
-    PlayerViewLoginTest(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
+    public PlayerViewCli(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
         playerViewBase = new PlayerViewBase(this, playerId, connectionType);
     }
 
@@ -33,11 +28,7 @@ class PlayerViewLoginTest implements PlayerView {
 
     @Override
     public void onLogin(boolean result) {
-        synchronized (this) {
-            loginEventReceived = true;
-            loginResult = result;
-            notifyAll();
-        }
+
     }
 
     @Override
@@ -85,22 +76,19 @@ class PlayerViewLoginTest implements PlayerView {
 
     }
 
-    boolean getLoginResult() {
-        return loginResult;
-    }
+    public static void main(String[] args) throws IOException, NotBoundException {
+        System.out.println("Choose a connection type:");
+        Scanner input = new Scanner(System.in);
 
-    synchronized void waitForEvent() {
-        try {
-            while (!loginEventReceived) {
-                wait();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+        List<ConnectionType> types = Arrays.asList(ConnectionType.values());
+        int typePosition = InputHelper.chooseOption(input, types, null);
+        ConnectionType type = types.get(typePosition);
 
-    @Test
-    public void TestPlayerViewLogin () {
+        System.out.print("Choose a nickname: ");
+        String playerId = input.next();
 
+        PlayerView view = new PlayerViewCli(playerId, type);
+        System.out.println("Connecting...");
+        view.getPlayerViewBase().login();
     }
-}*/
+}
