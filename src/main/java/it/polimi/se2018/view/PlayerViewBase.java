@@ -142,8 +142,13 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onDicePlaced(Position position, Dice dice) {
-        playerViewImpl.onDicePlaced(position, dice);
+    public void onDicePlaced(String playerPlacingDice, Position position, Dice dice) {
+        if (playerId.equals(playerPlacingDice)) {
+            windowFrame.placeDiceUnrestricted(dice, position);
+        } else {
+            rivalFrames.get(playerPlacingDice).placeDiceUnrestricted(dice, position);
+        }
+        playerViewImpl.onDicePlaced(playerPlacingDice, position, dice);
     }
 
     @Override

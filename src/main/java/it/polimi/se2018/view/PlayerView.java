@@ -13,7 +13,7 @@ public interface PlayerView {
 
     void onLogin(boolean result);
     void onInitialSetup(InitialSetupEvent.Data data);
-    void onDicePlaced(Position position, Dice dice);
+    void onDicePlaced(String playerPlacingDice, Position position, Dice dice);
     void onDraftPoolChanged();
     void onGameOver();
     void onInvalidAction(Action action);

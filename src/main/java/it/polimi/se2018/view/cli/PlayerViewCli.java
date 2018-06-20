@@ -37,7 +37,7 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onDicePlaced(Position position, Dice dice) {
+    public void onDicePlaced(String playerPlacingDice, Position position, Dice dice) {
 
     }
 
