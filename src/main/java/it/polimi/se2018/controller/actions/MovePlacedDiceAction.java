@@ -1,0 +1,20 @@
+package it.polimi.se2018.controller.actions;
+
+import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.Position;
+
+public class MovePlacedDiceAction extends Action {
+
+    private final Position curPosition;
+    private final Position newPosition;
+
+    public MovePlacedDiceAction(Position curPosition, Position newPosition) {
+        this.curPosition = curPosition;
+        this.newPosition = newPosition;
+    }
+
+    @Override
+    public void perform(Player player) {
+        player.getGame().movePlacedDice(player, curPosition, newPosition);
+    }
+}
