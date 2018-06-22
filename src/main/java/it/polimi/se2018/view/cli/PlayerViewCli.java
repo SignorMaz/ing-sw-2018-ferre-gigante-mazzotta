@@ -8,6 +8,7 @@ import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.network.ConnectionType;
 import it.polimi.se2018.view.PlayerView;
 import it.polimi.se2018.view.PlayerViewBase;
+import it.polimi.se2018.view.cli.commands.Command;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -17,6 +18,8 @@ public class PlayerViewCli implements PlayerView {
 
     private final PlayerViewBase playerViewBase;
     private final Scanner scanner;
+    private boolean isGameOver = false;
+    private boolean isMyTurn = false;
 
     public PlayerViewCli(Scanner scanner, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
@@ -63,6 +66,7 @@ public class PlayerViewCli implements PlayerView {
     @Override
     public void onGameOver() {
         System.out.println("The game is over");
+        isGameOver = true;
     }
 
     @Override
@@ -74,10 +78,11 @@ public class PlayerViewCli implements PlayerView {
     public void onNewTurn(String playerId) {
         if (getPlayerViewBase().getPlayerId().equals(playerId)) {
             System.out.println("It's your turn");
+            isMyTurn = true;
         } else {
             System.out.println("It's " + playerId + "'s turn!");
+            isMyTurn = false;
         }
-        // TODO: Enable/disable user input
     }
 
     @Override
@@ -94,6 +99,20 @@ public class PlayerViewCli implements PlayerView {
         System.out.println("Game started!");
     }
 
+    private void handleUserInput() {
+        List<Command> options = new ArrayList<>();
+        // TODO: Populate this list
+        int optionNum = InputHelper.chooseOption(scanner, options, Command::getText);
+        options.get(optionNum).handle(this);
+    }
+
+    public void looper() {
+        while (!isGameOver) {
+            System.out.println();
+            handleUserInput();
+        }
+    }
+
     public static void main(String[] args) throws IOException, NotBoundException {
         System.out.println("Choose a connection type:");
         Scanner input = new Scanner(System.in);
@@ -105,12 +124,14 @@ public class PlayerViewCli implements PlayerView {
         System.out.print("Choose a nickname: ");
         String playerId = input.next();
 
-        PlayerView view = new PlayerViewCli(input, playerId, type);
+        PlayerViewCli view = new PlayerViewCli(input, playerId, type);
         System.out.println("Connecting...");
         try {
             view.getPlayerViewBase().login();
         } catch (IOException exception) {
             System.out.println("Could not login. Please try again witha different username");
         }
+
+        view.looper();
     }
 }
