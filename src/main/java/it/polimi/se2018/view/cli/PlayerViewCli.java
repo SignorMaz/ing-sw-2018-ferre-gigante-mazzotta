@@ -57,7 +57,7 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onNewTurn() {
+    public void onNewTurn(String playerId) {
 
     }
 

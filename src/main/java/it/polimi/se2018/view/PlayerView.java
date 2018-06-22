@@ -24,7 +24,7 @@ public interface PlayerView {
 
     void onInvalidAction(Action action);
 
-    void onNewTurn();
+    void onNewTurn(String playerId);
 
     void onPointsChanged(int points);
 

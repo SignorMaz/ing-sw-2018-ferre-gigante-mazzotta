@@ -1,6 +1,7 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.controller.Controller;
+import it.polimi.se2018.controller.events.Event;
 import it.polimi.se2018.controller.events.NewTurnEvent;
 
 import java.util.*;
@@ -193,8 +194,10 @@ public class Game {
         }
         startTurnTimer();
 
+        String currentPlayerId = getCurrentPlayer().getPlayerId();
         for (Player player : players) {
-            Controller.getInstance().send(new NewTurnEvent(player.getPlayerId()));
+            Event newTurn = new NewTurnEvent(player.getPlayerId(), currentPlayerId);
+            Controller.getInstance().send(newTurn);
         }
 
     }

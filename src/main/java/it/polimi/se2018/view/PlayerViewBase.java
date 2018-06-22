@@ -181,8 +181,8 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onNewTurn() {
-        playerViewImpl.onNewTurn();
+    public void onNewTurn(String playerId) {
+        playerViewImpl.onNewTurn(playerId);
     }
 
     @Override
