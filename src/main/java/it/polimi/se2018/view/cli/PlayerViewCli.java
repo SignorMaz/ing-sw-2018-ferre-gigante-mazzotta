@@ -16,9 +16,16 @@ import java.util.*;
 public class PlayerViewCli implements PlayerView {
 
     private final PlayerViewBase playerViewBase;
+    private final Scanner scanner;
 
-    public PlayerViewCli(String playerId, ConnectionType connectionType) throws IOException, NotBoundException {
+    public PlayerViewCli(Scanner scanner, String playerId, ConnectionType connectionType)
+            throws IOException, NotBoundException {
         playerViewBase = new PlayerViewBase(this, playerId, connectionType);
+        this.scanner = scanner;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
     }
 
     @Override
@@ -94,7 +101,7 @@ public class PlayerViewCli implements PlayerView {
         System.out.print("Choose a nickname: ");
         String playerId = input.next();
 
-        PlayerView view = new PlayerViewCli(playerId, type);
+        PlayerView view = new PlayerViewCli(input, playerId, type);
         System.out.println("Connecting...");
         try {
             view.getPlayerViewBase().login();

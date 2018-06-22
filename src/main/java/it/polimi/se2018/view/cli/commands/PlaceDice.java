@@ -1,8 +1,8 @@
 package it.polimi.se2018.view.cli.commands;
 
 import it.polimi.se2018.model.*;
-import it.polimi.se2018.view.PlayerView;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.PlayerViewCli;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ public class PlaceDice implements Command {
     }
 
     @Override
-    public void handle(PlayerView view) {
-        Scanner input = new Scanner(System.in);
+    public void handle(PlayerViewCli view) {
+        Scanner input = view.getScanner();
 
         int row = InputHelper.getInt(input, 1, WindowPattern.ROWS, "Insert the row number");
         int column = InputHelper.getInt(input, 1, WindowPattern.COLUMNS, "Insert the column number");

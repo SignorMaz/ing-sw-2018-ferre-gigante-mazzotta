@@ -1,8 +1,8 @@
 package it.polimi.se2018.view.cli.commands;
 
 import it.polimi.se2018.model.WindowFrame;
-import it.polimi.se2018.view.PlayerView;
 import it.polimi.se2018.view.PlayerViewBase;
+import it.polimi.se2018.view.cli.PlayerViewCli;
 import it.polimi.se2018.view.cli.WindowFramePrinter;
 
 import java.util.Map;
@@ -14,7 +14,7 @@ public class ShowMaps implements Command {
     }
 
     @Override
-    public void handle(PlayerView view) {
+    public void handle(PlayerViewCli view) {
         System.out.println("Current player:");
         PlayerViewBase viewBase = view.getPlayerViewBase();
         WindowFramePrinter.print(viewBase.getWindowFrame());
