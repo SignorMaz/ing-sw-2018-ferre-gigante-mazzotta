@@ -24,4 +24,9 @@ public class ShowMaps implements Command {
             WindowFramePrinter.print(entry.getValue());
         }
     }
+
+    @Override
+    public boolean canPerform(PlayerViewCli view) {
+        return true;
+    }
 }

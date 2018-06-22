@@ -41,4 +41,9 @@ public class PlaceDice implements Command {
             view.getPlayerViewBase().send(null);  // TODO: send Action with chosenDice and Position
         }
     }
+
+    @Override
+    public boolean canPerform(PlayerViewCli view) {
+        return view.isMyTurn();
+    }
 }

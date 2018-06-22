@@ -28,6 +28,10 @@ public class PlayerViewCli implements PlayerView {
         return scanner;
     }
 
+    public boolean isMyTurn() {
+        return isMyTurn;
+    }
+
     @Override
     public PlayerViewBase getPlayerViewBase() {
         return playerViewBase;

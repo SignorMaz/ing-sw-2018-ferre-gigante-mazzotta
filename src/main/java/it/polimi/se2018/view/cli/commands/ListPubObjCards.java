@@ -15,4 +15,9 @@ public class ListPubObjCards implements Command {
             System.out.println(card.getName() + " - " + card.getDescription());
         }
     }
+
+    @Override
+    public boolean canPerform(PlayerViewCli view) {
+        return true;
+    }
 }

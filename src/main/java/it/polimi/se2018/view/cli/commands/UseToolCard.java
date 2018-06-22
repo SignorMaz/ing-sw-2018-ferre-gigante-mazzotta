@@ -26,4 +26,9 @@ public class UseToolCard implements Command {
         view.getPlayerViewBase().setToolCard(toolCard);
         view.getPlayerViewBase().send(new UseToolCardAction(toolCard));
     }
+
+    @Override
+    public boolean canPerform(PlayerViewCli view) {
+        return view.isMyTurn();
+    }
 }
