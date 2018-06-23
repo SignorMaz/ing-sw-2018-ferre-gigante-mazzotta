@@ -27,6 +27,6 @@ public class ShowMaps implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return true;
+        return view.isGameStarted();
     }
 }

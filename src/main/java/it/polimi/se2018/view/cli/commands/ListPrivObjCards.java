@@ -18,6 +18,7 @@ public class ListPrivObjCards implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return true;
+        return view.isGameSetUp();
     }
 }
+

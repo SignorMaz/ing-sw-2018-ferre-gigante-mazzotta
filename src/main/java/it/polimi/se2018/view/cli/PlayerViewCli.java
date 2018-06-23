@@ -19,6 +19,8 @@ public class PlayerViewCli implements PlayerView {
     private final PlayerViewBase playerViewBase;
     private final Scanner scanner;
     private boolean isGameOver = false;
+    private boolean isGameStarted = false;
+    private boolean isGameSetUp = false;
     private boolean isMyTurn = false;
 
     public PlayerViewCli(Scanner scanner, String playerId, ConnectionType connectionType)
@@ -35,6 +37,14 @@ public class PlayerViewCli implements PlayerView {
         return isMyTurn;
     }
 
+    public boolean isGameSetUp() {
+        return isGameSetUp;
+    }
+
+    public boolean isGameStarted() {
+        return isGameStarted;
+    }
+
     @Override
     public PlayerViewBase getPlayerViewBase() {
         return playerViewBase;
@@ -47,6 +57,10 @@ public class PlayerViewCli implements PlayerView {
 
     @Override
     public void onInitialSetup(InitialSetupEvent.Data data) {
+        synchronized (this) {
+            isGameSetUp = true;
+            notify();
+        }
     }
 
     @Override
@@ -76,6 +90,7 @@ public class PlayerViewCli implements PlayerView {
 
     @Override
     public void onNewTurn(String playerId) {
+        isGameStarted = true;
         if (getPlayerViewBase().getPlayerId().equals(playerId)) {
             System.out.println("It's your turn");
             isMyTurn = true;
@@ -116,6 +131,15 @@ public class PlayerViewCli implements PlayerView {
 
     public void looper() {
         while (!isGameOver) {
+            try {
+                synchronized (this) {
+                    while (!isGameSetUp) {
+                        wait();
+                    }
+                }
+            } catch (InterruptedException e) {
+                continue;
+            }
             System.out.println();
             handleUserInput();
         }

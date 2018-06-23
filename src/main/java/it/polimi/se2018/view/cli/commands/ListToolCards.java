@@ -18,6 +18,6 @@ public class ListToolCards implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return true;
+        return view.isGameStarted();
     }
 }
