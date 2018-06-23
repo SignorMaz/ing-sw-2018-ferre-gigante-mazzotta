@@ -7,7 +7,7 @@ public class CommandList {
     private CommandList() {
     }
 
-    public static final Command[] COMMANDS = {
+    protected static final Command[] COMMANDS = {
             new ListPrivObjCards(),
             new ListPubObjCards(),
             new ListToolCards(),

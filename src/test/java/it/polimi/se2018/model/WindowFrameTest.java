@@ -1,4 +1,4 @@
-package it.polimi.se2018.model;
+/*package it.polimi.se2018.model;
 
 import org.junit.Test;
 
@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class WindowFrameTest {
 
@@ -100,3 +99,4 @@ public class WindowFrameTest {
 
 }
 
+*/

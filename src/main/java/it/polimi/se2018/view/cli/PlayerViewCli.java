@@ -59,7 +59,7 @@ public class PlayerViewCli implements PlayerView {
     public void onInitialSetup(InitialSetupEvent.Data data) {
         synchronized (this) {
             isGameSetUp = true;
-            notify();
+            notifyAll();
         }
     }
 
@@ -129,23 +129,21 @@ public class PlayerViewCli implements PlayerView {
         options.get(optionNum).handle(this);
     }
 
-    public void looper() {
+    public void looper() throws InterruptedException {
         while (!isGameOver) {
-            try {
-                synchronized (this) {
-                    while (!isGameSetUp) {
-                        wait();
-                    }
+
+            synchronized (this) {
+                while (!isGameSetUp) {
+                    wait();
                 }
-            } catch (InterruptedException e) {
-                continue;
             }
+
             System.out.println();
             handleUserInput();
         }
     }
 
-    public static void main(String[] args) throws IOException, NotBoundException {
+    public static void main(String[] args) throws IOException, NotBoundException, InterruptedException {
         System.out.println("Choose a connection type:");
         Scanner input = new Scanner(System.in);
 

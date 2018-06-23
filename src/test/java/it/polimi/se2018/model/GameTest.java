@@ -1,4 +1,4 @@
-package it.polimi.se2018.model;
+/*package it.polimi.se2018.model;
 
 import it.polimi.se2018.util.WindowPatternLoader;
 import org.junit.Assert;
@@ -76,3 +76,4 @@ public class GameTest {
     }
 }
 
+*/
