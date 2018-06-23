@@ -101,7 +101,12 @@ public class PlayerViewCli implements PlayerView {
 
     private void handleUserInput() {
         List<Command> options = new ArrayList<>();
-        // TODO: Populate this list
+        for (Command command : CommandList.COMMANDS) {
+            if (!command.canPerform(this)) {
+                continue;
+            }
+            options.add(command);
+        }
         int optionNum = InputHelper.chooseOption(scanner, options, Command::getText, true);
         if (optionNum >= options.size()) {
             return;
