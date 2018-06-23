@@ -29,7 +29,11 @@ public class PlaceDice implements Command {
         List<Dice> draftPool = new ArrayList<>(); // TODO: getDraftPool() from view
         System.out.println("Dices:");
         int chosenDiceNum = InputHelper.chooseOption(input, draftPool,
-                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase());
+                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase(),
+                true);
+        if (chosenDiceNum >= draftPool.size()) {
+            return;
+        }
 
         Position position = new Position(row, column);
         Dice dice = draftPool.get(chosenDiceNum);
@@ -47,3 +51,4 @@ public class PlaceDice implements Command {
         return view.isMyTurn();
     }
 }
+

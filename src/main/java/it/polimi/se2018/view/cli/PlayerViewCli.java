@@ -102,7 +102,10 @@ public class PlayerViewCli implements PlayerView {
     private void handleUserInput() {
         List<Command> options = new ArrayList<>();
         // TODO: Populate this list
-        int optionNum = InputHelper.chooseOption(scanner, options, Command::getText);
+        int optionNum = InputHelper.chooseOption(scanner, options, Command::getText, true);
+        if (optionNum >= options.size()) {
+            return;
+        }
         options.get(optionNum).handle(this);
     }
 
@@ -118,7 +121,7 @@ public class PlayerViewCli implements PlayerView {
         Scanner input = new Scanner(System.in);
 
         List<ConnectionType> types = Arrays.asList(ConnectionType.values());
-        int typePosition = InputHelper.chooseOption(input, types, null);
+        int typePosition = InputHelper.chooseOption(input, types, null, false);
         ConnectionType type = types.get(typePosition);
 
         System.out.print("Choose a nickname: ");

@@ -20,7 +20,11 @@ public class UseToolCard implements Command {
 
         List<ToolCard> cards = view.getPlayerViewBase().getToolCards();
         int chosenCardNum = InputHelper.chooseOption(input, cards,
-                card -> card.getName() + " - " + card.getDescription());
+                card -> card.getName() + " - " + card.getDescription(),
+                true);
+        if (chosenCardNum >= cards.size()) {
+            return;
+        }
         ToolCard toolCard = view.getPlayerViewBase().getToolCards().get(chosenCardNum);
 
         view.getPlayerViewBase().setToolCard(toolCard);

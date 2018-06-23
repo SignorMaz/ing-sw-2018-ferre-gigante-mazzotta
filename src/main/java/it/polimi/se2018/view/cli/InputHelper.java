@@ -58,16 +58,24 @@ public class InputHelper {
      * @param options a list of options
      * @param converter an object to convert each option to a string.
      *                  Pass null to use the options' toString()
+     * @param canCancel true if there should be an option to cancel the operation
      * @return the position in the list of the chosen element. If canCancel is
      *         true, the position will be out of the list range.
      */
-    public static <T> int chooseOption(Scanner scanner, List<T> options, OptionString<T> converter) {
+    public static <T> int chooseOption(Scanner scanner, List<T> options, OptionString<T> converter,
+                                       boolean canCancel) {
         int num = 0;
         for (T option : options) {
             num++;
             String optionString = converter != null ?
                     converter.convert(option) : option.toString();
             String text = String.format(" %d) %s", num, optionString);
+            System.out.println(text);
+        }
+
+        if (canCancel) {
+            num++;
+            String text = String.format(" %d) Cancel", num);
             System.out.println(text);
         }
 
