@@ -97,6 +97,21 @@ public class Game {
             }
         };
         suspendedPlayers = new HashSet<>();
+    }
+
+    /**
+     * Called whenever a Player is ready. If all the players
+     * are ready, the game will start.
+     *
+     * TODO: Don't wait indefinitely
+     * Suspend the Players not ready after a certain amount of time
+     */
+    void tryStart() {
+        for (Player player : players) {
+            if (!player.isReady()) {
+                return;
+            }
+        }
         newRound();
     }
 

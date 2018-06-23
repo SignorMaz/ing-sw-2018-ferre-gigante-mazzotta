@@ -88,6 +88,7 @@ public class Player {
         }
         favorTokensCount = windowFrame.getWindowPattern().getDifficulty();
 
+        getGame().tryStart();
     }
 
     /**
