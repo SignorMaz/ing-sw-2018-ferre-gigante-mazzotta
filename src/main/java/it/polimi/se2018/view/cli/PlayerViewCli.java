@@ -90,7 +90,10 @@ public class PlayerViewCli implements PlayerView {
 
     @Override
     public void onNewTurn(String playerId) {
-        isGameStarted = true;
+        if (!isGameStarted) {
+            isGameStarted = true;
+            System.out.println("The game started!");
+        }
         if (getPlayerViewBase().getPlayerId().equals(playerId)) {
             System.out.println("It's your turn");
             isMyTurn = true;
