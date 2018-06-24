@@ -17,7 +17,7 @@ public class Player {
     private final Color playerColor;
     private final List<WindowPatternCard> windowPatternCards;
     private WindowFrame windowFrame;
-    private final List<ObjectiveCard> objectiveCards;
+    private final List<ObjectiveCard> privateObjectiveCards;
     private int favorTokensCount;
 
     private boolean isReady;
@@ -35,7 +35,7 @@ public class Player {
         this.playerId = playerId;
         this.windowPatternCards = windowPatternCards;
         this.playerColor = playerColor;
-        objectiveCards = new ArrayList<>();
+        privateObjectiveCards = new ArrayList<>();
     }
 
     public String getPlayerId() {
@@ -121,7 +121,15 @@ public class Player {
         favorTokensCount -= num;
     }
 
-    public void setObjectiveCards(List<ObjectiveCard> cards) {
-        objectiveCards.addAll(cards);
+    public void setPrivateObjectiveCards(List<ObjectiveCard> cards) {
+        privateObjectiveCards.addAll(cards);
+    }
+
+    public List<ObjectiveCard> getPrivateObjectiveCards() {
+        return privateObjectiveCards;
+    }
+
+    public List<WindowPatternCard> getWindowPatternCards() {
+        return windowPatternCards;
     }
 }

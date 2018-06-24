@@ -14,6 +14,6 @@ public class SetObjectiveCardsAction extends Action {
 
     @Override
     public void perform(Player player) {
-        player.setObjectiveCards(objectiveCards);
+        player.setPrivateObjectiveCards(objectiveCards);
     }
 }

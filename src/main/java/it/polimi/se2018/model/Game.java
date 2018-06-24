@@ -2,6 +2,7 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.events.Event;
+import it.polimi.se2018.controller.events.InitialSetupEvent;
 import it.polimi.se2018.controller.events.NewTurnEvent;
 
 import java.util.*;
@@ -71,7 +72,7 @@ public class Game {
         for (Player player : players) {
             List<ObjectiveCard> privateObjectiveCards = new ArrayList<>();
             privateObjectiveCards.add(privateObjectiveCardsDeck.remove(0));
-            player.setObjectiveCards(privateObjectiveCards);
+            player.setPrivateObjectiveCards(privateObjectiveCards);
         }
 
         toolCards = new HashMap<>();
@@ -97,6 +98,27 @@ public class Game {
             }
         };
         suspendedPlayers = new HashSet<>();
+        notifyGameCreation();
+    }
+
+    private void notifyGameCreation() {
+        List<String> playerIds = new ArrayList<>();
+        for (Player player : players) {
+            playerIds.add(player.getPlayerId());
+        }
+        for (Player player : players) {
+            InitialSetupEvent.Data data = new InitialSetupEvent.Data(
+                    player.getPlayerColor(),
+                    player.getWindowPatternCards(),
+                    player.getPrivateObjectiveCards(),
+                    player.getFavorTokensCount(),
+                    publicObjectiveCards,
+                    getToolCards(),
+                    turnTimeoutSeconds,
+                    playerIds);
+            Event initialSetupEvent = new InitialSetupEvent(player.getPlayerId(), data);
+            Controller.getInstance().send(initialSetupEvent);
+        }
     }
 
     /**
