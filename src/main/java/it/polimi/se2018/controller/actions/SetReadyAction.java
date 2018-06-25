@@ -1,19 +1,18 @@
 package it.polimi.se2018.controller.actions;
 
 import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.WindowPattern;
 
 public class SetReadyAction extends Action {
-    private final int windowFrameNumber;
 
-    private final boolean front;
+    private final WindowPattern windowPattern;
 
-    public SetReadyAction(int windowFrameNumber, boolean front) {
-        this.windowFrameNumber = windowFrameNumber;
-        this.front = front;
+    public SetReadyAction(WindowPattern windowPattern) {
+        this.windowPattern = windowPattern;
     }
 
     @Override
     public void perform(Player player) {
-        player.setReady(windowFrameNumber, front);
+        player.setReady(windowPattern);
     }
 }

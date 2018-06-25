@@ -23,10 +23,9 @@ public class Player {
     private boolean isReady;
 
     /**
-     *
-     * @param playerId id of the player
+     * @param playerId           id of the player
      * @param windowPatternCards draft pattern
-     * @param playerColor color of the player
+     * @param playerColor        color of the player
      */
     public Player(String playerId, List<WindowPatternCard> windowPatternCards, Color playerColor) {
         if (playerId == null) {
@@ -71,21 +70,27 @@ public class Player {
     /**
      * set the player to ready
      *
-     * @param windowNumber windowNumber
+     * @param windowPattern the WindowPattern to use for the game
      */
-    public void setReady(int windowNumber, boolean front) {
+    public void setReady(WindowPattern windowPattern) {
         if (isReady()) {
             throw new IllegalStateException("Pattern already chosen");
         }
-        if (windowNumber < 0 || windowNumber > windowPatternCards.size()) {
-            throw new IllegalArgumentException("Invalid pattern number");
+        WindowPattern foundPattern = null;
+        for (WindowPatternCard patternCard : getWindowPatternCards()) {
+            if (patternCard.getBack().equals(windowPattern)) {
+                foundPattern = windowPattern;
+                break;
+            } else if (patternCard.getFront().equals(windowPattern)) {
+                foundPattern = windowPattern;
+                break;
+            }
+        }
+        if (foundPattern == null) {
+            throw new IllegalArgumentException("Invalid WindowPattern");
         }
         isReady = true;
-        if (front) {
-            windowFrame = new WindowFrame(windowPatternCards.get(windowNumber).getFront());
-        } else {
-            windowFrame = new WindowFrame(windowPatternCards.get(windowNumber).getBack());
-        }
+        windowFrame = new WindowFrame(foundPattern);
         favorTokensCount = windowFrame.getWindowPattern().getDifficulty();
 
         getGame().tryStart();
