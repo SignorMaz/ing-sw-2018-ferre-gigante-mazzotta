@@ -14,6 +14,7 @@ public class CommandList {
             new PlaceDice(),
             new ShowMaps(),
             new SetReady(),
+            new CompleteTurn(),
     };
 
 }

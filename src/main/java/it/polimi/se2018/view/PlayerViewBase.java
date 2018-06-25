@@ -39,6 +39,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private List<String> playerIds;
     private Map<String, WindowFrame> rivalFrames;
     private List<Dice> draftPool;
+    private String currentPlayerId;
 
     public PlayerViewBase(PlayerView playerViewImpl, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
@@ -182,6 +183,7 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     @Override
     public void onNewTurn(String playerId) {
+        currentPlayerId = playerId;
         playerViewImpl.onNewTurn(playerId);
     }
 
@@ -204,5 +206,9 @@ public class PlayerViewBase implements Observer, PlayerView {
             rivalFrames.put(rivalId, rivalWindowFrame);
         }
         playerViewImpl.onGameStarted(windowPatternMap);
+    }
+
+    public boolean isCurrentPlayer() {
+        return playerId.equals(currentPlayerId);
     }
 }
