@@ -81,7 +81,8 @@ public class Player {
             if (patternCard.getBack().equals(windowPattern)) {
                 foundPattern = windowPattern;
                 break;
-            } else if (patternCard.getFront().equals(windowPattern)) {
+            }
+            if (patternCard.getFront().equals(windowPattern)) {
                 foundPattern = windowPattern;
                 break;
             }

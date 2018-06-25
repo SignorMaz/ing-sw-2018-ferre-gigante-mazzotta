@@ -13,6 +13,7 @@ public class CommandList {
             new ListToolCards(),
             new PlaceDice(),
             new ShowMaps(),
+            new SetReady(),
     };
 
 }
