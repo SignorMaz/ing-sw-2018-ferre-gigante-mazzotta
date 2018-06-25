@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class SetReady implements Command {
     @Override
     public String getText() {
-        return "Use a ToolCard";
+        return "Choose a WindowFrame";
     }
 
     private InputHelper.OptionString<WindowPattern> converter = card -> {

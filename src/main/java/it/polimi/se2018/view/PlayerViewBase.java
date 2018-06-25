@@ -211,4 +211,8 @@ public class PlayerViewBase implements Observer, PlayerView {
     public boolean isCurrentPlayer() {
         return playerId.equals(currentPlayerId);
     }
+
+    public List<Dice> getDraftPool() {
+        return draftPool;
+    }
 }

@@ -1,10 +1,13 @@
 package it.polimi.se2018.view.cli.commands;
 
-import it.polimi.se2018.model.*;
+import it.polimi.se2018.controller.actions.PlaceDiceAction;
+import it.polimi.se2018.model.Dice;
+import it.polimi.se2018.model.Position;
+import it.polimi.se2018.model.ToolCard;
+import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.cli.InputHelper;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,7 +29,7 @@ public class PlaceDice implements Command {
         row -= 1;
         column -= 1;
 
-        List<Dice> draftPool = new ArrayList<>(); // TODO: getDraftPool() from view
+        List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
         System.out.println("Dices:");
         int chosenDiceNum = InputHelper.chooseOption(input, draftPool,
                 dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase(),
@@ -37,12 +40,12 @@ public class PlaceDice implements Command {
 
         Position position = new Position(row, column);
         Dice dice = draftPool.get(chosenDiceNum);
-        ToolCard toolcard = null; // TODO: Get toolcard in use
+        ToolCard toolcard = view.getPlayerViewBase().getToolCard();
 
         if (!view.getPlayerViewBase().getWindowFrame().isPositionValid(dice, position, toolcard)) {
             System.out.println("The move is not valid");
         } else {
-            view.getPlayerViewBase().send(null);  // TODO: send Action with chosenDice and Position
+            view.getPlayerViewBase().send(new PlaceDiceAction(dice, position));
         }
     }
 
