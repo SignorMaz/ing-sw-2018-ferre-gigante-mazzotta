@@ -1,4 +1,4 @@
-/*package it.polimi.se2018.model;
+package it.polimi.se2018.model;
 
 import it.polimi.se2018.util.WindowPatternLoader;
 import org.junit.Assert;
@@ -24,11 +24,11 @@ public class GameTest {
         ToolCard tooltest = null;
         Player player1 = new Player("0001", windowListTest, Player.Color.BLUE);
         Player player2 = new Player("0002", windowListTest, Player.Color.RED);
-        player1.setReady(0, true);
-        player2.setReady(1, false);
         playerListTest.add(player1);
         playerListTest.add(player2);
         Game game = new Game(playerListTest);
+        player1.setReady(windowPattern.getFront());
+        player2.setReady(windowPattern.getBack());
         Assert.assertEquals(player1, game.getCurrentPlayer());
         game.nextTurn();
         Assert.assertEquals(player2, game.getCurrentPlayer());
@@ -64,16 +64,15 @@ public class GameTest {
         Player player1 = new Player("0001", windowListTest, Player.Color.BLUE);
         Player player2 = new Player("0002", windowListTest, Player.Color.RED);
         Player player3 = new Player("0003", windowListTest, Player.Color.PURPLE);
-        player1.setReady(0, true);
-        player2.setReady(1, false);
-        player3.setReady(1, false);
         playerListTest.add(player1);
         playerListTest.add(player2);
         playerListTest.add(player3);
         Game game = new Game(playerListTest);
+        player1.setReady(windowPattern.getFront());
+        player2.setReady(windowPattern.getBack());
+        player3.setReady(windowPattern.getBack());
         game.suspendPlayer(player1);
         game.suspendPlayer(player2);
     }
 }
 
-*/

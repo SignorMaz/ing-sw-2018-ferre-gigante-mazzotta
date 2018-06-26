@@ -184,6 +184,7 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     @Override
     public void onNewTurn(String playerId) {
+        toolCard = null;
         rethrownDice = null;
         currentPlayerId = playerId;
         playerViewImpl.onNewTurn(playerId);
