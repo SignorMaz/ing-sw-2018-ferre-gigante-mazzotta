@@ -1,8 +1,6 @@
 package it.polimi.se2018.view.cli;
 
-import it.polimi.se2018.model.Position;
-import it.polimi.se2018.model.WindowFrame;
-import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.model.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -119,4 +117,23 @@ public class InputHelper {
     public static Position choosePosition(Scanner scanner) {
         return choosePosition(scanner, null);
     }
+
+    /**
+     * Ask to choose a dice from the draft pool
+     *
+     * @param scanner the scanner from where we read the user input
+     * @param draftPool the draft pool
+     * @return the chosen dice or null if the user aborted the operation
+     */
+    public static Dice chooseDraftPoolDice(Scanner scanner, List<Dice> draftPool) {
+        int chosenDiceNum = InputHelper.chooseOption(scanner, draftPool,
+                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase(),
+                true);
+        if (chosenDiceNum >= draftPool.size()) {
+            return null;
+        }
+
+        return draftPool.get(chosenDiceNum);
+    }
+
 }

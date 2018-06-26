@@ -24,16 +24,12 @@ public class PlaceDice implements Command {
 
         Position position = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
 
-        List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
         System.out.println("Dices:");
-        int chosenDiceNum = InputHelper.chooseOption(input, draftPool,
-                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase(),
-                true);
-        if (chosenDiceNum >= draftPool.size()) {
+        Dice dice = InputHelper.chooseDraftPoolDice(input, view.getPlayerViewBase().getDraftPool());
+        if (dice == null) {
             return;
         }
 
-        Dice dice = draftPool.get(chosenDiceNum);
         ToolCard toolcard = view.getPlayerViewBase().getToolCard();
 
         if (!view.getPlayerViewBase().getWindowFrame().isPositionValid(dice, position, toolcard)) {
