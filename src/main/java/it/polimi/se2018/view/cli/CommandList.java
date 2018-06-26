@@ -18,6 +18,11 @@ public class CommandList {
             new UseToolCard(),
             new PlaceDice(),
             new MovePlacedDice(),
+            new PlaceNotAdjacentDice(),
+            new PlaceSecondDice(),
+            new RethrowDice(),
+            new RepositionRethrownDice(),
+            new FlipDice(),
     };
 
 }

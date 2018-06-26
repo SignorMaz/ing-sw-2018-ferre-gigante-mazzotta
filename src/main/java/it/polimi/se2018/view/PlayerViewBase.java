@@ -31,6 +31,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private List<ObjectiveCard> privateObjectCards;
     private int favorTokens;
     private ToolCard toolCard;
+    private Dice rethrownDice;
 
     // Game properties
     private List<ObjectiveCard> publicObjectCards;
@@ -183,6 +184,7 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     @Override
     public void onNewTurn(String playerId) {
+        rethrownDice = null;
         currentPlayerId = playerId;
         playerViewImpl.onNewTurn(playerId);
     }
@@ -214,5 +216,13 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     public List<Dice> getDraftPool() {
         return draftPool;
+    }
+
+    public void setRethrownDice(Dice dice) {
+        rethrownDice = dice;
+    }
+
+    public Dice getRethrownDice() {
+        return rethrownDice;
     }
 }
