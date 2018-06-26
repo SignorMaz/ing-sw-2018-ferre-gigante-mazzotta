@@ -1,5 +1,9 @@
 package it.polimi.se2018.view.cli;
 
+import it.polimi.se2018.model.Position;
+import it.polimi.se2018.model.WindowFrame;
+import it.polimi.se2018.model.WindowPattern;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -82,5 +86,27 @@ public class InputHelper {
         int chosenOption = getInt(scanner, 1, num);
         // The list starts from 0, the options from 1
         return chosenOption - 1;
+    }
+
+    /**
+     * Print the WindowPattern and ask to insert a valid position
+     *
+     * @param scanner the scanner from where we read the user input
+     * @param windowFrame the WindowFrame to print
+     * @return the chosen position
+     */
+    public static Position choosePosition(Scanner scanner, WindowFrame windowFrame) {
+        if (windowFrame != null) {
+            WindowFramePrinter.print(windowFrame);
+        }
+
+        int row = InputHelper.getInt(scanner, 1, WindowPattern.ROWS, "Insert the row number");
+        int column = InputHelper.getInt(scanner, 1, WindowPattern.COLUMNS, "Insert the column number");
+
+        // We display numbers starting from 1, but we actually start from 0
+        row -= 1;
+        column -= 1;
+
+        return new Position(row, column);
     }
 }

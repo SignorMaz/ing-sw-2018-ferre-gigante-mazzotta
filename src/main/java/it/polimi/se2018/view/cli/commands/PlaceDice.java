@@ -22,12 +22,7 @@ public class PlaceDice implements Command {
     public void handle(PlayerViewCli view) {
         Scanner input = view.getScanner();
 
-        int row = InputHelper.getInt(input, 1, WindowPattern.ROWS, "Insert the row number");
-        int column = InputHelper.getInt(input, 1, WindowPattern.COLUMNS, "Insert the column number");
-
-        // We display numbers starting from 1, but we actually start from 0
-        row -= 1;
-        column -= 1;
+        Position position = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
 
         List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
         System.out.println("Dices:");
@@ -38,7 +33,6 @@ public class PlaceDice implements Command {
             return;
         }
 
-        Position position = new Position(row, column);
         Dice dice = draftPool.get(chosenDiceNum);
         ToolCard toolcard = view.getPlayerViewBase().getToolCard();
 
