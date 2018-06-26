@@ -60,7 +60,7 @@ public class PlayerTest {
         Game game = new Game(players);
         assertEquals(Player.Color.BLUE, player1.getPlayerColor());
         assertFalse(player1.isReady());
-        player1.setReady(null);
+        player1.setReady(WindowPatternLoader.loadFromResource("loader-pattern-test-2.json").getFront());
     }
 
     @Test(expected = IllegalArgumentException.class)

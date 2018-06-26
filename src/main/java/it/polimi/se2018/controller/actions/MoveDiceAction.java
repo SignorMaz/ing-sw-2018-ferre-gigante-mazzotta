@@ -3,8 +3,10 @@ package it.polimi.se2018.controller.actions;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.Position;
-import it.polimi.se2018.model.ToolCard;
 
+/**
+ * Action for {@link it.polimi.se2018.model.toolcards.ToolCard12}.
+ */
 public class MoveDiceAction extends Action {
 
     private final Dice trackDice;

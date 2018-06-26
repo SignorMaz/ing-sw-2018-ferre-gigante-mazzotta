@@ -124,7 +124,7 @@ public class Game {
     /**
      * Called whenever a Player is ready. If all the players
      * are ready, the game will start.
-     *
+     * <p>
      * TODO: Don't wait indefinitely
      * Suspend the Players not ready after a certain amount of time
      */
@@ -418,7 +418,7 @@ public class Game {
         }
         Dice dice1 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(curPosition1);
         Dice dice2 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(curPosition2);
-        if (dice1 == null || dice2 == null) {
+        if (dice1 == null || dice2 == null || dice1.equals(dice2) || newPosition1.equals(newPosition2)) {
             throw new IllegalStateException("Invalid dice");
         }
         if (toolCardInUse != null && toolCardInUse.canMovePlacedDice() &&

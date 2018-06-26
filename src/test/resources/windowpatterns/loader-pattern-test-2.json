@@ -1,0 +1,71 @@
+{
+  "front": {
+    "name": "Test pattern 2 front",
+    "difficulty": 1,
+    "map": [
+      [
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 2 },
+        { "color": "blank", "number": 5 },
+        { "color": "green", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 6 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 3 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 0 }
+      ],
+      [
+        { "color": "blank", "number": 5 },
+        { "color": "green", "number": 1 },
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 0 },
+        { "color": "blank", "number": 0 }
+      ]
+    ]
+  },
+
+  "back": {
+    "name": "Test pattern 2 back",
+    "difficulty": 4,
+    "map": [
+      [
+        { "color": "blank", "number": 1 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 3 },
+        { "color": "blank", "number": 4 },
+        { "color": "green", "number": 0 }
+      ],
+      [
+        { "color": "red", "number": 0 },
+        { "color": "blank", "number": 1 },
+        { "color": "yellow", "number": 6 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "blue", "number": 6 },
+        { "color": "blank", "number": 3 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 4 },
+        { "color": "blank", "number": 2 }
+      ],
+      [
+        { "color": "blank", "number": 5 },
+        { "color": "green", "number": 0 },
+        { "color": "blank", "number": 5 },
+        { "color": "blank", "number": 0 },
+        { "color": "purple", "number": 0 }
+      ]
+    ]
+  }
+}

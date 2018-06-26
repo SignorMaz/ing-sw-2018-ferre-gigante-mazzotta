@@ -4,6 +4,9 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Player;
 import it.polimi.se2018.model.Position;
 
+/**
+ * Action for {@link it.polimi.se2018.model.toolcards.ToolCard8}.
+ */
 public class PlaceSecondDiceAction extends Action {
 
     private final Position position;
