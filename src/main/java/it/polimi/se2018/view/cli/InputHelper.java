@@ -64,7 +64,7 @@ public class InputHelper {
      *                  Pass null to use the options' toString()
      * @param canCancel true if there should be an option to cancel the operation
      * @return the position in the list of the chosen element. If canCancel is
-     *         true, the position will be out of the list range.
+     *         true, the position will be options.size().
      */
     public static <T> int chooseOption(Scanner scanner, List<T> options, OptionString<T> converter,
                                        boolean canCancel) {
@@ -108,5 +108,15 @@ public class InputHelper {
         column -= 1;
 
         return new Position(row, column);
+    }
+
+    /**
+     * Ask to insert a valid position
+     *
+     * @param scanner the scanner from where we read the user input
+     * @return the chosen position
+     */
+    public static Position choosePosition(Scanner scanner) {
+        return choosePosition(scanner, null);
     }
 }

@@ -17,6 +17,7 @@ public class CommandList {
             new CompleteTurn(),
             new UseToolCard(),
             new PlaceDice(),
+            new MovePlacedDice(),
     };
 
 }
