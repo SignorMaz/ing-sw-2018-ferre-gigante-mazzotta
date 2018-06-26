@@ -131,6 +131,7 @@ public class Game {
     void tryStart() {
         for (Player player : players) {
             if (!player.isReady()) {
+                System.out.println("Player not ready");
                 return;
             }
         }

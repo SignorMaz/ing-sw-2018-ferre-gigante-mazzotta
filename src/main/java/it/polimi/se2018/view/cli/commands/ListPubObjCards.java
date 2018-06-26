@@ -6,7 +6,7 @@ import it.polimi.se2018.view.cli.PlayerViewCli;
 public class ListPubObjCards implements Command {
     @Override
     public String getText() {
-        return "List private objective cards";
+        return "List public objective cards";
     }
 
     @Override

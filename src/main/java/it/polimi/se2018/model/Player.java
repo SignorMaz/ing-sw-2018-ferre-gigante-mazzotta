@@ -78,11 +78,11 @@ public class Player {
         }
         WindowPattern foundPattern = null;
         for (WindowPatternCard patternCard : getWindowPatternCards()) {
-            if (patternCard.getBack().equals(windowPattern)) {
+            if (patternCard.getBack().getPattern().equals(windowPattern.getPattern())) {
                 foundPattern = windowPattern;
                 break;
             }
-            if (patternCard.getFront().equals(windowPattern)) {
+            if (patternCard.getFront().getPattern().equals(windowPattern.getPattern())) {
                 foundPattern = windowPattern;
                 break;
             }
