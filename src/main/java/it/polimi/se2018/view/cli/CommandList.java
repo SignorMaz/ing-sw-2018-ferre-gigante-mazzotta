@@ -23,6 +23,10 @@ public class CommandList {
             new RethrowDice(),
             new RepositionRethrownDice(),
             new FlipDice(),
+            new ChangeDiceValue(),
+            new MovePlacedDices(),
+            new ShakeDices(),
+            new SwapTrackDice(),
     };
 
 }

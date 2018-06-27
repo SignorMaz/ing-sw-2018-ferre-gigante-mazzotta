@@ -2,18 +2,20 @@ package it.polimi.se2018.view.cli;
 
 import it.polimi.se2018.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class InputHelper {
-    private InputHelper() {}
+    private InputHelper() {
+    }
 
     /**
      * Request an integer value to the user
      *
      * @param scanner the scanner from where we read the int
-     * @param min the minimum value accepted (inclusive)
-     * @param max the maximum value accepted (inclusive)
+     * @param min     the minimum value accepted (inclusive)
+     * @param max     the maximum value accepted (inclusive)
      * @return the value read
      */
     public static int getInt(Scanner scanner, int min, int max) {
@@ -24,8 +26,8 @@ public class InputHelper {
      * Request an integer value to the user
      *
      * @param scanner the scanner from where we read the int
-     * @param min the minimum value accepted (inclusive)
-     * @param max the maximum value accepted (inclusive)
+     * @param min     the minimum value accepted (inclusive)
+     * @param max     the maximum value accepted (inclusive)
      * @param message the string shown to the user, followed by the accepted range
      * @return the value read
      */
@@ -56,13 +58,13 @@ public class InputHelper {
     /**
      * Print a list of option and ask to choose one
      *
-     * @param scanner the scanner from where we read the chosen option
-     * @param options a list of options
+     * @param scanner   the scanner from where we read the chosen option
+     * @param options   a list of options
      * @param converter an object to convert each option to a string.
      *                  Pass null to use the options' toString()
      * @param canCancel true if there should be an option to cancel the operation
      * @return the position in the list of the chosen element. If canCancel is
-     *         true, the position will be options.size().
+     * true, the position will be options.size().
      */
     public static <T> int chooseOption(Scanner scanner, List<T> options, OptionString<T> converter,
                                        boolean canCancel) {
@@ -89,7 +91,7 @@ public class InputHelper {
     /**
      * Print the WindowPattern and ask to insert a valid position
      *
-     * @param scanner the scanner from where we read the user input
+     * @param scanner     the scanner from where we read the user input
      * @param windowFrame the WindowFrame to print
      * @return the chosen position
      */
@@ -121,7 +123,7 @@ public class InputHelper {
     /**
      * Ask to choose a dice from the draft pool
      *
-     * @param scanner the scanner from where we read the user input
+     * @param scanner   the scanner from where we read the user input
      * @param draftPool the draft pool
      * @return the chosen dice or null if the user aborted the operation
      */
@@ -134,6 +136,21 @@ public class InputHelper {
         }
 
         return draftPool.get(chosenDiceNum);
+    }
+
+    /**
+     * Ask for yes or no.
+     *
+     * @param scanner the scanner from where we read the user input
+     * @return true for yes, false for no
+     */
+    public static boolean yesOrNo(Scanner scanner) {
+        List<String> options = new ArrayList<>();
+        String yes = "Yes";
+        options.add(yes);
+        options.add("No");
+        int option = InputHelper.chooseOption(scanner, options, null, false);
+        return yes.equals(options.get(option));
     }
 
 }
