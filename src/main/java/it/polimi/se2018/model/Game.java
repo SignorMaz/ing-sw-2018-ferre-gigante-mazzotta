@@ -570,11 +570,6 @@ public class Game {
         }
     }
 
-    public void moveDice(Player player, Dice trackDice, Position oldPosition1, Position newPosition1) {
-        enforceCurrentPlayer(player);
-        moveDices(player, trackDice, oldPosition1, newPosition1, null, null);
-    }
-
     public void moveDices(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
         enforceCurrentPlayer(player);
         if (!roundTrackDices.contains(trackDice)) {
