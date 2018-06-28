@@ -27,6 +27,8 @@ public class CommandList {
             new MovePlacedDices(),
             new ShakeDices(),
             new SwapTrackDice(),
+            new ReplaceDice(),
+            new PlaceNewDice(),
     };
 
 }

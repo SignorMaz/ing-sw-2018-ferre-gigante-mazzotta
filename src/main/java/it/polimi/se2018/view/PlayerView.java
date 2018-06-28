@@ -31,4 +31,6 @@ public interface PlayerView {
     void onTokensChanged(int tokens);
 
     void onGameStarted(Map<String, WindowPattern> windowPatternMap);
+
+    void onNewDraftDice(Dice dice);
 }

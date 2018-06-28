@@ -117,6 +117,11 @@ public class PlayerViewCli implements PlayerView {
         System.out.println("Game started!");
     }
 
+    @Override
+    public void onNewDraftDice(Dice dice) {
+        System.out.println("New dice in the draft pool: " + dice.getColor() + "-" + dice.getNumber());
+    }
+
     private void handleUserInput() {
         List<Command> options = new ArrayList<>();
         for (Command command : CommandList.COMMANDS) {
