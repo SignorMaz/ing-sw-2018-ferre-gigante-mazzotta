@@ -58,59 +58,26 @@ public class PublicObjectiveCard9Test {
         }
     }
 
-    private class PermissiveToolCard extends ToolCard {
-        @Override
-        public String getName() {
-            return "Test ToolCard";
-        }
-
-        @Override
-        public String getDescription() {
-            return "Ignore color and number";
-        }
-
-        @Override
-        public int getNumber() {
-            return 0;
-        }
-
-        @Override
-        public boolean ignoreColor() {
-            return true;
-        }
-
-        @Override
-        public boolean ignoreNumber() {
-            return true;
-        }
-
-        @Override
-        public boolean notAdjacent() {
-            return true;
-        }
-    }
-
     @Test
     public void testGetPoints() {
-        ToolCard toolCard = new PermissiveToolCard();
 
         WindowPattern windowPattern = new WindowPatternTest();
         WindowFrame windowFrame = new WindowFrame(windowPattern);
-        windowFrame.placeDice(new Dice(Color.BLUE), new Position(2, 0), toolCard);
-        windowFrame.placeDice(new Dice(Color.BLUE), new Position(1, 1), toolCard);
-        windowFrame.placeDice(new Dice(Color.BLUE), new Position(2, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.BLUE), new Position(3, 3), toolCard);
+        windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(2, 0));
+        windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(1, 1));
+        windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(2, 2));
+        windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(3, 3));
         assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
 
-        windowFrame.placeDice(new Dice(Color.BLUE), new Position(0, 4), toolCard);
+        windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(0, 4));
         assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
 
-        windowFrame.placeDice(new Dice(Color.RED), new Position(0, 3), toolCard);
+        windowFrame.placeDiceUnrestricted(new Dice(Color.RED), new Position(0, 3));
         assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
 
-        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(3, 2), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(2, 3), toolCard);
-        windowFrame.placeDice(new Dice(Color.YELLOW), new Position(1, 4), toolCard);
+        windowFrame.placeDiceUnrestricted(new Dice(Color.YELLOW), new Position(3, 2));
+        windowFrame.placeDiceUnrestricted(new Dice(Color.YELLOW), new Position(2, 3));
+        windowFrame.placeDiceUnrestricted(new Dice(Color.YELLOW), new Position(1, 4));
         assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 7);
     }
 }

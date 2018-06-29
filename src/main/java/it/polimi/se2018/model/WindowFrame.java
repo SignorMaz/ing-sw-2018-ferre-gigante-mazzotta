@@ -11,6 +11,7 @@ public class WindowFrame {
 
     /**
      * create a WindowsFrame with a given WindowsPattern
+     *
      * @param windowPattern given
      */
     public WindowFrame(WindowPattern windowPattern) {
@@ -19,6 +20,7 @@ public class WindowFrame {
 
     /**
      * return the WindowPattern
+     *
      * @return the WindowPattern
      */
     public WindowPattern getWindowPattern() {
@@ -27,6 +29,7 @@ public class WindowFrame {
 
     /**
      * return the placed dices position on the WindowFrame
+     *
      * @return position
      */
     public Map<Position, Dice> getPlacedDices() {
@@ -37,7 +40,7 @@ public class WindowFrame {
      * Place the dice in the given position without any restriction.
      * If the position is already occupied, the dice gets replaced.
      *
-     * @param dice dice to place
+     * @param dice     dice to place
      * @param position position where place the dice
      */
     public void placeDiceUnrestricted(Dice dice, Position position) {
@@ -46,7 +49,8 @@ public class WindowFrame {
 
     /**
      * place the dice in a given position
-     * @param dice dice to place
+     *
+     * @param dice     dice to place
      * @param position position where place the dice
      */
     public void placeDice(Dice dice, Position position) {
@@ -55,7 +59,8 @@ public class WindowFrame {
 
     /**
      * place the dice in a given position according to the ToolCard rules
-     * @param dice dice to place
+     *
+     * @param dice     dice to place
      * @param position position where place the dice
      * @param toolCard ToolCard rules
      */
@@ -68,7 +73,8 @@ public class WindowFrame {
 
     /**
      * return if the position is valid according to the WindowsPattern and ToolCard rules
-     * @param dice to verify position
+     *
+     * @param dice     to verify position
      * @param position to verify
      * @param toolCard placement rules
      * @return false - unvalid position, true - valid position
@@ -123,7 +129,12 @@ public class WindowFrame {
                     }
                 }
             }
-            if (!foundAdjacent && !notAdjacent) {
+            if (!notAdjacent) {
+                if (foundAdjacent) {
+                    LOGGER.info("Adjacent rule " + "(foundAdjacent=" + foundAdjacent + ", notAdjacent=" + notAdjacent + "), " + position + " is not valid");
+                    return false;
+                }
+            } else if (!foundAdjacent) {
                 LOGGER.info("Adjacent rule " + "(foundAdjacent=" + foundAdjacent + ", notAdjacent=" + notAdjacent + "), " + position + " is not valid");
                 return false;
             }

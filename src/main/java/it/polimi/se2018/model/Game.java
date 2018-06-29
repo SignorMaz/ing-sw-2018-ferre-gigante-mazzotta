@@ -173,6 +173,8 @@ public class Game {
         for (int i = 0; i < players.size() + 1; i++) {
             draftPool.add(diceBag.drawDice());
         }
+
+        nextTurn();
     }
 
     public synchronized void completeTurn() {
@@ -568,6 +570,11 @@ public class Game {
         } else {
             throw new IllegalArgumentException("Given position is not valid");
         }
+    }
+
+    public void moveDice(Player player, Dice trackDice, Position oldPosition1, Position newPosition1) {
+        enforceCurrentPlayer(player);
+        moveDices(player, trackDice, oldPosition1, newPosition1, null, null);
     }
 
     public void moveDices(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
