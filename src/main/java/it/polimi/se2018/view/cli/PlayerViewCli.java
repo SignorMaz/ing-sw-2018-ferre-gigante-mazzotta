@@ -96,10 +96,6 @@ public class PlayerViewCli implements PlayerView {
 
     @Override
     public void onNewTurn(String playerId) {
-        if (!isGameStarted) {
-            isGameStarted = true;
-            System.out.println("The game started!");
-        }
         if (getPlayerViewBase().getPlayerId().equals(playerId)) {
             System.out.println("It's your turn");
             isMyTurn = true;
@@ -122,6 +118,7 @@ public class PlayerViewCli implements PlayerView {
 
     @Override
     public void onGameStarted(Map<String, WindowFrame> windowPatternMap) {
+        isGameStarted = true;
         System.out.println("Game started!");
     }
 
