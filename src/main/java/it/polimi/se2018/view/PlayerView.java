@@ -4,6 +4,7 @@ import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.InitialSetupEvent;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
+import it.polimi.se2018.model.WindowFrame;
 import it.polimi.se2018.model.WindowPattern;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public interface PlayerView {
 
     void onTokensChanged(int tokens);
 
-    void onGameStarted(Map<String, WindowPattern> windowPatternMap);
+    void onGameStarted(Map<String, WindowFrame> windowFramesMap);
 
     void onNewDraftDice(Dice dice);
 }

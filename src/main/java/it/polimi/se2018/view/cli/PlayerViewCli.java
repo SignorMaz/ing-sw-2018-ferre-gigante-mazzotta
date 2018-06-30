@@ -4,6 +4,7 @@ import it.polimi.se2018.controller.actions.Action;
 import it.polimi.se2018.controller.events.InitialSetupEvent;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
+import it.polimi.se2018.model.WindowFrame;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.network.ConnectionType;
 import it.polimi.se2018.view.PlayerView;
@@ -120,7 +121,7 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onGameStarted(Map<String, WindowPattern> windowPatternMap) {
+    public void onGameStarted(Map<String, WindowFrame> windowPatternMap) {
         System.out.println("Game started!");
     }
 

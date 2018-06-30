@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class WindowFrame {
+public class WindowFrame implements Serializable {
     private static final Logger LOGGER = Logger.getLogger("WindowFrame");
     private final Map<Position, Dice> placedDices = new HashMap<>();
     private final WindowPattern windowPattern;

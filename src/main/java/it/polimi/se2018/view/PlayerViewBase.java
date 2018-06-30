@@ -214,13 +214,12 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onGameStarted(Map<String, WindowPattern> windowPatternMap) {
-        for (Map.Entry<String, WindowPattern> entry : windowPatternMap.entrySet()) {
+    public void onGameStarted(Map<String, WindowFrame> windowFramesMap) {
+        for (Map.Entry<String, WindowFrame> entry : windowFramesMap.entrySet()) {
             String rivalId = entry.getKey();
-            WindowFrame rivalWindowFrame = new WindowFrame(entry.getValue());
-            rivalFrames.put(rivalId, rivalWindowFrame);
+            rivalFrames.put(rivalId, entry.getValue());
         }
-        playerViewImpl.onGameStarted(windowPatternMap);
+        playerViewImpl.onGameStarted(windowFramesMap);
     }
 
     @Override
