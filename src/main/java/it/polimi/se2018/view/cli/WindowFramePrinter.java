@@ -114,7 +114,7 @@ public class WindowFramePrinter {
             sb.append("──┤");
             sb.append("\n");
 
-            sb.append(String.format(rowNumberFormat, i));
+            sb.append(String.format(rowNumberFormat, i + 1));
             sb.append(cellRowToString(windowFrame, i));
             sb.append(lefMargin);
             sb.append(diceRowToString(windowFrame, i));
