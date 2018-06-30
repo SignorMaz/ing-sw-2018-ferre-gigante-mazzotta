@@ -21,7 +21,7 @@ public class Game {
     private static final int TOOL_CARDS_NUM = 3;
     private static final int TOKENS_PER_FIRST_CARD_USE = 1;
     private static final int TOKENS_PER_CARD_USE = 2;
-    private static int turnTimeoutSeconds = 30;
+    private static int turnTimeoutSeconds = 150;
 
     private final List<Dice> roundTrackDices;
     private final List<Player> players;
