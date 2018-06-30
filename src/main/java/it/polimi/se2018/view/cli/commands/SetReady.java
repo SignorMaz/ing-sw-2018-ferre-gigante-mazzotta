@@ -5,6 +5,7 @@ import it.polimi.se2018.model.WindowFrame;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.model.WindowPatternCard;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 import it.polimi.se2018.view.cli.WindowFramePrinter;
 
@@ -32,11 +33,11 @@ public class SetReady implements Command {
             cards.add(card.getFront());
             cards.add(card.getBack());
         }
-        int chosenCardNum = InputHelper.chooseOption(input, cards, converter, true);
-        if (chosenCardNum >= cards.size()) {
+        InputResponse<Integer> response = InputHelper.chooseOption(input, cards, converter);
+        if (!response.isValid()) {
             return;
         }
-        WindowPattern windowPattern = cards.get(chosenCardNum);
+        WindowPattern windowPattern = cards.get(response.getValue());
         view.getPlayerViewBase().setWindowFrame(windowPattern);
         view.getPlayerViewBase().send(new SetReadyAction(windowPattern));
     }

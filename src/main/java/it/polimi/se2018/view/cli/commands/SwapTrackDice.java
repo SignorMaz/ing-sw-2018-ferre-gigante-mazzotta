@@ -4,6 +4,7 @@ import it.polimi.se2018.controller.actions.SwapTrackDiceAction;
 import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 
 import java.util.List;
@@ -22,13 +23,20 @@ public class SwapTrackDice implements Command {
 
         System.out.println("Choose a track dice");
         List<Dice> dices = view.getPlayerViewBase().getTrackDices();
-        int optionNum = InputHelper.chooseOption(input, dices, d -> d.getColor() + " " + d.getNumber(), true);
-        Dice trackDice = dices.get(optionNum);
+        InputResponse<Integer> response = InputHelper.chooseOption(input,
+                dices, d -> d.getColor() + " " + d.getNumber());
+        if (!response.isValid()) {
+            return;
+        }
+        Dice trackDice = dices.get(response.getValue());
 
         System.out.println("Choose a dice from the draft pool");
-        Dice draftPoolDice = InputHelper.chooseDraftPoolDice(input, view.getPlayerViewBase().getDraftPool());
+        InputResponse<Dice> draftPoolDice = InputHelper.chooseDraftPoolDice(input, view.getPlayerViewBase().getDraftPool());
+        if (!draftPoolDice.isValid()) {
+            return;
+        }
 
-        view.getPlayerViewBase().send(new SwapTrackDiceAction(trackDice, draftPoolDice));
+        view.getPlayerViewBase().send(new SwapTrackDiceAction(trackDice, draftPoolDice.getValue()));
     }
 
     @Override

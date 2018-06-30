@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 import it.polimi.se2018.view.cli.commands.Command;
 
@@ -24,18 +25,20 @@ public class PlaceSecondDice implements Command {
 
         List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
         System.out.println("Dices:");
-        Dice dice = InputHelper.chooseDraftPoolDice(input, draftPool);
-        if (dice == null) {
+        InputResponse<Dice> dice = InputHelper.chooseDraftPoolDice(input, draftPool);
+        if (!dice.isValid()) {
             return;
         }
 
-        Position position = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
-
+        InputResponse<Position> position = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
+        if (!position.isValid()) {
+            return;
+        }
         ToolCard toolcard = view.getPlayerViewBase().getToolCard();
-        if (!view.getPlayerViewBase().getWindowFrame().isPositionValid(dice, position, toolcard)) {
+        if (!view.getPlayerViewBase().getWindowFrame().isPositionValid(dice.getValue(), position.getValue(), toolcard)) {
             System.out.println("The move is not valid");
         } else {
-            view.getPlayerViewBase().send(new PlaceSecondDiceAction(position, dice));
+            view.getPlayerViewBase().send(new PlaceSecondDiceAction(position.getValue(), dice.getValue()));
         }
     }
 

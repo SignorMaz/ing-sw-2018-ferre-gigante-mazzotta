@@ -5,6 +5,7 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 
 import java.util.Scanner;
@@ -21,21 +22,28 @@ public class MovePlacedDice implements Command {
         Scanner input = view.getScanner();
 
         System.out.println("Select a dice:");
-        Position curPosition = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
-        Dice dice = view.getPlayerViewBase().getWindowFrame().getPlacedDices().get(curPosition);
+        InputResponse<Position> curPosition = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
+        if (!curPosition.isValid()) {
+            return;
+        }
+
+        Dice dice = view.getPlayerViewBase().getWindowFrame().getPlacedDices().get(curPosition.getValue());
         if (dice == null) {
             System.out.println("No dice found at the selected position");
             return;
         }
 
         System.out.println("Select the new position:");
-        Position newPosition = InputHelper.choosePosition(input);
+        InputResponse<Position> newPosition = InputHelper.choosePosition(input);
+        if (!newPosition.isValid()) {
+            return;
+        }
 
         ToolCard toolcard = view.getPlayerViewBase().getToolCard();
-        if (!view.getPlayerViewBase().getWindowFrame().isPositionValid(dice, newPosition, toolcard)) {
+        if (!view.getPlayerViewBase().getWindowFrame().isPositionValid(dice, newPosition.getValue(), toolcard)) {
             System.out.println("The move is not valid");
         } else {
-            view.getPlayerViewBase().send(new MovePlacedDiceAction(curPosition, newPosition));
+            view.getPlayerViewBase().send(new MovePlacedDiceAction(curPosition.getValue(), newPosition.getValue()));
         }
     }
 

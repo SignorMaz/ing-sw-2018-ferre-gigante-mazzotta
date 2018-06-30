@@ -6,6 +6,7 @@ import it.polimi.se2018.model.Dice;
 import it.polimi.se2018.model.Position;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 
 import java.util.List;
@@ -24,12 +25,12 @@ public class FlipDice implements Command {
 
         System.out.println("Select a dice:");
         List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
-        Dice draftPoolDice = InputHelper.chooseDraftPoolDice(input, draftPool);
-        if (draftPoolDice == null) {
+        InputResponse<Dice> draftPoolDice = InputHelper.chooseDraftPoolDice(input, draftPool);
+        if (!draftPoolDice.isValid()) {
             return;
         }
 
-        view.getPlayerViewBase().send(new FlipDiceAction(draftPoolDice));
+        view.getPlayerViewBase().send(new FlipDiceAction(draftPoolDice.getValue()));
     }
 
     @Override

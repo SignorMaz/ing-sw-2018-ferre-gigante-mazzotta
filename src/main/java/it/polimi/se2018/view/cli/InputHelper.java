@@ -18,7 +18,7 @@ public class InputHelper {
      * @param max     the maximum value accepted (inclusive)
      * @return the value read
      */
-    public static int getInt(Scanner scanner, int min, int max) {
+    public static InputResponse<Integer> getInt(Scanner scanner, int min, int max) {
         return getInt(scanner, min, max, "Choose");
     }
 
@@ -31,18 +31,19 @@ public class InputHelper {
      * @param message the string shown to the user, followed by the accepted range
      * @return the value read
      */
-    public static int getInt(Scanner scanner, int min, int max, String message) {
-        while (true) {
-            System.out.print(String.format("%s (%d-%d): ", message, min, max));
-            if (!scanner.hasNextInt()) {
-                scanner.next();
-                continue;
-            }
-            int value = scanner.nextInt();
-            if (value >= min && value <= max) {
-                return value;
-            }
+    public static InputResponse<Integer> getInt(Scanner scanner, int min, int max, String message) {
+        System.out.print(String.format("%s (%d-%d): ", message, min, max));
+        String response = scanner.nextLine();
+        int value;
+        try {
+            value = Integer.parseInt(response);
+        } catch (NumberFormatException ignored) {
+            return new InputResponse<>(0, false);
         }
+        if (value >= min && value <= max) {
+            return new InputResponse<>(value, true);
+        }
+        return new InputResponse<>(0, false);
     }
 
     public interface OptionString<T> {
@@ -62,12 +63,10 @@ public class InputHelper {
      * @param options   a list of options
      * @param converter an object to convert each option to a string.
      *                  Pass null to use the options' toString()
-     * @param canCancel true if there should be an option to cancel the operation
      * @return the position in the list of the chosen element. If canCancel is
-     * true, the position will be options.size().
+     * true, the response will not be valid.
      */
-    public static <T> int chooseOption(Scanner scanner, List<T> options, OptionString<T> converter,
-                                       boolean canCancel) {
+    public static <T> InputResponse<Integer> chooseOption(Scanner scanner, List<T> options, OptionString<T> converter) {
         int num = 0;
         for (T option : options) {
             num++;
@@ -77,15 +76,13 @@ public class InputHelper {
             System.out.println(text);
         }
 
-        if (canCancel) {
-            num++;
-            String text = String.format(" %d) Cancel", num);
-            System.out.println(text);
+        InputResponse<Integer> response = getInt(scanner, 1, num);
+        if (!response.isValid()) {
+            return response;
         }
 
-        int chosenOption = getInt(scanner, 1, num);
         // The list starts from 0, the options from 1
-        return chosenOption - 1;
+        return new InputResponse<>(response.getValue() - 1, true);
     }
 
     /**
@@ -95,19 +92,25 @@ public class InputHelper {
      * @param windowFrame the WindowFrame to print
      * @return the chosen position
      */
-    public static Position choosePosition(Scanner scanner, WindowFrame windowFrame) {
+    public static InputResponse<Position> choosePosition(Scanner scanner, WindowFrame windowFrame) {
         if (windowFrame != null) {
             WindowFramePrinter.print(windowFrame);
         }
 
-        int row = InputHelper.getInt(scanner, 1, WindowPattern.ROWS, "Insert the row number");
-        int column = InputHelper.getInt(scanner, 1, WindowPattern.COLUMNS, "Insert the column number");
+        InputResponse<Integer> rowResponse = InputHelper.getInt(scanner, 1, WindowPattern.ROWS, "Insert the row number");
+        if (!rowResponse.isValid()) {
+            return new InputResponse<>(null, false);
+        }
+        InputResponse<Integer> colResponse = InputHelper.getInt(scanner, 1, WindowPattern.COLUMNS, "Insert the column number");
+        if (!colResponse.isValid()) {
+            return new InputResponse<>(null, false);
+        }
 
         // We display numbers starting from 1, but we actually start from 0
-        row -= 1;
-        column -= 1;
+        int row = rowResponse.getValue() - 1;
+        int column = colResponse.getValue() - 1;
 
-        return new Position(row, column);
+        return new InputResponse<>(new Position(row, column), true);
     }
 
     /**
@@ -116,7 +119,7 @@ public class InputHelper {
      * @param scanner the scanner from where we read the user input
      * @return the chosen position
      */
-    public static Position choosePosition(Scanner scanner) {
+    public static InputResponse<Position> choosePosition(Scanner scanner) {
         return choosePosition(scanner, null);
     }
 
@@ -127,15 +130,15 @@ public class InputHelper {
      * @param draftPool the draft pool
      * @return the chosen dice or null if the user aborted the operation
      */
-    public static Dice chooseDraftPoolDice(Scanner scanner, List<Dice> draftPool) {
-        int chosenDiceNum = InputHelper.chooseOption(scanner, draftPool,
-                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase(),
-                true);
-        if (chosenDiceNum >= draftPool.size()) {
-            return null;
+    public static InputResponse<Dice> chooseDraftPoolDice(Scanner scanner, List<Dice> draftPool) {
+        InputResponse<Integer> response;
+        response = InputHelper.chooseOption(scanner, draftPool,
+                dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase());
+        if (response.isValid()) {
+            return new InputResponse<>(null, false);
         }
 
-        return draftPool.get(chosenDiceNum);
+        return new InputResponse<>(draftPool.get(response.getValue()), true);
     }
 
     /**
@@ -144,13 +147,14 @@ public class InputHelper {
      * @param scanner the scanner from where we read the user input
      * @return true for yes, false for no
      */
-    public static boolean yesOrNo(Scanner scanner) {
+    public static InputResponse<Boolean> yesOrNo(Scanner scanner) {
         List<String> options = new ArrayList<>();
         String yes = "Yes";
         options.add(yes);
         options.add("No");
-        int option = InputHelper.chooseOption(scanner, options, null, false);
-        return yes.equals(options.get(option));
+        InputResponse<Integer> response = InputHelper.chooseOption(scanner, options, null);
+        boolean answeredYes = yes.equals(options.get(response.getValue()));
+        return new InputResponse<>(answeredYes, response.isValid());
     }
 
 }

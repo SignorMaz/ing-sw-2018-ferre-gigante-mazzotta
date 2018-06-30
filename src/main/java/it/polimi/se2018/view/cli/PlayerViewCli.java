@@ -130,11 +130,11 @@ public class PlayerViewCli implements PlayerView {
             }
             options.add(command);
         }
-        int optionNum = InputHelper.chooseOption(scanner, options, Command::getText, true);
-        if (optionNum >= options.size()) {
+        InputResponse<Integer> response = InputHelper.chooseOption(scanner, options, Command::getText);
+        if (!response.isValid()) {
             return;
         }
-        options.get(optionNum).handle(this);
+        options.get(response.getValue()).handle(this);
     }
 
     public void looper() throws InterruptedException {
@@ -156,11 +156,16 @@ public class PlayerViewCli implements PlayerView {
         Scanner input = new Scanner(System.in);
 
         List<ConnectionType> types = Arrays.asList(ConnectionType.values());
-        int typePosition = InputHelper.chooseOption(input, types, null, false);
-        ConnectionType type = types.get(typePosition);
+        InputResponse<Integer> response = InputHelper.chooseOption(input, types, null);
+        if (!response.isValid()) {
+            System.out.println("The option is not valid");
+            return;
+        }
+        ConnectionType type = types.get(response.getValue());
 
         System.out.print("Choose a nickname: ");
         String playerId = input.next();
+        input.nextLine(); // Consume new line character
 
         PlayerViewCli view = new PlayerViewCli(input, playerId, type);
         System.out.println("Connecting...");

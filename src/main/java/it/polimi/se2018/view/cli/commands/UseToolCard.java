@@ -3,6 +3,7 @@ package it.polimi.se2018.view.cli.commands;
 import it.polimi.se2018.controller.actions.UseToolCardAction;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.InputHelper;
+import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 
 import java.util.List;
@@ -19,13 +20,12 @@ public class UseToolCard implements Command {
         Scanner input = view.getScanner();
 
         List<ToolCard> cards = view.getPlayerViewBase().getToolCards();
-        int chosenCardNum = InputHelper.chooseOption(input, cards,
-                card -> card.getName() + " - " + card.getDescription(),
-                true);
-        if (chosenCardNum >= cards.size()) {
+        InputResponse<Integer> response = InputHelper.chooseOption(input, cards,
+                card -> card.getName() + " - " + card.getDescription());
+        if (!response.isValid()) {
             return;
         }
-        ToolCard toolCard = view.getPlayerViewBase().getToolCards().get(chosenCardNum);
+        ToolCard toolCard = view.getPlayerViewBase().getToolCards().get(response.getValue());
 
         view.getPlayerViewBase().setToolCard(toolCard);
         view.getPlayerViewBase().send(new UseToolCardAction(toolCard));
