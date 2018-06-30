@@ -131,7 +131,6 @@ public class Game {
     void tryStart() {
         for (Player player : players) {
             if (!player.isReady()) {
-                System.out.println("Player not ready");
                 return;
             }
         }
@@ -343,22 +342,18 @@ public class Game {
     public boolean canUseToolCard(Player player, ToolCard toolCard) {
         enforceCurrentPlayer(player);
         if (toolCardInUse != null || toolCardUsed) {
-            System.out.println("1 " + toolCardInUse + " " + toolCardUsed);
             return false;
         }
 
         if (toolCard == null || !toolCards.containsKey(toolCard)) {
-            System.out.println("2 " + toolCard + " " + !toolCards.containsKey(toolCard));
             return false;
         }
 
         if (!toolCard.canUseCard(isFirstTurn, moveDone)) {
-            System.out.println("Something - isFirstTurn: " + isFirstTurn + " moveDoe:" + moveDone);
             return false;
         }
 
         if (getCurrentPlayer().getFavorTokensCount() < requiredTokens(toolCard)) {
-            System.out.println("Tokens: " + getCurrentPlayer().getFavorTokensCount() + " " + requiredTokens(toolCard));
             return false;
         }
 
