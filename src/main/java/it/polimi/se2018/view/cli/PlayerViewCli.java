@@ -52,7 +52,12 @@ public class PlayerViewCli implements PlayerView {
 
     @Override
     public void onLogin(boolean result) {
-        System.out.println("You logged in");
+        if (result) {
+            System.out.println("Logged in, waiting...");
+        } else {
+            System.out.println("Could not login, try using a different username");
+            System.exit(1);
+        }
     }
 
     @Override
