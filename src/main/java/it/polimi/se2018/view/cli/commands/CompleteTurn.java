@@ -16,6 +16,6 @@ public class CompleteTurn implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return view.isGameSetUp() && !view.isGameStarted() && view.getPlayerViewBase().isCurrentPlayer();
+        return view.isGameSetUp() && view.isGameStarted() && view.getPlayerViewBase().isCurrentPlayer();
     }
 }
