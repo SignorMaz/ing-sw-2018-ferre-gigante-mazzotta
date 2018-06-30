@@ -273,6 +273,13 @@ public class Game {
         return new ArrayList<>(toolCards.keySet());
     }
 
+    /**
+     * Suspend the given player for either not ending its turn within
+     * the given amount of time or for losing the connection with the
+     * server.
+     *
+     * @param player the player to suspend
+     */
     public void suspendPlayer(Player player) {
         suspendedPlayers.add(player);
         if (players.size() - suspendedPlayers.size() == 1) {
@@ -295,6 +302,13 @@ public class Game {
         }
     }
 
+    /**
+     * Place a new dice on the window frame
+     *
+     * @param player   the player performing this move
+     * @param position the target position
+     * @param dice     the dice to place
+     */
     public void placeDice(Player player, Position position, Dice dice) {
         enforceCurrentPlayer(player);
         if (moveDone) {
@@ -348,6 +362,10 @@ public class Game {
     }
 
     /**
+     * Use a ToolCard. The ToolCard is only "activated" and will enable
+     * the use of different methods and change the rules for the positioning
+     * of the dices: {@link WindowFrame#isPositionValid(Dice, Position, ToolCard)}.
+     *
      * @param toolCard given tool card
      */
     public void useToolCard(Player player, ToolCard toolCard) {
@@ -394,6 +412,15 @@ public class Game {
         }
     }
 
+    /**
+     * Move an already placed dice. The positioning rules depend on the ToolCard
+     * currently in use. Move enabled by {@link it.polimi.se2018.model.toolcards.ToolCard2}
+     * and {@link it.polimi.se2018.model.toolcards.ToolCard3}
+     *
+     * @param player      the player performing this move
+     * @param curPosition the position of the dice to move
+     * @param newPosition the target position of the dice
+     */
     public void movePlacedDice(Player player, Position curPosition, Position newPosition) {
         enforceCurrentPlayer(player);
         if (toolCardUsed) {
@@ -412,7 +439,16 @@ public class Game {
         }
     }
 
-
+    /**
+     * Move two placed dices respecting all the positioning rules. Move enabled by
+     * {@link it.polimi.se2018.model.toolcards.ToolCard4}.
+     *
+     * @param player       the player performing this move
+     * @param curPosition1 the position of the first dice
+     * @param newPosition1 the target position of the first dice
+     * @param curPosition2 the position of the second dice
+     * @param newPosition2 the target position of the second dice
+     */
     public void movePlacedDices(Player player, Position curPosition1, Position newPosition1, Position curPosition2, Position newPosition2) {
         enforceCurrentPlayer(player);
         if (toolCardUsed) {
@@ -436,6 +472,14 @@ public class Game {
         }
     }
 
+    /**
+     * Swap a dice of the track with one of the draft pool. Move enabled by
+     * {@link it.polimi.se2018.model.toolcards.ToolCard5}.
+     *
+     * @param player    the player performing this move
+     * @param draftDice the dice of the draft pool
+     * @param trackDice the dice of the track
+     */
     public void swapTrackDice(Player player, Dice draftDice, Dice trackDice) {
         enforceCurrentPlayer(player);
         if (toolCardUsed) {
@@ -457,11 +501,27 @@ public class Game {
         draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
     }
 
+    /**
+     * Get the draft pool dice that has been rethrown with
+     * {@link #rethrowDice(Player, Dice)}.
+     *
+     * @param player the player performing this move
+     * @return the rethrown dice
+     * @
+     */
     public Dice getRethrownDice(Player player) {
         enforceCurrentPlayer(player);
         return new Dice(rethrownDice.getColor(), rethrownDice.getNumber());
     }
 
+    /**
+     * Rethrow one dice of the draft pool to be later repositioned using
+     * {@link #repositionRethrownDice(Player, Position)}. Move enabled by
+     * {@link it.polimi.se2018.model.toolcards.ToolCard6}.
+     *
+     * @param player the player performing this move
+     * @param dice   the dice of the draft pool to rethrow
+     */
     public void rethrowDice(Player player, Dice dice) {
         enforceCurrentPlayer(player);
         if (toolCardUsed) {
@@ -478,6 +538,14 @@ public class Game {
         rethrownDice = dice;
     }
 
+    /**
+     * Reposition the draft pool dice that has been rethrown using
+     * {@link #rethrowDice(Player, Dice)}. Move enabled by
+     * {@link it.polimi.se2018.model.toolcards.ToolCard6}.
+     *
+     * @param player   the player performing this move
+     * @param position the target position of the rethrown dice
+     */
     public void repositionRethrownDice(Player player, Position position) {
         enforceCurrentPlayer(player);
         if (rethrownDice == null) {
@@ -488,6 +556,12 @@ public class Game {
         rethrownDice = null;
     }
 
+    /**
+     * Shake all the dices of the draft pool. Move enabled by
+     * {@link it.polimi.se2018.model.toolcards.ToolCard7}.
+     *
+     * @param player the player performing this move
+     */
     public void shakeDices(Player player) {
         enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canShakeDices()) {
@@ -499,7 +573,15 @@ public class Game {
         toolCardUsed = true;
     }
 
-
+    /**
+     * Place the second dice in the same turn. This player will skip the next
+     * turn. Move enabled by {@link it.polimi.se2018.model.toolcards.ToolCard8}.
+     * FIXME: This move can be done before placing the first dice.
+     *
+     * @param player   the player performing this move
+     * @param position the target position of the second dice
+     * @param dice     the dice to place
+     */
     public void placeSecondDice(Player player, Position position, Dice dice) {
         enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canPlaceTwoDices()) {
@@ -511,6 +593,14 @@ public class Game {
         toolCardUsed = true;
     }
 
+    /**
+     * Place a dice into a position that is not adjacent to that of any other dice.
+     * Move enabled by {@link it.polimi.se2018.model.toolcards.ToolCard9}.
+     *
+     * @param player   the player performing this move
+     * @param position the target position of the dice
+     * @param dice     the dice to place
+     */
     public void placeNotAdjacentDice(Player player, Position position, Dice dice) {
         enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.notAdjacent()) {
@@ -521,6 +611,13 @@ public class Game {
         toolCardUsed = true;
     }
 
+    /**
+     * Flip the value of a dice of the draft pool. Move enabled by
+     * {@link it.polimi.se2018.model.toolcards.ToolCard10}.
+     *
+     * @param player the player performing this move
+     * @param dice   the dice of the draf pool to flip
+     */
     public void flipDice(Player player, Dice dice) {
         enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canFlipDice()) {
@@ -540,6 +637,13 @@ public class Game {
         toolCardUsed = true;
     }
 
+    /**
+     * Replace a dice of the draft pool with a dice in the dice bag.
+     * Move enabled by {@link it.polimi.se2018.model.toolcards.ToolCard11}.
+     *
+     * @param player        the player performing this move
+     * @param draftPoolDice the dice of the draft pool to replace
+     */
     public void replaceDice(Player player, Dice draftPoolDice) {
         enforceCurrentPlayer(player);
         if (toolCardInUse == null || !toolCardInUse.canReplaceDice()) {
@@ -559,6 +663,15 @@ public class Game {
         return new Dice(newDice.getColor(), newDice.getNumber());
     }
 
+    /**
+     * Place the dice that has been drawn after using
+     * {@link it.polimi.se2018.model.toolcards.ToolCard11}
+     * choosing its value.
+     *
+     * @param player   the player performing this move
+     * @param number   the value of the dice
+     * @param position the target position
+     */
     public void placeNewDice(Player player, int number, Position position) {
         enforceCurrentPlayer(player);
         Dice diceCopy = new Dice(newDice.getColor(), newDice.getNumber());
@@ -571,11 +684,19 @@ public class Game {
             throw new IllegalArgumentException("Given position is not valid");
         }
     }
+    
 
-    public void moveDice(Player player, Dice trackDice, Position oldPosition1, Position newPosition1) {
-        enforceCurrentPlayer(player);
-        moveDices(player, trackDice, oldPosition1, newPosition1, null, null);
-    }
+    /**
+          * Move two dices of the same color of a dice of the track.
+          * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
+          *
+          * @param player the player performing this move
+          * @param trackDice the dice of the track
+          * @param oldPosition1 the position of the first dice to move
+          * @param newPosition1 the target position of the first dice
+          * @param oldPosition2 the position of the second dice to move
+          * @param newPosition2 the target position of the second dice
+          */
 
     public void moveDices(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
         enforceCurrentPlayer(player);
