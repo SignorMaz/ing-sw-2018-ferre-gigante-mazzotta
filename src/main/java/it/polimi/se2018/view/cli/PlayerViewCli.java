@@ -106,6 +106,8 @@ public class PlayerViewCli implements PlayerView {
             System.out.println("It's " + playerId + "'s turn!");
             isMyTurn = false;
         }
+
+        System.out.println("Press enter to see the commands available");
     }
 
     @Override
