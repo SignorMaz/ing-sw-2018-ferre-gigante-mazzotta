@@ -12,6 +12,7 @@ import it.polimi.se2018.util.Observer;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -215,6 +216,7 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     @Override
     public void onGameStarted(Map<String, WindowFrame> windowFramesMap) {
+        rivalFrames = new HashMap<>();
         for (Map.Entry<String, WindowFrame> entry : windowFramesMap.entrySet()) {
             String rivalId = entry.getKey();
             rivalFrames.put(rivalId, entry.getValue());

@@ -1,5 +1,6 @@
 package it.polimi.se2018.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;

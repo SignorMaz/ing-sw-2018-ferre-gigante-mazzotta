@@ -2,6 +2,7 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.events.Event;
+import it.polimi.se2018.controller.events.GameStartEvent;
 import it.polimi.se2018.controller.events.InitialSetupEvent;
 import it.polimi.se2018.controller.events.NewTurnEvent;
 
@@ -171,6 +172,19 @@ public class Game {
         draftPool = new ArrayList<>();
         for (int i = 0; i < players.size() + 1; i++) {
             draftPool.add(diceBag.drawDice());
+        }
+
+        // Send to each player the frame of the rivals
+        for (Player player : players) {
+            Map<String, WindowFrame> rivalsFrames = new HashMap<>();
+            for (Player rival : players) {
+                if (rival.equals(player)) {
+                    continue;
+                }
+                rivalsFrames.put(rival.getPlayerId(), rival.getWindowFrame());
+            }
+            Event gameStartEvent = new GameStartEvent(player.getPlayerId(), rivalsFrames);
+            Controller.getInstance().send(gameStartEvent);
         }
 
         startTurnAndNotify();
