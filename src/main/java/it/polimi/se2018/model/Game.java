@@ -174,7 +174,7 @@ public class Game {
             draftPool.add(diceBag.drawDice());
         }
 
-        nextTurn();
+        startTurnAndNotify();
     }
 
     public synchronized void completeTurn() {
@@ -190,6 +190,16 @@ public class Game {
             scheduledTurnTimer.cancel(true);
         }
         scheduledTurnTimer = scheduledExecutor.schedule(turnTimeOutRunnable, turnTimeoutSeconds, TimeUnit.SECONDS);
+    }
+
+    private void startTurnAndNotify() {
+        startTurnTimer();
+
+        String currentPlayerId = getCurrentPlayer().getPlayerId();
+        for (Player player : players) {
+            Event newTurn = new NewTurnEvent(player.getPlayerId(), currentPlayerId);
+            Controller.getInstance().send(newTurn);
+        }
     }
 
     public synchronized void nextTurn() {
@@ -232,14 +242,8 @@ public class Game {
             nextTurn();
             return;
         }
-        startTurnTimer();
 
-        String currentPlayerId = getCurrentPlayer().getPlayerId();
-        for (Player player : players) {
-            Event newTurn = new NewTurnEvent(player.getPlayerId(), currentPlayerId);
-            Controller.getInstance().send(newTurn);
-        }
-
+        startTurnAndNotify();
     }
 
     /**
