@@ -33,6 +33,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private ToolCard toolCard;
     private Dice rethrownDice;
     private Dice newDice;
+    private boolean isReady;
 
     // Game properties
     private List<ObjectiveCard> publicObjectCards;
@@ -131,6 +132,14 @@ public class PlayerViewBase implements Observer, PlayerView {
 
     public ToolCard getToolCard() {
         return toolCard;
+    }
+
+    public boolean isReady() {
+        return isReady;
+    }
+
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 
     @Override

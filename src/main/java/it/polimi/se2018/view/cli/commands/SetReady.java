@@ -40,10 +40,11 @@ public class SetReady implements Command {
         WindowPattern windowPattern = cards.get(response.getValue());
         view.getPlayerViewBase().setWindowFrame(windowPattern);
         view.getPlayerViewBase().send(new SetReadyAction(windowPattern));
+        view.getPlayerViewBase().setReady(true);
     }
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return view.isGameSetUp() && !view.isGameStarted();
+        return view.isGameSetUp() && !view.getPlayerViewBase().isReady();
     }
 }
