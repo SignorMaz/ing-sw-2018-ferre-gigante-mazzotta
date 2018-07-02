@@ -135,6 +135,11 @@ public class PlayerViewCli implements PlayerView {
         System.out.println("You've been suspended");
     }
 
+    @Override
+    public void onDiceTrackChanged(List<Dice> track) {
+        System.out.println("The dice track changed");
+    }
+
     private void handleUserInput() {
         List<Command> options = new ArrayList<>();
         for (Command command : CommandList.COMMANDS) {

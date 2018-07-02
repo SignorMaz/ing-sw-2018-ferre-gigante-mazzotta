@@ -36,4 +36,6 @@ public interface PlayerView {
     void onNewDraftDice(Dice dice);
 
     void onPlayerSuspended();
+
+    void onDiceTrackChanged(List<Dice> track);
 }

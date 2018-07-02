@@ -45,7 +45,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private Map<String, WindowFrame> rivalFrames;
     private List<Dice> draftPool;
     private String currentPlayerId;
-    private List<Dice> trackDices; // TODO
+    private List<Dice> trackDices;
 
     public PlayerViewBase(PlayerView playerViewImpl, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
@@ -234,6 +234,12 @@ public class PlayerViewBase implements Observer, PlayerView {
     public void onPlayerSuspended() {
         isSuspended = true;
         playerViewImpl.onPlayerSuspended();
+    }
+
+    @Override
+    public void onDiceTrackChanged(List<Dice> track) {
+        trackDices = track;
+        playerViewImpl.onDiceTrackChanged(track);
     }
 
     public Dice getNewDice() {

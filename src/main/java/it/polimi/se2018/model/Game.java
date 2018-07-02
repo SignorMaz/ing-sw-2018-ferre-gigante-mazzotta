@@ -52,7 +52,7 @@ public class Game {
     /**
      * create all the classes for the game
      *
-     * @param players   list of players
+     * @param players list of players
      * @param toolCards list with all the ToolCards from which we will take three
      */
     public Game(List<Player> players, List<ToolCard> toolCards) {
@@ -213,6 +213,7 @@ public class Game {
         if (completedRounds != 0) {
             roundTrackDices.add(draftPool.remove(0));
         }
+        notifyTrackChange();
 
         draftPool = new ArrayList<>();
         for (int i = 0; i < players.size() + 1; i++) {
@@ -309,6 +310,12 @@ public class Game {
     private void notifyDraftPoolChange() {
         for (Player player : players) {
             Controller.getInstance().send(new DraftPoolChangedEvent(player.getPlayerId(), draftPool));
+        }
+    }
+
+    private void notifyTrackChange() {
+        for (Player player : players) {
+            Controller.getInstance().send(new DiceTrackChangedEvent(player.getPlayerId(), roundTrackDices));
         }
     }
 
@@ -573,6 +580,7 @@ public class Game {
             throw new IllegalArgumentException("The given dice is not in the round track");
         }
         roundTrackDices.add(draftPool.remove(draftPool.indexOf(draftDice)));
+        notifyTrackChange();
         draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
         notifyDraftPoolChange();
     }
@@ -772,8 +780,8 @@ public class Game {
      * Move two dices of the same color of a dice of the track.
      * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
      *
-     * @param player       the player performing this move
-     * @param trackDice    the dice of the track
+     * @param player the player performing this move
+     * @param trackDice the dice of the track
      * @param oldPosition1 the position of the first dice to move
      * @param newPosition1 the target position of the first dice
      * @param oldPosition2 the position of the second dice to move
