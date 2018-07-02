@@ -138,4 +138,20 @@ public class Player {
     public List<WindowPatternCard> getWindowPatternCards() {
         return windowPatternCards;
     }
+
+    public int getPoints() {
+        if (windowFrame == null) {
+            // This player never player
+            return -1;
+        }
+
+        int points = 0;
+        for (ObjectiveCard objectiveCard : privateObjectiveCards) {
+            points += objectiveCard.getPoints(windowFrame);
+        }
+        for (ObjectiveCard objectiveCard : getGame().getPublicObjectiveCards()) {
+            points += objectiveCard.getPoints(windowFrame);
+        }
+        return points;
+    }
 }

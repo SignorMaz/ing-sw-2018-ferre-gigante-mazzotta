@@ -84,8 +84,11 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onGameOver() {
+    public void onGameOver(Map<String, Integer> chart) {
         System.out.println("The game is over");
+        for (Map.Entry<String, Integer> entry : chart.entrySet()) {
+            System.out.println("Player: " + entry.getKey() + " - points: " + entry.getValue());
+        }
         isGameOver = true;
     }
 

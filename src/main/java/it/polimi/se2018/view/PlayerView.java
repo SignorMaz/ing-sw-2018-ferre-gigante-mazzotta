@@ -21,7 +21,7 @@ public interface PlayerView {
 
     void onDraftPoolChanged(List<Dice> draftPool);
 
-    void onGameOver();
+    void onGameOver(Map<String, Integer> chart);
 
     void onInvalidAction(Action action);
 

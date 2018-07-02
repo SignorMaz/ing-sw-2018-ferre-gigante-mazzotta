@@ -37,7 +37,6 @@ public class PlayerViewBase implements Observer, PlayerView {
     private boolean isReady;
     private boolean isSuspended;
 
-
     // Game properties
     private List<ObjectiveCard> publicObjectCards;
     private List<ToolCard> toolCards;
@@ -187,8 +186,8 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onGameOver() {
-        playerViewImpl.onGameOver();
+    public void onGameOver(Map<String, Integer> chart) {
+        playerViewImpl.onGameOver(chart);
     }
 
     @Override

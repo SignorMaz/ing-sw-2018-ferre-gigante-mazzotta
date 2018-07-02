@@ -196,7 +196,7 @@ public class Game {
 
     private void notifyGameOver() {
         for (Player player : players) {
-            Controller.getInstance().send(new GameOverEvent(player.getPlayerId()));
+            Controller.getInstance().send(new GameOverEvent(player.getPlayerId(), players));
         }
     }
 
@@ -334,6 +334,13 @@ public class Game {
 
     public List<ToolCard> getToolCards() {
         return new ArrayList<>(toolCards.keySet());
+    }
+
+    /**
+     * @return the list of public objective cards
+     */
+    public List<ObjectiveCard> getPublicObjectiveCards() {
+        return publicObjectiveCards;
     }
 
     /**
