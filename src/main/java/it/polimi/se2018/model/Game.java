@@ -47,12 +47,17 @@ public class Game {
     private final Runnable turnTimeOutRunnable;
     private final Set<Player> suspendedPlayers;
 
+    public Game(List<Player> players) {
+        this(players, new ToolCardsDeck().getCards());
+    }
+
     /**
      * create all the classes for the game
      *
-     * @param players list of players
+     * @param players   list of players
+     * @param toolCards list with all the ToolCards from which we will take three
      */
-    public Game(List<Player> players) {
+    public Game(List<Player> players, List<ToolCard> toolCards) {
         for (Player player : players) {
             player.setGame(this);
         }
@@ -76,11 +81,10 @@ public class Game {
             player.setPrivateObjectiveCards(privateObjectiveCards);
         }
 
-        toolCards = new HashMap<>();
-        List<ToolCard> toolCardsDeck = new ToolCardsDeck().getCards();
-        Collections.shuffle(toolCardsDeck);
+        this.toolCards = new HashMap<>();
+        Collections.shuffle(toolCards);
         for (int i = 0; i < TOOL_CARDS_NUM; i++) {
-            toolCards.put(toolCardsDeck.remove(0), 0);
+            this.toolCards.put(toolCards.remove(0), 0);
         }
 
         roundTrackDices = new ArrayList<>();
@@ -120,18 +124,31 @@ public class Game {
             Event initialSetupEvent = new InitialSetupEvent(player.getPlayerId(), data);
             Controller.getInstance().send(initialSetupEvent);
         }
+
+        // Give turnTimeoutSeconds to the players to choose their frame
+        Runnable initTimeoutRunnable = new Runnable() {
+            @Override
+            public void run() {
+                for (Player player : players) {
+                    if (!player.isReady()) {
+                        suspendedPlayers.add(player);
+                    }
+                }
+                tryStart();
+            }
+        };
+        scheduledTurnTimer = scheduledExecutor.schedule(initTimeoutRunnable, turnTimeoutSeconds, TimeUnit.SECONDS);
     }
 
     /**
      * Called whenever a Player is ready. If all the players
      * are ready, the game will start.
      * <p>
-     * TODO: Don't wait indefinitely
      * Suspend the Players not ready after a certain amount of time
      */
     void tryStart() {
         for (Player player : players) {
-            if (!player.isReady()) {
+            if (!player.isReady() && !suspendedPlayers.contains(player)) {
                 return;
             }
         }
@@ -697,19 +714,19 @@ public class Game {
             throw new IllegalArgumentException("Given position is not valid");
         }
     }
-    
+
 
     /**
-          * Move two dices of the same color of a dice of the track.
-          * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
-          *
-          * @param player the player performing this move
-          * @param trackDice the dice of the track
-          * @param oldPosition1 the position of the first dice to move
-          * @param newPosition1 the target position of the first dice
-          * @param oldPosition2 the position of the second dice to move
-          * @param newPosition2 the target position of the second dice
-          */
+     * Move two dices of the same color of a dice of the track.
+     * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
+     *
+     * @param player       the player performing this move
+     * @param trackDice    the dice of the track
+     * @param oldPosition1 the position of the first dice to move
+     * @param newPosition1 the target position of the first dice
+     * @param oldPosition2 the position of the second dice to move
+     * @param newPosition2 the target position of the second dice
+     */
 
     public void moveDices(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
         enforceCurrentPlayer(player);
