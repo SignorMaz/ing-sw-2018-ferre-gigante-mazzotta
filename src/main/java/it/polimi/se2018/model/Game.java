@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Game {
@@ -90,12 +91,17 @@ public class Game {
         turnTimeOutRunnable = new Runnable() {
             @Override
             public void run() {
-                synchronized (Game.this) {
-                    if (!turnCompleted) {
-                        suspendPlayer(getCurrentPlayer());
-                    } else {
-                        nextTurn();
+                try {
+                    synchronized (Game.this) {
+                        if (!turnCompleted) {
+                            suspendPlayer(getCurrentPlayer());
+                        } else {
+                            nextTurn();
+                        }
                     }
+                } catch (Exception e) {
+                    LOGGER.log(Level.SEVERE, "Turn timeout error", e);
+                    throw e;
                 }
             }
         };
@@ -126,13 +132,18 @@ public class Game {
         Runnable initTimeoutRunnable = new Runnable() {
             @Override
             public void run() {
-                for (Player player : players) {
-                    if (!player.isReady()) {
-                        suspendedPlayers.add(player);
-                        Controller.getInstance().send(new PlayerSuspendedEvent(player.getPlayerId()));
+                try {
+                    for (Player player : players) {
+                        if (!player.isReady()) {
+                            suspendedPlayers.add(player);
+                            Controller.getInstance().send(new PlayerSuspendedEvent(player.getPlayerId()));
+                        }
                     }
+                    tryStart();
+                } catch (Exception e) {
+                    LOGGER.log(Level.SEVERE, "Init error", e);
+                    throw e;
                 }
-                tryStart();
             }
         };
         scheduledTurnTimer = scheduledExecutor.schedule(initTimeoutRunnable, turnTimeoutSeconds, TimeUnit.SECONDS);
@@ -176,6 +187,9 @@ public class Game {
     }
 
     public void endGame() {
+        if (scheduledTurnTimer != null && !scheduledTurnTimer.isDone()) {
+            scheduledTurnTimer.cancel(true);
+        }
         notifyGameOver();
         gameOver = true;
     }

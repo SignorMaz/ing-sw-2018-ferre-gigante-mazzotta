@@ -260,4 +260,8 @@ public class PlayerViewBase implements Observer, PlayerView {
     public List<Dice> getTrackDices() {
         return trackDices;
     }
+
+    public boolean isSuspended() {
+        return isSuspended;
+    }
 }

@@ -45,6 +45,6 @@ public class SetReady implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return view.isGameSetUp() && !view.getPlayerViewBase().isReady();
+        return view.isGameSetUp() && !view.getPlayerViewBase().isReady() && !view.getPlayerViewBase().isSuspended();
     }
 }
