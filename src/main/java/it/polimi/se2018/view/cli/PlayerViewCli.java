@@ -127,6 +127,11 @@ public class PlayerViewCli implements PlayerView {
         System.out.println("New dice in the draft pool: " + dice.getColor() + "-" + dice.getNumber());
     }
 
+    @Override
+    public void onPlayerSuspended() {
+        System.out.println("You've been suspended");
+    }
+
     private void handleUserInput() {
         List<Command> options = new ArrayList<>();
         for (Command command : CommandList.COMMANDS) {

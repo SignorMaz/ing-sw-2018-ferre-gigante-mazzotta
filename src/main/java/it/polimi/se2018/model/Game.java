@@ -1,10 +1,7 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.controller.Controller;
-import it.polimi.se2018.controller.events.Event;
-import it.polimi.se2018.controller.events.GameStartEvent;
-import it.polimi.se2018.controller.events.InitialSetupEvent;
-import it.polimi.se2018.controller.events.NewTurnEvent;
+import it.polimi.se2018.controller.events.*;
 
 import java.util.*;
 import java.util.concurrent.Executors;
@@ -132,6 +129,7 @@ public class Game {
                 for (Player player : players) {
                     if (!player.isReady()) {
                         suspendedPlayers.add(player);
+                        Controller.getInstance().send(new PlayerSuspendedEvent(player.getPlayerId()));
                     }
                 }
                 tryStart();
@@ -316,6 +314,7 @@ public class Game {
      */
     public void suspendPlayer(Player player) {
         suspendedPlayers.add(player);
+        Controller.getInstance().send(new PlayerSuspendedEvent(player.getPlayerId()));
         if (players.size() - suspendedPlayers.size() == 1) {
             endGame();
             return;

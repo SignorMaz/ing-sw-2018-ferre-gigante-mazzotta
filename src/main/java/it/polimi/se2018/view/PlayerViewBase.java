@@ -35,6 +35,8 @@ public class PlayerViewBase implements Observer, PlayerView {
     private Dice rethrownDice;
     private Dice newDice;
     private boolean isReady;
+    private boolean isSuspended;
+
 
     // Game properties
     private List<ObjectiveCard> publicObjectCards;
@@ -227,6 +229,12 @@ public class PlayerViewBase implements Observer, PlayerView {
     @Override
     public void onNewDraftDice(Dice dice) {
         newDice = dice;
+    }
+
+    @Override
+    public void onPlayerSuspended() {
+        isSuspended = true;
+        playerViewImpl.onPlayerSuspended();
     }
 
     public Dice getNewDice() {

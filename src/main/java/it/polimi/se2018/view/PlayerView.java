@@ -34,4 +34,6 @@ public interface PlayerView {
     void onGameStarted(Map<String, WindowFrame> windowFramesMap);
 
     void onNewDraftDice(Dice dice);
+
+    void onPlayerSuspended();
 }
