@@ -4,11 +4,8 @@ import it.polimi.se2018.view.PlayerView;
 
 public class GameOverEvent extends Event {
 
-    private final boolean isGameOver;
-
-    public GameOverEvent(String playerId, boolean isGameOver) {
+    public GameOverEvent(String playerId) {
         super(playerId);
-        this.isGameOver = isGameOver;
     }
 
     @Override

@@ -51,7 +51,7 @@ public class Game {
     /**
      * create all the classes for the game
      *
-     * @param players   list of players
+     * @param players list of players
      * @param toolCards list with all the ToolCards from which we will take three
      */
     public Game(List<Player> players, List<ToolCard> toolCards) {
@@ -150,6 +150,15 @@ public class Game {
                 return;
             }
         }
+
+        for (Player player : players) {
+            if (suspendedPlayers.contains(player)) {
+                currentPlayerNum++;
+            } else {
+                break;
+            }
+        }
+
         newRound();
     }
 
@@ -167,15 +176,22 @@ public class Game {
     }
 
     public void endGame() {
+        notifyGameOver();
         gameOver = true;
     }
 
+    private void notifyGameOver() {
+        for (Player player : players) {
+            Controller.getInstance().send(new GameOverEvent(player.getPlayerId()));
+        }
+    }
 
     /**
      * switch the game to a new round and call the methods to draw a dice
      */
     private void newRound() {
         if (isGameOver()) {
+            notifyGameOver();
             return;
         }
 
@@ -232,6 +248,7 @@ public class Game {
 
     public synchronized void nextTurn() {
         if (isGameOver()) {
+            notifyGameOver();
             return;
         }
 
@@ -719,8 +736,8 @@ public class Game {
      * Move two dices of the same color of a dice of the track.
      * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
      *
-     * @param player       the player performing this move
-     * @param trackDice    the dice of the track
+     * @param player the player performing this move
+     * @param trackDice the dice of the track
      * @param oldPosition1 the position of the first dice to move
      * @param newPosition1 the target position of the first dice
      * @param oldPosition2 the position of the second dice to move
