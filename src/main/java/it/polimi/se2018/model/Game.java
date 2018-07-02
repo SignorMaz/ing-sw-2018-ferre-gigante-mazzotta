@@ -52,7 +52,7 @@ public class Game {
     /**
      * create all the classes for the game
      *
-     * @param players list of players
+     * @param players   list of players
      * @param toolCards list with all the ToolCards from which we will take three
      */
     public Game(List<Player> players, List<ToolCard> toolCards) {
@@ -218,6 +218,7 @@ public class Game {
         for (int i = 0; i < players.size() + 1; i++) {
             draftPool.add(diceBag.drawDice());
         }
+        notifyDraftPoolChange();
 
         // Send to each player the frame of the rivals
         for (Player player : players) {
@@ -305,6 +306,12 @@ public class Game {
         startTurnAndNotify();
     }
 
+    private void notifyDraftPoolChange() {
+        for (Player player : players) {
+            Controller.getInstance().send(new DraftPoolChangedEvent(player.getPlayerId(), draftPool));
+        }
+    }
+
     /**
      * return the list of players
      *
@@ -386,6 +393,7 @@ public class Game {
             throw new IllegalStateException("Move already done");
         }
         Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
+        notifyDraftPoolChange();
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
         moveDone = true;
     }
@@ -566,6 +574,7 @@ public class Game {
         }
         roundTrackDices.add(draftPool.remove(draftPool.indexOf(draftDice)));
         draftPool.add(roundTrackDices.remove(roundTrackDices.indexOf(trackDice)));
+        notifyDraftPoolChange();
     }
 
     /**
@@ -601,6 +610,7 @@ public class Game {
             throw new IllegalArgumentException("The given dice is not from the pool");
         }
         draftPool.get(draftPool.indexOf(dice)).setRandomNumber();
+        notifyDraftPoolChange();
         toolCardUsed = true;
         rethrownDice = dice;
     }
@@ -637,6 +647,7 @@ public class Game {
         for (Dice dice : draftPool) {
             dice.setRandomNumber();
         }
+        notifyDraftPoolChange();
         toolCardUsed = true;
     }
 
@@ -655,6 +666,7 @@ public class Game {
             throw new IllegalStateException("Invalid ToolCard");
         }
         Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
+        notifyDraftPoolChange();
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
         skipTurnPlayerList.add(getCurrentPlayer());
         toolCardUsed = true;
@@ -674,6 +686,7 @@ public class Game {
             throw new IllegalStateException("Invalid ToolCard");
         }
         Dice draftDice = draftPool.remove(draftPool.indexOf(dice));
+        notifyDraftPoolChange();
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position, toolCardInUse);
         toolCardUsed = true;
     }
@@ -701,6 +714,7 @@ public class Game {
             throw new IllegalArgumentException("Dice not found");
         }
         foundDraftDice.setNumber(7 - dice.getNumber());
+        notifyDraftPoolChange();
         toolCardUsed = true;
     }
 
@@ -722,6 +736,7 @@ public class Game {
         diceBag.addDice(draftPool.remove(draftPool.indexOf(draftPoolDice)));
         newDice = diceBag.drawDice();
         draftPool.add(newDice);
+        notifyDraftPoolChange();
         toolCardUsed = true;
     }
 
@@ -757,8 +772,8 @@ public class Game {
      * Move two dices of the same color of a dice of the track.
      * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
      *
-     * @param player the player performing this move
-     * @param trackDice the dice of the track
+     * @param player       the player performing this move
+     * @param trackDice    the dice of the track
      * @param oldPosition1 the position of the first dice to move
      * @param newPosition1 the target position of the first dice
      * @param oldPosition2 the position of the second dice to move
