@@ -70,11 +70,11 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onDicePlaced(String playerPlacingDice, Position position, Dice dice) {
-        if (playerPlacingDice.equals(getPlayerViewBase().getPlayerId())) {
-            System.out.println("You successfully placed the dice");
+    public void onWindowFrameChanged(String owner, WindowFrame windowFrame) {
+        if (owner.equals(getPlayerViewBase().getPlayerId())) {
+            System.out.println("Your window frame changed");
         } else {
-            System.out.println(playerPlacingDice + "'s placed a dice");
+            System.out.println(owner + "'s window frame changed");
         }
     }
 

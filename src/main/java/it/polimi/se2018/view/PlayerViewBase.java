@@ -170,13 +170,13 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onDicePlaced(String playerPlacingDice, Position position, Dice dice) {
-        if (playerId.equals(playerPlacingDice)) {
-            windowFrame.placeDiceUnrestricted(dice, position);
+    public void onWindowFrameChanged(String owner, WindowFrame windowFrame) {
+        if (playerId.equals(owner)) {
+            this.windowFrame = windowFrame;
         } else {
-            rivalFrames.get(playerPlacingDice).placeDiceUnrestricted(dice, position);
+            rivalFrames.put(owner, windowFrame);
         }
-        playerViewImpl.onDicePlaced(playerPlacingDice, position, dice);
+        playerViewImpl.onWindowFrameChanged(owner, windowFrame);
     }
 
     @Override
@@ -270,3 +270,4 @@ public class PlayerViewBase implements Observer, PlayerView {
         return isSuspended;
     }
 }
+

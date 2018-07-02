@@ -17,7 +17,7 @@ public interface PlayerView {
 
     void onInitialSetup(InitialSetupEvent.Data data);
 
-    void onDicePlaced(String playerPlacingDice, Position position, Dice dice);
+    void onWindowFrameChanged(String owner, WindowFrame windowFrame);
 
     void onDraftPoolChanged(List<Dice> draftPool);
 

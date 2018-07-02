@@ -319,6 +319,12 @@ public class Game {
         }
     }
 
+    private void notifyWindowFrameChange(Player owner) {
+        for (Player player : players) {
+            Controller.getInstance().send(new WindowFrameChangedEvent(player.getPlayerId(), owner));
+        }
+    }
+
     /**
      * return the list of players
      *
@@ -403,6 +409,7 @@ public class Game {
         notifyDraftPoolChange();
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
         moveDone = true;
+        notifyWindowFrameChange(player);
     }
 
 
@@ -492,6 +499,7 @@ public class Game {
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
         }
+        notifyWindowFrameChange(player);
     }
 
     /**
@@ -519,6 +527,7 @@ public class Game {
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
         }
+        notifyWindowFrameChange(player);
     }
 
     /**
@@ -552,6 +561,7 @@ public class Game {
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
         }
+        notifyWindowFrameChange(player);
     }
 
     /**
@@ -639,6 +649,7 @@ public class Game {
         getCurrentPlayer().getWindowFrame().placeDice(rethrownDice, position);
         placeDice(player, position, rethrownDice);
         rethrownDice = null;
+        notifyWindowFrameChange(player);
     }
 
     /**
@@ -678,6 +689,7 @@ public class Game {
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position);
         skipTurnPlayerList.add(getCurrentPlayer());
         toolCardUsed = true;
+        notifyWindowFrameChange(player);
     }
 
     /**
@@ -697,6 +709,7 @@ public class Game {
         notifyDraftPoolChange();
         getCurrentPlayer().getWindowFrame().placeDice(draftDice, position, toolCardInUse);
         toolCardUsed = true;
+        notifyWindowFrameChange(player);
     }
 
     /**
@@ -773,6 +786,7 @@ public class Game {
         } else {
             throw new IllegalArgumentException("Given position is not valid");
         }
+        notifyWindowFrameChange(player);
     }
 
 
@@ -820,5 +834,6 @@ public class Game {
         getCurrentPlayer().getWindowFrame().placeDice(dice1, newPosition1);
 
         toolCardUsed = true;
+        notifyWindowFrameChange(player);
     }
 }

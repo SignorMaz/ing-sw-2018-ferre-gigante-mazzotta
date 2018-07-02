@@ -29,6 +29,7 @@ public class CommandList {
             new SwapTrackDice(),
             new ReplaceDice(),
             new PlaceNewDice(),
+            new ShowTrack(),
     };
 
 }
