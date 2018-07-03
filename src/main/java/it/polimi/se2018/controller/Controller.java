@@ -7,8 +7,11 @@ import it.polimi.se2018.controller.events.InvalidActionEvent;
 import it.polimi.se2018.controller.events.LoginEvent;
 import it.polimi.se2018.model.*;
 
-import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +25,8 @@ public class Controller {
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
+    private static final int CREATION_TIMEOUT = 30;
+
     private static final int PATTERN_CARDS_PER_PLAYER = 2;
 
     private final List<String> waitingPlayers = new LinkedList<>();
@@ -29,8 +34,34 @@ public class Controller {
     private final Map<String, Observable> observablesMap = new HashMap<>();
     private final List<Game> games = new LinkedList<>();
 
+    private final ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledFuture scheduledGameCreationTimer;
+    private Runnable createGameRunnable;
+    private boolean startASAP = false;
+
+    private Controller() {
+        createGameRunnable = () -> {
+            if (waitingPlayers.size() >= MIN_PLAYERS) {
+                LOGGER.info("We have enough players, create a new Game");
+                newGame();
+            } else {
+                LOGGER.info("Not enough players, starting when new player logs in");
+                startASAP = true;
+            }
+        };
+        startGameCreationTimer();
+    }
+
     public static Controller getInstance() {
         return INSTANCE;
+    }
+
+    private void startGameCreationTimer() {
+        startASAP = false;
+        if (scheduledGameCreationTimer != null && !scheduledGameCreationTimer.isDone()) {
+            scheduledGameCreationTimer.cancel(true);
+        }
+        scheduledGameCreationTimer = scheduledExecutor.schedule(createGameRunnable, CREATION_TIMEOUT, TimeUnit.SECONDS);
     }
 
     public void send(Event event) {
@@ -51,13 +82,13 @@ public class Controller {
             synchronized (player.getGame()) {
                 action.perform(player);
             }
-        } catch(RuntimeException e){
+        } catch (RuntimeException e) {
             LOGGER.log(Level.SEVERE, "Invalid action", e);
             send(new InvalidActionEvent(action.getPlayerId(), action));
         }
     }
 
-    public void removeClient (String playerId){
+    public void removeClient(String playerId) {
         observablesMap.remove(playerId);
         waitingPlayers.remove(playerId);
         Player player = playersMap.get(playerId);
@@ -66,19 +97,19 @@ public class Controller {
         }
     }
 
-    private Player getPlayer (String id){
+    private Player getPlayer(String id) {
         return playersMap.get(id);
     }
 
-    private Observable getObservable (String id){
+    private Observable getObservable(String id) {
         return observablesMap.get(id);
     }
 
-    public synchronized boolean canJoin (String playerId){
+    public synchronized boolean canJoin(String playerId) {
         return !waitingPlayers.contains(playerId) && !playersMap.containsKey(playerId);
     }
 
-    public synchronized void joinGame (String playerId, Observable observable){
+    public synchronized void joinGame(String playerId, Observable observable) {
         if (!canJoin(playerId)) {
             LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
 
@@ -89,12 +120,13 @@ public class Controller {
         observable.send(new LoginEvent(playerId, true));
 
 
-        if (waitingPlayers.size() >= MAX_PLAYERS) {
+        if (waitingPlayers.size() >= MAX_PLAYERS || startASAP) {
             newGame();
         }
     }
 
-    private synchronized void newGame () {
+    private synchronized void newGame() {
+        startGameCreationTimer();
         Iterator<String> it = waitingPlayers.iterator();
         List<String> waitingClientsRemoved = new ArrayList<>();
         while (it.hasNext() && waitingClientsRemoved.size() < MAX_PLAYERS) {
