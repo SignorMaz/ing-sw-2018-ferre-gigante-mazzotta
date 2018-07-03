@@ -8,6 +8,7 @@ import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.cli.InputHelper;
 import it.polimi.se2018.view.cli.InputResponse;
 import it.polimi.se2018.view.cli.PlayerViewCli;
+import it.polimi.se2018.view.cli.WindowFramePrinter;
 
 import java.util.List;
 import java.util.Scanner;
@@ -23,14 +24,15 @@ public class PlaceDice implements Command {
     public void handle(PlayerViewCli view) {
         Scanner input = view.getScanner();
 
-        InputResponse<Position> position = InputHelper.choosePosition(input, view.getPlayerViewBase().getWindowFrame());
-        if (!position.isValid()) {
-            return;
-        }
-
+        WindowFramePrinter.print(view.getPlayerViewBase().getWindowFrame());
         System.out.println("Dices:");
         InputResponse<Dice> dice = InputHelper.chooseDraftPoolDice(input, view.getPlayerViewBase().getDraftPool());
         if (!dice.isValid()) {
+            return;
+        }
+
+        InputResponse<Position> position = InputHelper.choosePosition(input, null);
+        if (!position.isValid()) {
             return;
         }
 

@@ -194,7 +194,7 @@ public class PlayerViewCli implements PlayerView {
         try {
             view.getPlayerViewBase().login();
         } catch (IOException exception) {
-            System.out.println("Could not login. Please try again witha different username");
+            System.out.println("Could not login. Please try again with a different username");
         }
 
         view.looper();

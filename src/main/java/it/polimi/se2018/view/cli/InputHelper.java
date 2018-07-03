@@ -134,7 +134,7 @@ public class InputHelper {
         InputResponse<Integer> response;
         response = InputHelper.chooseOption(scanner, draftPool,
                 dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase());
-        if (response.isValid()) {
+        if (!response.isValid()) {
             return new InputResponse<>(null, false);
         }
 
