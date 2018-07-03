@@ -20,7 +20,7 @@ public class ToolCard4 extends ToolCard {
     }
 
     @Override
-    public boolean canPlaceTwoDices() {
+    public boolean canMoveTwoPlacedDices() {
         return true;
     }
 

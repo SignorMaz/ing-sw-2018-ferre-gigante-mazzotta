@@ -67,6 +67,6 @@ public class MovePlacedDices implements Command {
     @Override
     public boolean canPerform(PlayerViewCli view) {
         ToolCard toolCard = view.getPlayerViewBase().getToolCard();
-        return view.isMyTurn() && toolCard != null && toolCard.canMovePlacedDice();
+        return view.isMyTurn() && toolCard != null && toolCard.canMoveTwoPlacedDices();
     }
 }

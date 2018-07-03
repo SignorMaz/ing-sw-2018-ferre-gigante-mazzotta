@@ -53,7 +53,7 @@ public class Game {
     /**
      * create all the classes for the game
      *
-     * @param players list of players
+     * @param players   list of players
      * @param toolCards list with all the ToolCards from which we will take three
      */
     public Game(List<Player> players, List<ToolCard> toolCards) {
@@ -558,7 +558,7 @@ public class Game {
         if (dice1 == null || dice2 == null || dice1.equals(dice2) || newPosition1.equals(newPosition2)) {
             throw new IllegalStateException("Invalid dice");
         }
-        if (toolCardInUse != null && toolCardInUse.canMovePlacedDice() &&
+        if (toolCardInUse != null && toolCardInUse.canMoveTwoPlacedDices() &&
                 // Make sure both the positions are valid before we move any of the dices,
                 // we don't want to throw an exception after we moved the first dice
                 getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, toolCardInUse) &&
@@ -802,20 +802,20 @@ public class Game {
      * Move two dices of the same color of a dice of the track.
      * Move associated to {@link it.polimi.se2018.model.toolcards.ToolCard12}.
      *
-     * @param player the player performing this move
-     * @param trackDice the dice of the track
+     * @param player       the player performing this move
+     * @param trackDice    the dice of the track
      * @param oldPosition1 the position of the first dice to move
      * @param newPosition1 the target position of the first dice
      * @param oldPosition2 the position of the second dice to move
      * @param newPosition2 the target position of the second dice
      */
 
-    public void moveDices(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
+    public void moveDicesWithTrack(Player player, Dice trackDice, Position oldPosition1, Position newPosition1, Position oldPosition2, Position newPosition2) {
         enforceCurrentPlayer(player);
         if (!roundTrackDices.contains(trackDice)) {
             throw new IllegalArgumentException("Invalid track dice");
         }
-        if (toolCardInUse == null || !toolCardInUse.canMovePlacedDice()) {
+        if (toolCardInUse == null || !toolCardInUse.canMoveTwoPlacedDicesWithTrack()) {
             throw new IllegalStateException("Invalid ToolCard");
         }
 
