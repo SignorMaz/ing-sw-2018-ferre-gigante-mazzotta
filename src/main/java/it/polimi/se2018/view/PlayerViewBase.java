@@ -101,6 +101,10 @@ public class PlayerViewBase implements Observer, PlayerView {
         return favorTokens;
     }
 
+    public Map<String, Integer> getRivalsFavorTokens() {
+        return rivalTokens;
+    }
+
     public List<ObjectiveCard> getPublicObjectCards() {
         return publicObjectCards;
     }
