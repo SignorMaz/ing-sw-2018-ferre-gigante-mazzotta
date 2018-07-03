@@ -15,6 +15,6 @@ public class Toolcard12Test {
         assertEquals("Taglierina Manuale", tooltest.getName());
         assertEquals("Muovi fino a due dadi dello stesso colore di un solo dado sul Tracciato dei Round. Devi rispettare tutte le restrizioni di piazzamento.", tooltest.getDescription());
         assertEquals(12, tooltest.getNumber());
-        assertTrue(tooltest.canMovePlacedDice());
+        assertTrue(tooltest.canMoveTwoPlacedDicesWithTrack());
     }
 }

@@ -31,6 +31,7 @@ public class CommandList {
             new PlaceNewDice(),
             new ShowTrack(),
             new ShowTokensCounts(),
+            new MoveDicesWithTrack(),
     };
 
 }

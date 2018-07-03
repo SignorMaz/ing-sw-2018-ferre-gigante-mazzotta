@@ -15,6 +15,6 @@ public class Toolcard4Test {
         assertEquals("Lathekin", tooltest.getName());
         assertEquals("Muovi esattamente due dadi, rispettando tutte le restrizioni di piazzamento.", tooltest.getDescription());
         assertEquals(4, tooltest.getNumber());
-        assertTrue(tooltest.canPlaceTwoDices());
+        assertTrue(tooltest.canMoveTwoPlacedDices());
     }
 }
