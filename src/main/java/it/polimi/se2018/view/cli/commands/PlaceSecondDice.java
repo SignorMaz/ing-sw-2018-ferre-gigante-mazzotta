@@ -25,7 +25,7 @@ public class PlaceSecondDice implements Command {
 
         List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
         System.out.println("Dices:");
-        InputResponse<Dice> dice = InputHelper.chooseDraftPoolDice(input, draftPool);
+        InputResponse<Dice> dice = InputHelper.chooseDice(input, draftPool);
         if (!dice.isValid()) {
             return;
         }

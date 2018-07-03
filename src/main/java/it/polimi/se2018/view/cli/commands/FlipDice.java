@@ -25,7 +25,7 @@ public class FlipDice implements Command {
 
         System.out.println("Select a dice:");
         List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
-        InputResponse<Dice> draftPoolDice = InputHelper.chooseDraftPoolDice(input, draftPool);
+        InputResponse<Dice> draftPoolDice = InputHelper.chooseDice(input, draftPool);
         if (!draftPoolDice.isValid()) {
             return;
         }

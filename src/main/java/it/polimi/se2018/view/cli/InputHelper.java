@@ -124,21 +124,21 @@ public class InputHelper {
     }
 
     /**
-     * Ask to choose a dice from the draft pool
+     * Ask to choose a dice from the given list
      *
      * @param scanner   the scanner from where we read the user input
-     * @param draftPool the draft pool
+     * @param dices the list of dices to choose from
      * @return the chosen dice or null if the user aborted the operation
      */
-    public static InputResponse<Dice> chooseDraftPoolDice(Scanner scanner, List<Dice> draftPool) {
+    public static InputResponse<Dice> chooseDice(Scanner scanner, List<Dice> dices) {
         InputResponse<Integer> response;
-        response = InputHelper.chooseOption(scanner, draftPool,
+        response = InputHelper.chooseOption(scanner, dices,
                 dice -> dice.getNumber() + " " + dice.getColor().toString().toLowerCase());
         if (!response.isValid()) {
             return new InputResponse<>(null, false);
         }
 
-        return new InputResponse<>(draftPool.get(response.getValue()), true);
+        return new InputResponse<>(dices.get(response.getValue()), true);
     }
 
     /**

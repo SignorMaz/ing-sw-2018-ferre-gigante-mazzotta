@@ -26,7 +26,7 @@ public class PlaceDice implements Command {
 
         WindowFramePrinter.print(view.getPlayerViewBase().getWindowFrame());
         System.out.println("Dices:");
-        InputResponse<Dice> dice = InputHelper.chooseDraftPoolDice(input, view.getPlayerViewBase().getDraftPool());
+        InputResponse<Dice> dice = InputHelper.chooseDice(input, view.getPlayerViewBase().getDraftPool());
         if (!dice.isValid()) {
             return;
         }

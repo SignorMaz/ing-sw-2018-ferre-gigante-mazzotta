@@ -23,7 +23,7 @@ public class ReplaceDice implements Command {
 
         List<Dice> draftPool = view.getPlayerViewBase().getDraftPool();
         System.out.println("Dices:");
-        InputResponse<Dice> draftPoolDice = InputHelper.chooseDraftPoolDice(input, draftPool);
+        InputResponse<Dice> draftPoolDice = InputHelper.chooseDice(input, draftPool);
         if (!draftPoolDice.isValid()) {
             return;
         }

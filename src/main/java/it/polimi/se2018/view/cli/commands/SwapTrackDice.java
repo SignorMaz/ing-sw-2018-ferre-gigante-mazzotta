@@ -31,7 +31,7 @@ public class SwapTrackDice implements Command {
         Dice trackDice = dices.get(response.getValue());
 
         System.out.println("Choose a dice from the draft pool");
-        InputResponse<Dice> draftPoolDice = InputHelper.chooseDraftPoolDice(input, view.getPlayerViewBase().getDraftPool());
+        InputResponse<Dice> draftPoolDice = InputHelper.chooseDice(input, view.getPlayerViewBase().getDraftPool());
         if (!draftPoolDice.isValid()) {
             return;
         }
