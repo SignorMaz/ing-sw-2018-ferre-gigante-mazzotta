@@ -221,16 +221,12 @@ public class Game {
         }
         notifyDraftPoolChange();
 
-        // Send to each player the frame of the rivals
         for (Player player : players) {
-            Map<String, WindowFrame> rivalsFrames = new HashMap<>();
+            Map<String, WindowFrame> windowFrames = new HashMap<>();
             for (Player rival : players) {
-                if (rival.equals(player)) {
-                    continue;
-                }
-                rivalsFrames.put(rival.getPlayerId(), rival.getWindowFrame());
+                windowFrames.put(rival.getPlayerId(), rival.getWindowFrame());
             }
-            Event gameStartEvent = new GameStartEvent(player.getPlayerId(), rivalsFrames);
+            Event gameStartEvent = new GameStartEvent(player.getPlayerId(), windowFrames);
             Controller.getInstance().send(gameStartEvent);
         }
 

@@ -8,16 +8,16 @@ import java.util.Map;
 
 public class GameStartEvent extends Event {
 
-    private HashMap<String, WindowFrame> windowFramesMap;
+    private final HashMap<String, WindowFrame> windowFrames;
 
     public GameStartEvent(String playerId,
-                          Map<String, WindowFrame> windowFramesMap) {
+                          Map<String, WindowFrame> windowFrames) {
         super(playerId);
-        this.windowFramesMap = new HashMap<>(windowFramesMap);
+        this.windowFrames = new HashMap<>(windowFrames);
     }
 
     @Override
     public void update(PlayerView playerView) {
-        playerView.onGameStarted(windowFramesMap);
+        playerView.onGameStarted(windowFrames);
     }
 }

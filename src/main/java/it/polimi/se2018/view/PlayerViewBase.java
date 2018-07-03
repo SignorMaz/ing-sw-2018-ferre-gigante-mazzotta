@@ -116,10 +116,6 @@ public class PlayerViewBase implements Observer, PlayerView {
         return playerIds;
     }
 
-    public void setWindowFrame(WindowPattern windowPattern) {
-        windowFrame = new WindowFrame(windowPattern);
-    }
-
     public WindowFrame getWindowFrame() {
         return windowFrame;
     }
@@ -216,13 +212,17 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onGameStarted(Map<String, WindowFrame> windowFramesMap) {
+    public void onGameStarted(Map<String, WindowFrame> windowFrames) {
         rivalFrames = new HashMap<>();
-        for (Map.Entry<String, WindowFrame> entry : windowFramesMap.entrySet()) {
-            String rivalId = entry.getKey();
-            rivalFrames.put(rivalId, entry.getValue());
+        for (Map.Entry<String, WindowFrame> entry : windowFrames.entrySet()) {
+            if (entry.getKey().equals(getPlayerId())) {
+                this.windowFrame = entry.getValue();
+            } else {
+                rivalFrames.put(entry.getKey(), entry.getValue());
+            }
         }
-        playerViewImpl.onGameStarted(windowFramesMap);
+
+        playerViewImpl.onGameStarted(windowFrames);
     }
 
     @Override
@@ -270,4 +270,5 @@ public class PlayerViewBase implements Observer, PlayerView {
         return isSuspended;
     }
 }
+
 
