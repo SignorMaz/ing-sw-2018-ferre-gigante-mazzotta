@@ -16,4 +16,8 @@ public class PrivateObjectiveCardsDeck {
         cards.add(new PrivateObjectiveCard4());
         cards.add(new PrivateObjectiveCard5());
     }
+
+    public List<ObjectiveCard> getCards() {
+        return cards;
+    }
 }

@@ -72,7 +72,7 @@ public class Game {
             publicObjectiveCards.add(publicObjectiveCardsDeck.remove(0));
         }
 
-        List<ObjectiveCard> privateObjectiveCardsDeck = new PublicObjectiveCardsDeck().getCards();
+        List<ObjectiveCard> privateObjectiveCardsDeck = new PrivateObjectiveCardsDeck().getCards();
         Collections.shuffle(privateObjectiveCardsDeck);
         for (Player player : players) {
             List<ObjectiveCard> privateObjectiveCards = new ArrayList<>();
