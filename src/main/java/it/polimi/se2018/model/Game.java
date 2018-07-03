@@ -39,6 +39,7 @@ public class Game {
     private Dice newDice;
     private boolean turnCompleted;
     private boolean gameOver;
+    private boolean gameStarted;
 
     private final ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture scheduledTurnTimer;
@@ -134,8 +135,7 @@ public class Game {
                 try {
                     for (Player player : players) {
                         if (!player.isReady()) {
-                            suspendedPlayers.add(player);
-                            Controller.getInstance().send(new PlayerSuspendedEvent(player.getPlayerId()));
+                            suspendPlayer(player);
                         }
                     }
                     tryStart();
@@ -169,6 +169,7 @@ public class Game {
             }
         }
 
+        gameStarted = true;
         newRound();
     }
 
@@ -190,13 +191,16 @@ public class Game {
             scheduledTurnTimer.cancel(true);
         }
         notifyGameOver();
-        gameOver = true;
     }
 
     private void notifyGameOver() {
+        if (gameOver) {
+            return;
+        }
         for (Player player : players) {
             Controller.getInstance().send(new GameOverEvent(player.getPlayerId(), players));
         }
+        gameOver = true;
     }
 
     /**
@@ -382,7 +386,7 @@ public class Game {
         }
 
         // If we are suspending the current player, move to the next turn
-        if (getCurrentPlayer().equals(player)) {
+        if (gameStarted && getCurrentPlayer().equals(player)) {
             nextTurn();
         }
     }

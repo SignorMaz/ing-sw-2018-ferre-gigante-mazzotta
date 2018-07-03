@@ -81,10 +81,6 @@ public class PlayerViewBase implements Observer, PlayerView {
         client.send(action);
     }
 
-    public Map<String, WindowFrame> getRivalFrames() {
-        return rivalFrames;
-    }
-
     public Player.Color getPlayerColor() {
         return playerColor;
     }

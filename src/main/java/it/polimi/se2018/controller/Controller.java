@@ -52,72 +52,72 @@ public class Controller {
                 action.perform(player);
             }
         } catch(RuntimeException e){
-                LOGGER.log(Level.SEVERE, "Invalid action", e);
-                send(new InvalidActionEvent(action.getPlayerId(), action));
-            }
-        }
-
-        public void removeClient (String playerId){
-            observablesMap.remove(playerId);
-            waitingPlayers.remove(playerId);
-            Player player = playersMap.get(playerId);
-            if (player != null && player.getGame() != null) {
-                player.getGame().suspendPlayer(player);
-            }
-        }
-
-        private Player getPlayer (String id){
-            return playersMap.get(id);
-        }
-
-        private Observable getObservable (String id){
-            return observablesMap.get(id);
-        }
-
-        public synchronized boolean canJoin (String playerId){
-            return !waitingPlayers.contains(playerId) && !playersMap.containsKey(playerId);
-        }
-
-        public synchronized void joinGame (String playerId, Observable observable){
-            if (!canJoin(playerId)) {
-                LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
-
-                return;
-            }
-            waitingPlayers.add(playerId);
-            observablesMap.put(playerId, observable);
-            observable.send(new LoginEvent(playerId, true));
-
-
-            if (waitingPlayers.size() >= MAX_PLAYERS) {
-                newGame();
-            }
-        }
-
-        private synchronized void newGame () {
-            Iterator<String> it = waitingPlayers.iterator();
-            List<String> waitingClientsRemoved = new ArrayList<>();
-            while (it.hasNext() && waitingClientsRemoved.size() < MAX_PLAYERS) {
-                waitingClientsRemoved.add(it.next());
-                it.remove();
-            }
-
-            List<WindowPatternCard> windowPatternCards = new WindowPatternsDeck().getWindowPatternCards();
-            Collections.shuffle(windowPatternCards);
-            List<Player> newPlayers = new ArrayList<>();
-            for (int i = 0; i < waitingClientsRemoved.size(); i++) {
-                Player.Color playerColor = Player.Color.values()[i];
-                String playerId = waitingClientsRemoved.get(i);
-                List<WindowPatternCard> playerWindowPatternCards = new ArrayList<>();
-                for (int j = 0; j < PATTERN_CARDS_PER_PLAYER; j++) {
-                    playerWindowPatternCards.add(windowPatternCards.remove(0));
-                }
-
-                Player player = new Player(playerId, playerWindowPatternCards, playerColor);
-                newPlayers.add(player);
-                playersMap.put(playerId, player);
-            }
-            Game game = new Game(newPlayers);
-            games.add(game);
+            LOGGER.log(Level.SEVERE, "Invalid action", e);
+            send(new InvalidActionEvent(action.getPlayerId(), action));
         }
     }
+
+    public void removeClient (String playerId){
+        observablesMap.remove(playerId);
+        waitingPlayers.remove(playerId);
+        Player player = playersMap.get(playerId);
+        if (player != null && player.getGame() != null) {
+            player.getGame().suspendPlayer(player);
+        }
+    }
+
+    private Player getPlayer (String id){
+        return playersMap.get(id);
+    }
+
+    private Observable getObservable (String id){
+        return observablesMap.get(id);
+    }
+
+    public synchronized boolean canJoin (String playerId){
+        return !waitingPlayers.contains(playerId) && !playersMap.containsKey(playerId);
+    }
+
+    public synchronized void joinGame (String playerId, Observable observable){
+        if (!canJoin(playerId)) {
+            LOGGER.log(Level.INFO, "Duplicate player ID: " + playerId);
+
+            return;
+        }
+        waitingPlayers.add(playerId);
+        observablesMap.put(playerId, observable);
+        observable.send(new LoginEvent(playerId, true));
+
+
+        if (waitingPlayers.size() >= MAX_PLAYERS) {
+            newGame();
+        }
+    }
+
+    private synchronized void newGame () {
+        Iterator<String> it = waitingPlayers.iterator();
+        List<String> waitingClientsRemoved = new ArrayList<>();
+        while (it.hasNext() && waitingClientsRemoved.size() < MAX_PLAYERS) {
+            waitingClientsRemoved.add(it.next());
+            it.remove();
+        }
+
+        List<WindowPatternCard> windowPatternCards = new WindowPatternsDeck().getWindowPatternCards();
+        Collections.shuffle(windowPatternCards);
+        List<Player> newPlayers = new ArrayList<>();
+        for (int i = 0; i < waitingClientsRemoved.size(); i++) {
+            Player.Color playerColor = Player.Color.values()[i];
+            String playerId = waitingClientsRemoved.get(i);
+            List<WindowPatternCard> playerWindowPatternCards = new ArrayList<>();
+            for (int j = 0; j < PATTERN_CARDS_PER_PLAYER; j++) {
+                playerWindowPatternCards.add(windowPatternCards.remove(0));
+            }
+
+            Player player = new Player(playerId, playerWindowPatternCards, playerColor);
+            newPlayers.add(player);
+            playersMap.put(playerId, player);
+        }
+        Game game = new Game(newPlayers);
+        games.add(game);
+    }
+}
