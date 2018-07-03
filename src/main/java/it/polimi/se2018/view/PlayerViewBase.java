@@ -43,6 +43,7 @@ public class PlayerViewBase implements Observer, PlayerView {
     private int turnTimeout;
     private List<String> playerIds;
     private Map<String, WindowFrame> rivalFrames;
+    private Map<String, Integer> rivalTokens;
     private List<Dice> draftPool;
     private String currentPlayerId;
     private List<Dice> trackDices;
@@ -155,7 +156,6 @@ public class PlayerViewBase implements Observer, PlayerView {
         this.playerColor = data.playerColor;
         this.windowPatternCards = data.windowPatternCards;
         this.privateObjectCards = data.privateObjectCards;
-        this.favorTokens = data.favorTokens;
 
         this.publicObjectCards = data.publicObjectCards;
         this.toolCards = data.toolCards;
@@ -206,13 +206,17 @@ public class PlayerViewBase implements Observer, PlayerView {
     }
 
     @Override
-    public void onTokensChanged(int tokens) {
-        favorTokens -= tokens;
-        playerViewImpl.onTokensChanged(tokens);
+    public void onTokensChanged(String ownerId, int tokens) {
+        if (getPlayerId().equals(ownerId)) {
+            favorTokens = tokens;
+        } else {
+            rivalTokens.put(ownerId, tokens);
+        }
+        playerViewImpl.onTokensChanged(ownerId, tokens);
     }
 
     @Override
-    public void onGameStarted(Map<String, WindowFrame> windowFrames) {
+    public void onGameStarted(Map<String, WindowFrame> windowFrames, Map<String, Integer> tokens) {
         rivalFrames = new HashMap<>();
         for (Map.Entry<String, WindowFrame> entry : windowFrames.entrySet()) {
             if (entry.getKey().equals(getPlayerId())) {
@@ -222,7 +226,16 @@ public class PlayerViewBase implements Observer, PlayerView {
             }
         }
 
-        playerViewImpl.onGameStarted(windowFrames);
+        rivalTokens = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : tokens.entrySet()) {
+            if (entry.getKey().equals(getPlayerId())) {
+                this.favorTokens = entry.getValue();
+            } else {
+                rivalTokens.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        playerViewImpl.onGameStarted(windowFrames, tokens);
     }
 
     @Override

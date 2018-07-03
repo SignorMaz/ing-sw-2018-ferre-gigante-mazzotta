@@ -15,7 +15,6 @@ public class InitialSetupEvent extends Event {
         public final Player.Color playerColor;
         public final ArrayList<WindowPatternCard> windowPatternCards;
         public final ArrayList<ObjectiveCard> privateObjectCards;
-        public final int favorTokens;
 
         // Game properties
         public final ArrayList<ObjectiveCard> publicObjectCards;
@@ -26,7 +25,6 @@ public class InitialSetupEvent extends Event {
         public Data(Player.Color playerColor,
                     List<WindowPatternCard> windowPatternCards,
                     List<ObjectiveCard> privateObjectCards,
-                    int favorTokens,
                     List<ObjectiveCard> publicObjectCards,
                     List<ToolCard> toolCards,
                     int turnTimeout,
@@ -37,7 +35,6 @@ public class InitialSetupEvent extends Event {
             this.playerColor = playerColor;
             this.windowPatternCards = new ArrayList<>(windowPatternCards);
             this.privateObjectCards = new ArrayList<>(privateObjectCards);
-            this.favorTokens = favorTokens;
 
             this.publicObjectCards = new ArrayList<>(publicObjectCards);
             this.toolCards = new ArrayList<>(toolCards);

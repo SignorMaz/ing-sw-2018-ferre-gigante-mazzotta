@@ -29,9 +29,9 @@ public interface PlayerView {
 
     void onPointsChanged(int points);
 
-    void onTokensChanged(int tokens);
+    void onTokensChanged(String ownerId, int tokens);
 
-    void onGameStarted(Map<String, WindowFrame> windowFramesMap);
+    void onGameStarted(Map<String, WindowFrame> windowFrames, Map<String, Integer> tokens);
 
     void onNewDraftDice(Dice dice);
 

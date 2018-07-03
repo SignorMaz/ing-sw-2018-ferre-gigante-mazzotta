@@ -119,7 +119,6 @@ public class Game {
                     player.getPlayerColor(),
                     player.getWindowPatternCards(),
                     player.getPrivateObjectiveCards(),
-                    player.getFavorTokensCount(),
                     publicObjectiveCards,
                     getToolCards(),
                     turnTimeoutSeconds,
@@ -223,10 +222,12 @@ public class Game {
 
         for (Player player : players) {
             Map<String, WindowFrame> windowFrames = new HashMap<>();
+            Map<String, Integer> tokens = new HashMap<>();
             for (Player rival : players) {
                 windowFrames.put(rival.getPlayerId(), rival.getWindowFrame());
+                tokens.put(rival.getPlayerId(), rival.getFavorTokensCount());
             }
-            Event gameStartEvent = new GameStartEvent(player.getPlayerId(), windowFrames);
+            Event gameStartEvent = new GameStartEvent(player.getPlayerId(), windowFrames, tokens);
             Controller.getInstance().send(gameStartEvent);
         }
 
@@ -318,6 +319,12 @@ public class Game {
     private void notifyWindowFrameChange(Player owner) {
         for (Player player : players) {
             Controller.getInstance().send(new WindowFrameChangedEvent(player.getPlayerId(), owner));
+        }
+    }
+
+    private void notifyTokensChange(Player owner) {
+        for (Player player : players) {
+            Controller.getInstance().send(new TokensChangedEvent(player.getPlayerId(), owner));
         }
     }
 
@@ -461,6 +468,7 @@ public class Game {
         getCurrentPlayer().useFavorTokens(requiredTokens(toolCard));
         toolCards.put(toolCard, toolCards.get(toolCard) + 1);
         toolCardInUse = toolCard;
+        notifyTokensChange(player);
     }
 
     public boolean isToolCardUsed(Player player) {

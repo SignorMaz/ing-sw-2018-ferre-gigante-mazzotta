@@ -115,12 +115,16 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onTokensChanged(int tokens) {
-        System.out.println("Your new tokens count is " + getPlayerViewBase().getFavorTokens());
+    public void onTokensChanged(String ownerId, int tokens) {
+        if (getPlayerViewBase().getPlayerId().equals(ownerId)) {
+            System.out.println("Your new tokens count is " + tokens);
+        } else {
+            System.out.println(ownerId + "'s tokens count is " + tokens);
+        }
     }
 
     @Override
-    public void onGameStarted(Map<String, WindowFrame> windowPatternMap) {
+    public void onGameStarted(Map<String, WindowFrame> windowFrames, Map<String, Integer> tokens) {
         isGameStarted = true;
         System.out.println("Game started!");
     }
