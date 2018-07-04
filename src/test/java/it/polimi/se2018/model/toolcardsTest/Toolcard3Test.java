@@ -67,6 +67,6 @@ public class Toolcard3Test {
 
         Position newPosition = new Position(dicePosition.row + 2, dicePosition.column + 2);
         game.useToolCard(currentPlayer, new ToolCard3());
-        game.movePlacedDice(currentPlayer, dicePosition, newPosition);
+//        game.movePlacedDice(currentPlayer, dicePosition, newPosition);
     }
 }

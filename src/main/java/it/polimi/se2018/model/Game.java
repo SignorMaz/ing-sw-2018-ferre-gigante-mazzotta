@@ -25,7 +25,7 @@ public class Game {
     private final List<Dice> roundTrackDices;
     private final List<Player> players;
     private int currentPlayerNum = 0;
-    private boolean isFirstTurn = false;
+    private boolean isFirstTurn = true;
     private int completedRounds = 0;
     private List<Dice> draftPool;
     private final DiceBag diceBag;
@@ -219,7 +219,7 @@ public class Game {
         notifyTrackChange();
 
         draftPool = new ArrayList<>();
-        for (int i = 0; i < players.size() + 1; i++) {
+        for (int i = 0; i < players.size() * 2 + 1; i++) {
             draftPool.add(diceBag.drawDice());
         }
         notifyDraftPoolChange();

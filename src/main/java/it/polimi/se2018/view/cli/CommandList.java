@@ -16,7 +16,6 @@ public class CommandList {
             new SetReady(),
             new CompleteTurn(),
             new UseToolCard(),
-            new PlaceDice(),
             new MovePlacedDice(),
             new PlaceNotAdjacentDice(),
             new PlaceSecondDice(),

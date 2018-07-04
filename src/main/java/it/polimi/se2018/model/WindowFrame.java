@@ -130,7 +130,7 @@ public class WindowFrame implements Serializable {
                     }
                 }
             }
-            if (!notAdjacent) {
+            if (notAdjacent) {
                 if (foundAdjacent) {
                     LOGGER.info("Adjacent rule " + "(foundAdjacent=" + foundAdjacent + ", notAdjacent=" + notAdjacent + "), " + position + " is not valid");
                     return false;

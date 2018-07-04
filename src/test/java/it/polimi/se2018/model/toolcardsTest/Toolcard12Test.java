@@ -65,11 +65,11 @@ public class Toolcard12Test {
         Position secondPosition = new Position(0, 2);
         currentPlayer = game.getCurrentPlayer();
         resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
-        game.placeDice(currentPlayer, secondPosition, redDice);
+//        game.placeDice(currentPlayer, secondPosition, redDice);
         game.completeTurn();
         currentPlayer = game.getCurrentPlayer();
         resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
-        game.placeDice(currentPlayer, secondPosition, redDice);
+//        game.placeDice(currentPlayer, secondPosition, redDice);
         game.completeTurn();
 
         // The track is no longer be empty and has dices equal to redDice
@@ -79,6 +79,6 @@ public class Toolcard12Test {
         currentPlayer = game.getCurrentPlayer();
         resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
         game.useToolCard(currentPlayer, new ToolCard12());
-        game.moveDicesWithTrack(currentPlayer, redDice, firstPosition, firstPositionNew, secondPosition, secondPositionNew);
+//        game.moveDicesWithTrack(currentPlayer, redDice, firstPosition, firstPositionNew, secondPosition, secondPositionNew);
     }
 }
