@@ -120,7 +120,7 @@ public class Controller {
         observable.send(new LoginEvent(playerId, true));
 
 
-        if (waitingPlayers.size() >= MAX_PLAYERS || startASAP) {
+        if (waitingPlayers.size() >= MAX_PLAYERS || (startASAP && waitingPlayers.size() >= MIN_PLAYERS)) {
             newGame();
         }
     }
