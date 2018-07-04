@@ -104,7 +104,11 @@ public class SocketClientHandler extends Thread implements ClientHandler {
     @Override
     public void send(Event event) {
         try {
-            outputStream.writeObject(event);
+            synchronized (this) {
+                outputStream.reset();
+                outputStream.writeObject(event);
+                outputStream.flush();
+            }
         } catch (IOException e) {
             removeClient(event.getPlayerId());
             LOGGER.log(Level.SEVERE, "Removing " + event.getPlayerId(), e);

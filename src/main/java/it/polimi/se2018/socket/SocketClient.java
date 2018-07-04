@@ -82,7 +82,11 @@ public class SocketClient extends Thread implements Client {
     @Override
     public void send(Action action) {
         try {
-            outputStream.writeObject(action);
+            synchronized (this) {
+                outputStream.reset();
+                outputStream.writeObject(action);
+                outputStream.flush();
+            }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Could not send action", e);
             try {
@@ -106,7 +110,11 @@ public class SocketClient extends Thread implements Client {
      */
     @Override
     public void login(String playerId) throws IOException {
-        outputStream.writeObject(playerId);
+        synchronized (this) {
+            outputStream.reset();
+            outputStream.writeObject(playerId);
+            outputStream.flush();
+        }
     }
 
     @Override
