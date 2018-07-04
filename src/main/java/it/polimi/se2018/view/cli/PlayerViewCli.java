@@ -111,10 +111,6 @@ public class PlayerViewCli implements PlayerView {
     }
 
     @Override
-    public void onPointsChanged(int points) {
-    }
-
-    @Override
     public void onTokensChanged(String ownerId, int tokens) {
         if (getPlayerViewBase().getPlayerId().equals(ownerId)) {
             System.out.println("Your new tokens count is " + tokens);

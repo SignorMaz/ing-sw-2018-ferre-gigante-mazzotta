@@ -67,17 +67,17 @@ public class PublicObjectiveCard9Test {
         windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(1, 1));
         windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(2, 2));
         windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(3, 3));
-        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
+        assertEquals(4, new PublicObjectiveCard9().getPoints(windowFrame));
 
         windowFrame.placeDiceUnrestricted(new Dice(Color.BLUE), new Position(0, 4));
-        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
+        assertEquals(4, new PublicObjectiveCard9().getPoints(windowFrame));
 
         windowFrame.placeDiceUnrestricted(new Dice(Color.RED), new Position(0, 3));
-        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 4);
+        assertEquals(4, new PublicObjectiveCard9().getPoints(windowFrame));
 
         windowFrame.placeDiceUnrestricted(new Dice(Color.YELLOW), new Position(3, 2));
         windowFrame.placeDiceUnrestricted(new Dice(Color.YELLOW), new Position(2, 3));
         windowFrame.placeDiceUnrestricted(new Dice(Color.YELLOW), new Position(1, 4));
-        assertEquals(new PublicObjectiveCard9().getPoints(windowFrame), 7);
+        assertEquals(7, new PublicObjectiveCard9().getPoints(windowFrame));
     }
 }

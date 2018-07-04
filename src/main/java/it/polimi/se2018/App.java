@@ -4,12 +4,14 @@ import it.polimi.se2018.model.Game;
 import it.polimi.se2018.rmi.RmiServer;
 import it.polimi.se2018.network.Server;
 import it.polimi.se2018.socket.SocketServer;
+import it.polimi.se2018.view.cli.PlayerViewCli;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import joptsimple.OptionSpecBuilder;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.util.Arrays;
 
 public class App {
@@ -74,7 +76,7 @@ public class App {
         }
     }
 
-    private static void handleCliClient(String[] args) throws IOException {
+    private static void handleCliClient(String[] args) throws IOException, NotBoundException, InterruptedException {
         OptionParser parser = new OptionParser();
         OptionSpecBuilder helpOption = parser.accepts("help");
         helpOption.forHelp();
@@ -84,9 +86,12 @@ public class App {
             parser.printHelpOn(System.out);
             System.exit(0);
         }
+
+        PlayerViewCli.main(args);
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, NotBoundException {
+
         if (args.length < 1) {
             printHelpAndExit();
         }

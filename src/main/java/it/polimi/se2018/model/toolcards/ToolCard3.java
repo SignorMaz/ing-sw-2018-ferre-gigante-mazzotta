@@ -24,4 +24,9 @@ public class ToolCard3 extends ToolCard {
         return true;
     }
 
+    @Override
+    public boolean canMovePlacedDice() {
+        return true;
+    }
+
 }

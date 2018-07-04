@@ -825,7 +825,7 @@ public class Game {
         }
 
         // placeDice() does this already, but we want to move both the dices or none of them
-        if (getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, null)) {
+        if (!getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, null)) {
             throw new IllegalArgumentException("Invalid position");
         }
 

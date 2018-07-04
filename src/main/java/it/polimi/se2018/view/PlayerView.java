@@ -27,8 +27,6 @@ public interface PlayerView {
 
     void onNewTurn(String playerId);
 
-    void onPointsChanged(int points);
-
     void onTokensChanged(String ownerId, int tokens);
 
     void onGameStarted(Map<String, WindowFrame> windowFrames, Map<String, Integer> tokens);

@@ -25,7 +25,7 @@ public class WindowPatternLoader {
         return Color.valueOf(colorName.toUpperCase());
     }
 
-    private static Map<Position, WindowCell> parsePattern(JSONArray jsonMap) throws JSONException {
+    private static Map<Position, WindowCell> parsePattern(JSONArray jsonMap) {
         final Map<Position, WindowCell> pattern = new HashMap<>();
         for (int i = 0; i < jsonMap.length(); i++) {
             JSONArray columnArray = jsonMap.getJSONArray(i);
@@ -41,7 +41,7 @@ public class WindowPatternLoader {
         return pattern;
     }
 
-    public static WindowPatternCard load(final String jsonString) throws JSONException {
+    public static WindowPatternCard load(final String jsonString) {
         JSONObject jsonObject = new JSONObject(jsonString);
 
         JSONObject frontObject = jsonObject.getJSONObject("front");

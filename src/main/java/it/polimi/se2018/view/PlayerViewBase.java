@@ -19,8 +19,6 @@ import java.util.logging.Logger;
 
 public class PlayerViewBase implements Observer, PlayerView {
 
-    private static final Logger LOGGER = Logger.getLogger("PlayerView");
-
     private final String playerId;
     private final Client client;
     private final PlayerView playerViewImpl;
@@ -198,11 +196,6 @@ public class PlayerViewBase implements Observer, PlayerView {
         rethrownDice = null;
         currentPlayerId = playerId;
         playerViewImpl.onNewTurn(playerId);
-    }
-
-    @Override
-    public void onPointsChanged(int points) {
-        playerViewImpl.onPointsChanged(points);
     }
 
     @Override
