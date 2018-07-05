@@ -82,12 +82,12 @@ public class WindowFrameTest {
         assertFalse(windowFrame.isPositionValid(new Dice(Color.GREEN), new Position(1, 5), toolCard));
         assertFalse(windowFrame.isPositionValid(new Dice(Color.GREEN), new Position(4, -4), toolCard));
         windowFrame.placeDice(new Dice(Color.RED, 6), new Position(0, 0), toolCard);
-//        assertFalse(windowFrame.isPositionValid(new Dice(Color.BLUE, 5), new Position(1, 0), toolCard));
-//        assertFalse(windowFrame.isPositionValid(new Dice(Color.BLUE, 5), new Position(1, 1), toolCard));
-//        assertFalse(windowFrame.isPositionValid(new Dice(Color.RED, 6), new Position(0, 0), toolCard));        // The position is already occupied
-        //      assertTrue(windowFrame.isPositionValid(new Dice(Color.BLUE), new Position(2, 0), toolCard));                // Every dice must be adjacent to an already placed dice
-        //    assertFalse(windowFrame.isPositionValid(new Dice(Color.RED), new Position(1, 0), toolCard));       // Orthogonally adjacent dices must have different color
-        //  assertFalse(windowFrame.isPositionValid(new Dice(Color.BLUE, 6), new Position(1, 0), toolCard));       // Orthogonally adjacent dices must have different number
+        assertTrue(windowFrame.isPositionValid(new Dice(Color.BLUE, 5), new Position(1, 0), toolCard));
+        assertTrue(windowFrame.isPositionValid(new Dice(Color.BLUE, 5), new Position(1, 1), toolCard));
+        assertFalse(windowFrame.isPositionValid(new Dice(Color.RED, 6), new Position(0, 0), toolCard));        // The position is already occupied
+        assertFalse(windowFrame.isPositionValid(new Dice(Color.BLUE), new Position(2, 0), toolCard));                // Every dice must be adjacent to an already placed dice
+        assertFalse(windowFrame.isPositionValid(new Dice(Color.RED), new Position(1, 0), toolCard));       // Orthogonally adjacent dices must have different color
+        assertFalse(windowFrame.isPositionValid(new Dice(Color.BLUE, 6), new Position(1, 0), toolCard));       // Orthogonally adjacent dices must have different number
     }
 
     @Test(expected = IllegalArgumentException.class)
