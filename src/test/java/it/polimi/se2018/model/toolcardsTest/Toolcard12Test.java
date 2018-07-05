@@ -22,7 +22,8 @@ public class Toolcard12Test {
         assertTrue(tooltest.canMoveTwoPlacedDicesWithTrack());
     }
 
-    private static void resetDraftPool(List<Dice> draftPool, Dice dice, int size) {
+    private static void resetDraftPool(List<Dice> draftPool, Dice dice) {
+        int size = draftPool.size();
         draftPool.clear();
         for (int i = 0; i < size; i++) {
             draftPool.add(dice);
@@ -51,34 +52,59 @@ public class Toolcard12Test {
         player2.setReady(windowPattern.getFront());
 
         Dice redDice = new Dice(Color.RED, 1);
+        Dice blueDice = new Dice(Color.BLUE, 2);
 
         Position firstPosition = new Position(0, 0);
-        Player currentPlayer = game.getCurrentPlayer();
-        resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
-        game.placeDice(currentPlayer, firstPosition, redDice);
-        game.completeTurn();
+        Position secondPosition = new Position(0, 1);
+        Position thirdPosition = new Position(0, 2);
+
+        Player currentPlayer;
+
         currentPlayer = game.getCurrentPlayer();
-        resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
+        resetDraftPool(game.getDraftPool(), redDice);
         game.placeDice(currentPlayer, firstPosition, redDice);
         game.completeTurn();
 
-        Position secondPosition = new Position(0, 2);
         currentPlayer = game.getCurrentPlayer();
-        resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
-//        game.placeDice(currentPlayer, secondPosition, redDice);
+        resetDraftPool(game.getDraftPool(), redDice);
+        game.placeDice(currentPlayer, firstPosition, redDice);
         game.completeTurn();
+
         currentPlayer = game.getCurrentPlayer();
-        resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
-//        game.placeDice(currentPlayer, secondPosition, redDice);
+        resetDraftPool(game.getDraftPool(), blueDice);
+        game.getDraftPool().add(blueDice);
+        game.placeDice(currentPlayer, secondPosition, blueDice);
+        game.completeTurn();
+
+        currentPlayer = game.getCurrentPlayer();
+        resetDraftPool(game.getDraftPool(), redDice);
+        game.getDraftPool().add(blueDice);
+        game.placeDice(currentPlayer, secondPosition, blueDice);
+        game.completeTurn();
+
+        currentPlayer = game.getCurrentPlayer();
+        resetDraftPool(game.getDraftPool(), redDice);
+        game.placeDice(currentPlayer, thirdPosition, redDice);
+        game.completeTurn();
+
+        // Going back with the turns -> same player -> don't do anything
+        resetDraftPool(game.getDraftPool(), redDice);
+        game.completeTurn();
+
+        currentPlayer = game.getCurrentPlayer();
+        resetDraftPool(game.getDraftPool(), redDice);
+        game.placeDice(currentPlayer, thirdPosition, redDice);
         game.completeTurn();
 
         // The track is no longer be empty and has dices equal to redDice
 
         Position firstPositionNew = new Position(2, 0);
-        Position secondPositionNew = new Position(2, 2);
+        Position thirdPositionNew = new Position(2, 2);
+
+        game.getCurrentPlayer().getWindowFrame().placeDiceUnrestricted(redDice, new Position(1, 1));
         currentPlayer = game.getCurrentPlayer();
-        resetDraftPool(game.getDraftPool(), redDice, playerListTest.size());
+        resetDraftPool(game.getDraftPool(), redDice);
         game.useToolCard(currentPlayer, new ToolCard12());
-//        game.moveDicesWithTrack(currentPlayer, redDice, firstPosition, firstPositionNew, secondPosition, secondPositionNew);
+        game.moveDicesWithTrack(currentPlayer, redDice, firstPosition, firstPositionNew, thirdPosition, thirdPositionNew);
     }
 }
