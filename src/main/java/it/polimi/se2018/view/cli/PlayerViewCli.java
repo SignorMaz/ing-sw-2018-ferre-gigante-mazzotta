@@ -24,6 +24,8 @@ public class PlayerViewCli implements PlayerView {
     private boolean isGameSetUp = false;
     private boolean isMyTurn = false;
 
+    private static final String EVENT_PREFIX = "\n>>>> ";
+
     public PlayerViewCli(Scanner scanner, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
         playerViewBase = new PlayerViewBase(this, playerId, connectionType);
@@ -54,9 +56,9 @@ public class PlayerViewCli implements PlayerView {
     @Override
     public void onLogin(boolean result) {
         if (result) {
-            System.out.println("Logged in, waiting...");
+            System.out.println(EVENT_PREFIX + "Logged in, waiting...");
         } else {
-            System.out.println("Could not login, try using a different username");
+            System.out.println(EVENT_PREFIX + "Could not login, try using a different username");
             System.exit(1);
         }
     }
@@ -72,22 +74,22 @@ public class PlayerViewCli implements PlayerView {
     @Override
     public void onWindowFrameChanged(String owner, WindowFrame windowFrame) {
         if (owner.equals(getPlayerViewBase().getPlayerId())) {
-            System.out.println("Your window frame changed");
+            System.out.println(EVENT_PREFIX + "Your window frame changed");
         } else {
-            System.out.println(owner + "'s window frame changed");
+            System.out.println(EVENT_PREFIX + owner + "'s window frame changed");
         }
     }
 
     @Override
     public void onDraftPoolChanged(List<Dice> draftPool) {
-        System.out.println("The draft pool changed");
+        System.out.println(EVENT_PREFIX + "The draft pool changed");
     }
 
     @Override
     public void onGameOver(Map<String, Integer> chart) {
-        System.out.println("The game is over");
+        System.out.println(EVENT_PREFIX + "The game is over");
         for (Map.Entry<String, Integer> entry : chart.entrySet()) {
-            System.out.println("Player: " + entry.getKey() + " - points: " + entry.getValue());
+            System.out.println(EVENT_PREFIX + "Player: " + entry.getKey() + " - points: " + entry.getValue());
         }
         isGameOver = true;
     }
@@ -100,44 +102,44 @@ public class PlayerViewCli implements PlayerView {
     @Override
     public void onNewTurn(String playerId) {
         if (getPlayerViewBase().getPlayerId().equals(playerId)) {
-            System.out.println("It's your turn");
+            System.out.println(EVENT_PREFIX + "It's your turn");
             isMyTurn = true;
         } else {
-            System.out.println("It's " + playerId + "'s turn!");
+            System.out.println(EVENT_PREFIX + "It's " + playerId + "'s turn!");
             isMyTurn = false;
         }
 
-        System.out.println("Press enter to see the commands available");
+        System.out.println(EVENT_PREFIX + "Press enter to see the commands available");
     }
 
     @Override
     public void onTokensChanged(String ownerId, int tokens) {
         if (getPlayerViewBase().getPlayerId().equals(ownerId)) {
-            System.out.println("Your new tokens count is " + tokens);
+            System.out.println(EVENT_PREFIX + "Your new tokens count is " + tokens);
         } else {
-            System.out.println(ownerId + "'s tokens count is " + tokens);
+            System.out.println(EVENT_PREFIX + ownerId + "'s tokens count is " + tokens);
         }
     }
 
     @Override
     public void onGameStarted(Map<String, WindowFrame> windowFrames, Map<String, Integer> tokens) {
         isGameStarted = true;
-        System.out.println("Game started!");
+        System.out.println(EVENT_PREFIX + "Game started!");
     }
 
     @Override
     public void onNewDraftDice(Dice dice) {
-        System.out.println("New dice in the draft pool: " + dice.getColor() + "-" + dice.getNumber());
+        System.out.println(EVENT_PREFIX + "New dice in the draft pool: " + dice.getColor() + "-" + dice.getNumber());
     }
 
     @Override
     public void onPlayerSuspended() {
-        System.out.println("You've been suspended");
+        System.out.println(EVENT_PREFIX + "You've been suspended");
     }
 
     @Override
     public void onDiceTrackChanged(List<Dice> track) {
-        System.out.println("The dice track changed");
+        System.out.println(EVENT_PREFIX + "The dice track changed");
     }
 
     private void handleUserInput() {
