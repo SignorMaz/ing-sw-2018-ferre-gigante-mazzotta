@@ -14,7 +14,7 @@ public class ChangeDiceValue implements Command {
 
     @Override
     public String getText() {
-        return "Change dice value";
+        return "Change dice value (Pinza Sgrossatrice)";
     }
 
     @Override
@@ -46,6 +46,8 @@ public class ChangeDiceValue implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return view.isMyTurn();
+        // Use dummy values for canChangeDiceValue()
+        ToolCard toolCard = view.getPlayerViewBase().getToolCard();
+        return view.isMyTurn() && toolCard != null && toolCard.canChangeDiceValue(5, false);
     }
 }

@@ -16,7 +16,7 @@ public class FlipDice implements Command {
 
     @Override
     public String getText() {
-        return "Flip a dice";
+        return "Flip a dice (Tampone Diamantato)";
     }
 
     @Override

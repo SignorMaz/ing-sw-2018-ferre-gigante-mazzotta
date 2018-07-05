@@ -16,7 +16,7 @@ public class PlaceSecondDice implements Command {
 
     @Override
     public String getText() {
-        return "Place second dice";
+        return "Place second dice (Tenaglia a Rotelle)";
     }
 
     @Override

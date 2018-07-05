@@ -14,7 +14,7 @@ public class ReplaceDice implements Command {
 
     @Override
     public String getText() {
-        return "Replace dice using toolcard";
+        return "Replace dice (Diluente per Pasta Salda)";
     }
 
     @Override

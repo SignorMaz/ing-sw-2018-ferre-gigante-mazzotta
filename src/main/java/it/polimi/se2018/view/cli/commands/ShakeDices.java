@@ -9,7 +9,7 @@ public class ShakeDices implements Command {
 
     @Override
     public String getText() {
-        return "Shake dices";
+        return "Shake dices (Martelletto)";
     }
 
     @Override

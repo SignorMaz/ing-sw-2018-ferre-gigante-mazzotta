@@ -14,7 +14,7 @@ public class MoveDicesWithTrack implements Command {
 
     @Override
     public String getText() {
-        return "Move up to two dices of the same color of a chosen track dice";
+        return "Move up to two dices of the same color of a chosen track dice (Taglierina Manuale)";
     }
 
     @Override

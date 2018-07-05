@@ -15,7 +15,7 @@ public class PlaceNotAdjacentDice implements Command {
 
     @Override
     public String getText() {
-        return "Place non-adjacent dice";
+        return "Place non-adjacent dice (Riga in Sughero)";
     }
 
     @Override

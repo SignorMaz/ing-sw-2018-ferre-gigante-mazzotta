@@ -13,7 +13,7 @@ public class RepositionRethrownDice implements Command {
 
     @Override
     public String getText() {
-        return "Position rethrown dice";
+        return "Position rethrown dice (Pennello per Pasta Salda)";
     }
 
     @Override

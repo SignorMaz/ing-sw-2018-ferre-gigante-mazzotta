@@ -33,6 +33,6 @@ public class UseToolCard implements Command {
 
     @Override
     public boolean canPerform(PlayerViewCli view) {
-        return view.isMyTurn();
+        return view.isMyTurn() && view.getPlayerViewBase().getToolCard() == null;
     }
 }

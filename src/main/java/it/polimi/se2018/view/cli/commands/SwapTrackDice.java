@@ -14,7 +14,7 @@ public class SwapTrackDice implements Command {
 
     @Override
     public String getText() {
-        return "Swap track dice";
+        return "Swap track dice (Taglierina circolare)";
     }
 
     @Override

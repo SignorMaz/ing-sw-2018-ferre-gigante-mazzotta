@@ -14,7 +14,7 @@ public class MovePlacedDices implements Command {
 
     @Override
     public String getText() {
-        return "Move placed dice";
+        return "Move placed dices (Lathekin)";
     }
 
     @Override

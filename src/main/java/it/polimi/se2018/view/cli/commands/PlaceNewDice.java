@@ -14,7 +14,7 @@ public class PlaceNewDice implements Command {
 
     @Override
     public String getText() {
-        return "Place new dice";
+        return "Place new dice (Diluente per Pasta Salda)";
     }
 
     @Override

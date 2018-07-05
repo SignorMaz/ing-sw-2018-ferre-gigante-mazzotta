@@ -14,7 +14,7 @@ public class RethrowDice implements Command {
 
     @Override
     public String getText() {
-        return "Rethrow a dice";
+        return "Rethrow a dice (Pennello per Pasta Salda)";
     }
 
     @Override
