@@ -4,23 +4,23 @@ import it.polimi.se2018.model.Dice;
 
 import java.util.List;
 
-public class DiceTrackPrinter {
+public class DicePrinter {
     private static final int MAX_TRACK_DICES = 10;
 
-    private DiceTrackPrinter() {
+    private DicePrinter() {
     }
 
-    public static String buildString(List<Dice> trackDices) {
+    public static String buildString(List<Dice> trackDices, int squares) {
         StringBuilder sb = new StringBuilder();
         sb.append("┌");
-        for (int i = 0; i < MAX_TRACK_DICES - 1; i++) {
+        for (int i = 0; i < squares - 1; i++) {
             sb.append("──┬");
         }
         sb.append("──┐");
         sb.append("\n");
 
         sb.append("│");
-        for (int i = 0; i < MAX_TRACK_DICES; i++) {
+        for (int i = 0; i < squares; i++) {
             if (trackDices != null && trackDices.size() > i) {
                 Dice dice = trackDices.get(i);
                 sb.append(dice.getNumber());
@@ -33,7 +33,7 @@ public class DiceTrackPrinter {
         sb.append("\n");
 
         sb.append("└");
-        for (int i = 0; i < MAX_TRACK_DICES - 1; i++) {
+        for (int i = 0; i < squares - 1; i++) {
             sb.append("──┴");
         }
         sb.append("──┘");
@@ -42,7 +42,11 @@ public class DiceTrackPrinter {
         return sb.toString();
     }
 
-    public static void print(List<Dice> trackDices) {
-        System.out.println(buildString(trackDices));
+    public static void printTrack(List<Dice> trackDices) {
+        System.out.println(buildString(trackDices, MAX_TRACK_DICES));
+    }
+
+    public static void printDraftPool(List<Dice> draftPool) {
+        System.out.println(buildString(draftPool, draftPool.size()));
     }
 }

@@ -3,15 +3,16 @@ package it.polimi.se2018.view.cli.commands;
 import it.polimi.se2018.view.cli.DicePrinter;
 import it.polimi.se2018.view.cli.PlayerViewCli;
 
-public class ShowTrack implements Command {
+public class ShowDraftPool implements Command {
+
     @Override
     public String getText() {
-        return "Show track";
+        return "Show draft pool";
     }
 
     @Override
     public void handle(PlayerViewCli view) {
-        DicePrinter.printTrack(view.getPlayerViewBase().getTrackDices());
+        DicePrinter.printDraftPool(view.getPlayerViewBase().getDraftPool());
     }
 
     @Override

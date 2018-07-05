@@ -30,6 +30,7 @@ public class CommandList {
             new ReplaceDice(),
             new PlaceNewDice(),
             new ShowTrack(),
+            new ShowDraftPool(),
             new ShowTokensCounts(),
             new MoveDicesWithTrack(),
     };
