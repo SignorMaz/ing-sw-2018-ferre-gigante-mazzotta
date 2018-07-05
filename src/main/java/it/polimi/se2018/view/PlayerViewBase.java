@@ -46,14 +46,14 @@ public class PlayerViewBase implements Observer, PlayerView {
     private String currentPlayerId;
     private List<Dice> trackDices;
 
-    public PlayerViewBase(PlayerView playerViewImpl, String playerId, ConnectionType connectionType)
+    public PlayerViewBase(PlayerView playerViewImpl, String host, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
         this.playerViewImpl = playerViewImpl;
         this.playerId = playerId;
         if (connectionType.equals(ConnectionType.SOCKET)) {
-            client = new SocketClient(this);
+            client = new SocketClient(this, host);
         } else {
-            client = new RmiClient(this);
+            client = new RmiClient(this, host);
         }
     }
 

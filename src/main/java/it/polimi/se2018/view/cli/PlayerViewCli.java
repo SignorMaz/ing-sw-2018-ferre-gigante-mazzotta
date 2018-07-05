@@ -26,9 +26,9 @@ public class PlayerViewCli implements PlayerView {
 
     private static final String EVENT_PREFIX = "\n>>>> ";
 
-    public PlayerViewCli(Scanner scanner, String playerId, ConnectionType connectionType)
+    public PlayerViewCli(Scanner scanner, String host, String playerId, ConnectionType connectionType)
             throws IOException, NotBoundException {
-        playerViewBase = new PlayerViewBase(this, playerId, connectionType);
+        playerViewBase = new PlayerViewBase(this, host, playerId, connectionType);
         this.scanner = scanner;
     }
 
@@ -172,9 +172,13 @@ public class PlayerViewCli implements PlayerView {
     }
 
     public static void main(String[] args) throws IOException, NotBoundException, InterruptedException {
-        System.out.println("Choose a connection type:");
         Scanner input = new Scanner(System.in);
 
+        System.out.print("Insert the server hostname: ");
+        String host = input.next();
+        input.nextLine(); // Consume new line character
+
+        System.out.println("Choose a connection type:");
         List<ConnectionType> types = Arrays.asList(ConnectionType.values());
         InputResponse<Integer> response = InputHelper.chooseOption(input, types, null);
         if (!response.isValid()) {
@@ -187,7 +191,7 @@ public class PlayerViewCli implements PlayerView {
         String playerId = input.next();
         input.nextLine(); // Consume new line character
 
-        PlayerViewCli view = new PlayerViewCli(input, playerId, type);
+        PlayerViewCli view = new PlayerViewCli(input, host, playerId, type);
         System.out.println("Connecting...");
         try {
             view.getPlayerViewBase().login();
