@@ -10,12 +10,7 @@ import it.polimi.se2018.view.cli.PlayerViewCli;
 
 import java.util.Scanner;
 
-public class MovePlacedDice implements Command {
-
-    @Override
-    public String getText() {
-        return "Move placed dice";
-    }
+public abstract class MovePlacedDice implements Command {
 
     @Override
     public void handle(PlayerViewCli view) {
@@ -45,12 +40,6 @@ public class MovePlacedDice implements Command {
         } else {
             view.getPlayerViewBase().send(new MovePlacedDiceAction(curPosition.getValue(), newPosition.getValue()));
         }
-    }
-
-    @Override
-    public boolean canPerform(PlayerViewCli view) {
-        ToolCard toolCard = view.getPlayerViewBase().getToolCard();
-        return view.isMyTurn() && toolCard != null && toolCard.canMovePlacedDice();
     }
 }
 
