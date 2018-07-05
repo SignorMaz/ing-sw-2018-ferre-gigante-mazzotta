@@ -73,6 +73,34 @@ public class WindowFrame implements Serializable {
     }
 
     /**
+     * Move a placed dice
+     *
+     * @param curPosition the position of the dice to move
+     * @param newPosition the new position of the dice
+     */
+    public void moveDice(Position curPosition, Position newPosition) {
+        if (!isPositionValid(curPosition, newPosition)) {
+            throw new IllegalArgumentException("The new position is not valid");
+        }
+        placedDices.put(newPosition, placedDices.remove(curPosition));
+    }
+
+    /**
+     * return if the position is valid when moving a dice according to the WindowsPattern and ToolCard rules
+     *
+     * @param curPosition the position of the dice that should be moved
+     * @param newPosition the final position of the dice to be moved
+     * @return whether the position is valid or not
+     */
+    public boolean isPositionValid(Position curPosition, Position newPosition) {
+        Dice tempRemovedDice = placedDices.get(curPosition);
+        placedDices.remove(curPosition);
+        boolean ret = isPositionValid(tempRemovedDice, newPosition, null);
+        placedDices.put(curPosition, tempRemovedDice);
+        return ret;
+    }
+
+    /**
      * return if the position is valid according to the WindowsPattern and ToolCard rules
      *
      * @param dice     to verify position

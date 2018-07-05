@@ -529,8 +529,8 @@ public class Game {
             throw new IllegalStateException("Invalid dice");
         }
         if (toolCardInUse != null && toolCardInUse.canMovePlacedDice() &&
-                getCurrentPlayer().getWindowFrame().isPositionValid(dice, newPosition, toolCardInUse)) {
-            getCurrentPlayer().getWindowFrame().placeDice(dice, newPosition);
+                getCurrentPlayer().getWindowFrame().isPositionValid(curPosition, newPosition)) {
+            getCurrentPlayer().getWindowFrame().moveDice(curPosition, newPosition);
             toolCardUsed = true;
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
@@ -561,10 +561,10 @@ public class Game {
         if (toolCardInUse != null && toolCardInUse.canMoveTwoPlacedDices() &&
                 // Make sure both the positions are valid before we move any of the dices,
                 // we don't want to throw an exception after we moved the first dice
-                getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, toolCardInUse) &&
-                getCurrentPlayer().getWindowFrame().isPositionValid(dice2, newPosition2, toolCardInUse)) {
-            getCurrentPlayer().getWindowFrame().placeDice(dice1, newPosition1);
-            getCurrentPlayer().getWindowFrame().placeDice(dice2, newPosition2);
+                getCurrentPlayer().getWindowFrame().isPositionValid(curPosition1, newPosition1) &&
+                getCurrentPlayer().getWindowFrame().isPositionValid(curPosition2, newPosition2)) {
+            getCurrentPlayer().getWindowFrame().moveDice(curPosition1, newPosition1);
+            getCurrentPlayer().getWindowFrame().moveDice(curPosition2, newPosition2);
             toolCardUsed = true;
         } else {
             throw new IllegalStateException("Invalid ToolCard use");
@@ -825,21 +825,21 @@ public class Game {
         }
 
         // placeDice() does this already, but we want to move both the dices or none of them
-        if (!getCurrentPlayer().getWindowFrame().isPositionValid(dice1, newPosition1, null)) {
+        if (!getCurrentPlayer().getWindowFrame().isPositionValid(oldPosition1, newPosition1)) {
             throw new IllegalArgumentException("Invalid position");
         }
 
 
         if (oldPosition2 != null) {
             Dice dice2 = getCurrentPlayer().getWindowFrame().getPlacedDices().get(oldPosition2);
-            if (dice1.getColor() != trackDice.getColor()) {
+            if (dice2.getColor() != trackDice.getColor()) {
                 throw new IllegalArgumentException("Invalid dice");
             }
-            getCurrentPlayer().getWindowFrame().placeDice(dice2, newPosition2);
+            getCurrentPlayer().getWindowFrame().moveDice(oldPosition2, newPosition2);
         }
 
         // Move dice1 now so that we don't move it and then throw an exception because of dice2
-        getCurrentPlayer().getWindowFrame().placeDice(dice1, newPosition1);
+        getCurrentPlayer().getWindowFrame().moveDice(oldPosition1, newPosition1);
 
         toolCardUsed = true;
         notifyWindowFrameChange(player);
