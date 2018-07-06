@@ -609,7 +609,7 @@ public class Game {
      *
      * @param player the player performing this move
      * @return the rethrown dice
-     * @
+     *
      */
     public Dice getRethrownDice(Player player) {
         enforceCurrentPlayer(player);

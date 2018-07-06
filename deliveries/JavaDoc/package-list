@@ -3,11 +3,14 @@ it.polimi.se2018.controller
 it.polimi.se2018.controller.actions
 it.polimi.se2018.controller.events
 it.polimi.se2018.model
-it.polimi.se2018.model.ObjectiveCardTest
+it.polimi.se2018.model.objectiveCardTest
 it.polimi.se2018.model.objectivecards
 it.polimi.se2018.model.toolcards
-it.polimi.se2018.model.windowpatterns
+it.polimi.se2018.model.toolcardsTest
 it.polimi.se2018.network
 it.polimi.se2018.rmi
 it.polimi.se2018.socket
+it.polimi.se2018.util
 it.polimi.se2018.view
+it.polimi.se2018.view.cli
+it.polimi.se2018.view.cli.commands
